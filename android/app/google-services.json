@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "629330475964",
+    "project_id": "b2ei-app",
+    "storage_bucket": "b2ei-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629330475964:android:cd0c0f24ca2c72a4f189b9",
+        "android_client_info": {
+          "package_name": "com.example.b2ei_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqy6_M3YmypV_2M6zANkXoT-HiagXjjog"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
