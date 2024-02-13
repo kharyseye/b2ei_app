@@ -11,9 +11,9 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
-        splash: Lottie.asset("assets/images/lotti3.json")
+       splash: //Lottie.asset("assets/images/lotti3.json")
 
-        /*Column(
+        Column(
           children: [
             Image.asset("assets/images/logo.png"),
             const Text("DEMANDE DE MATERIEL",
@@ -24,12 +24,12 @@ class SplashScreen extends StatelessWidget {
             ),
             )
           ],
-        ),*/,
+        ),
         //backgroundColor: Colors.red,
         nextScreen: IntroScreen(),
         splashIconSize: 500,
       duration: 3000,
-      splashTransition: SplashTransition.rotationTransition,
+      splashTransition: SplashTransition.fadeTransition,
       pageTransitionType: PageTransitionType.topToBottom,
     );
   }
