@@ -1,8 +1,24 @@
 import 'package:b2ei_app/pages/FormPage.dart';
+import 'package:b2ei_app/pages/HistoryPage.dart';
+import 'package:b2ei_app/pages/PDFPage.dart';
+import 'package:b2ei_app/pages/ParametrePage.dart';
 import 'package:flutter/material.dart';
 
-class Dashboard extends StatelessWidget {
+class Dashboard extends StatefulWidget {
+  @override
+  State<Dashboard> createState() => _DashboardState();
+}
+
+class RouteItem {
+  final String name; // Nom de la route
+  final Widget route; // Widget de la route
+
+  RouteItem({required this.name, required this.route});
+}
+
+class _DashboardState extends State<Dashboard> {
   var height, width;
+
   List imgData = [
     "assets/images/papeterie.png",
     "assets/images/historique.png",
@@ -17,6 +33,18 @@ class Dashboard extends StatelessWidget {
     "Parametre",
 
   ];
+  List<RouteItem> routes = [
+    RouteItem(
+      name: 'Faire une demande',
+      route: FormPage('faire une dem'), // Remplacez Route1 par le nom de votre première route
+    ),
+    RouteItem(
+      name: 'Historique',
+      route: HistoryPage('historique'), // Remplacez Route2 par le nom de votre deuxième route
+    ),
+    // Ajoutez d'autres routes si nécessaire
+  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +74,7 @@ class Dashboard extends StatelessWidget {
                         InkWell(
                           onTap: () {},
                           child: Icon(
-                            Icons.notifications_none,
+                            Icons.settings,
                             color: Colors.white,
                             size: 40,
                           ),
@@ -111,7 +139,10 @@ class Dashboard extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => FormPage() ,
+                              builder:
+                                  (context) =>
+                                      routes[index].route,
+
                             ));
                       },
                       child: Container(
@@ -140,7 +171,7 @@ class Dashboard extends StatelessWidget {
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),

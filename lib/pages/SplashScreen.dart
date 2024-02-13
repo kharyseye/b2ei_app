@@ -1,5 +1,4 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:b2ei_app/pages/HomePage.dart';
 import 'package:b2ei_app/pages/IntroScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';

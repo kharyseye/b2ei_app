@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 
 class FormPage extends StatefulWidget {
-  const FormPage({super.key});
+
+  String img;
+
+  FormPage(this.img);
 
   @override
   State<FormPage> createState() => _FormPageState();
@@ -32,7 +36,7 @@ class _FormPageState extends State<FormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Demande de materiel"),
+        title: Text(widget.img),
       ),
       body: Container(
         margin: EdgeInsets.all(20),
@@ -175,7 +179,18 @@ class _FormPageState extends State<FormPage> {
                             const SnackBar(content: Text("Envoie en cours..."))
                         );
                         FocusScope.of(context).requestFocus(FocusNode());
-                        print("$selectedClientType,$selectedDateTime, $affaire, $reference, $designation, $quantite");
+
+                        // AJOUT DANS LA BASE DE DONNEES
+                        CollectionReference demandeRef = FirebaseFirestore.instance.collection("demande");
+                        demandeRef.add({
+                          'client': selectedClientType,
+                          'date': selectedDateTime,
+                          'affaire': affaire,
+                          'reference': reference,
+                          'designation': designation,
+                          'quantite': quantite,
+
+                        });
                       }
 
                       quantiteController.clear();
