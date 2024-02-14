@@ -1,8 +1,9 @@
 import 'package:b2ei_app/constant.dart';
-import 'package:b2ei_app/pages/HomePage.dart';
+import 'package:b2ei_app/pages/introScreen/HomePage.dart';
+import 'package:b2ei_app/pages/introScreen/splash_screen.dart';
 import 'package:flutter/material.dart';
 //import 'pages/HomePage.dart';
-import 'pages/SplashScreen.dart';
+import 'pages/introScreen/SplashScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 

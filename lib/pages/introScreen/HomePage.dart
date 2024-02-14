@@ -1,5 +1,7 @@
-import 'package:b2ei_app/pages/Dashboard.dart';
+import 'package:b2ei_app/pages/form_historical/Dashboard.dart';
 import 'package:flutter/material.dart';
+import 'package:animator/animator.dart';
+
 
 
 class HomePage extends StatelessWidget {
@@ -32,7 +34,7 @@ class HomePage extends StatelessWidget {
                   ),
                   child: Center(
                     child: Image.asset(
-                      "assets/images/validation.png",
+                      "assets/images/vert.png",
                       scale: 0.8,
                     ),
                   ),

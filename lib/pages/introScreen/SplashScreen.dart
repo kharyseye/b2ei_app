@@ -1,5 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:b2ei_app/pages/IntroScreen.dart';
+import 'package:b2ei_app/pages/introScreen/HomePage.dart';
+import 'package:b2ei_app/pages/introScreen/IntroScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
@@ -11,9 +12,10 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
-       splash: //Lottie.asset("assets/images/lotti3.json")
+       splash:
+          Lottie.asset("assets/images/lotti3.json"),
 
-        Column(
+        /*Column(
           children: [
             Image.asset("assets/images/logo.png"),
             const Text("DEMANDE DE MATERIEL",
@@ -24,9 +26,8 @@ class SplashScreen extends StatelessWidget {
             ),
             )
           ],
-        ),
-        //backgroundColor: Colors.red,
-        nextScreen: IntroScreen(),
+        ),*/
+        nextScreen: HomePage(),
         splashIconSize: 500,
       duration: 3000,
       splashTransition: SplashTransition.fadeTransition,

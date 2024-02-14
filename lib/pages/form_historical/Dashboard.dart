@@ -1,7 +1,5 @@
-import 'package:b2ei_app/pages/FormPage.dart';
-import 'package:b2ei_app/pages/HistoryPage.dart';
-import 'package:b2ei_app/pages/PDFPage.dart';
-import 'package:b2ei_app/pages/ParametrePage.dart';
+import 'package:b2ei_app/pages/form_historical/FormPage.dart';
+import 'package:b2ei_app/pages/form_historical/HistoryPage.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatefulWidget {
