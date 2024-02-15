@@ -1,6 +1,7 @@
 import 'package:b2ei_app/constant.dart';
 import 'package:b2ei_app/pages/introScreen/HomePage.dart';
 import 'package:b2ei_app/pages/introScreen/splash_screen.dart';
+import 'package:b2ei_app/pages/welcome/WelcomePage.dart';
 import 'package:flutter/material.dart';
 //import 'pages/HomePage.dart';
 import 'pages/introScreen/SplashScreen.dart';
@@ -25,14 +26,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Authentification',
       theme: ThemeData(
-        primaryColor: kPrimaryColor,
+        primaryColor: PrimaryColor,
         scaffoldBackgroundColor: Colors.white,
         useMaterial3: true,
       ),
       routes: {
         "home": (context) => HomePage()
       },
-      home: SplashScreen(),
+      home: WelcomePage(),
     );
   }
 }

@@ -1,4 +1,5 @@
-import 'package:b2ei_app/pages/form_historical/Dashboard.dart';
+import 'package:b2ei_app/constant.dart';
+import 'package:b2ei_app/pages/dashboard/Dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:animator/animator.dart';
 
@@ -90,7 +91,7 @@ class HomePage extends StatelessWidget {
                     ),
                     const SizedBox(height: 60),
                     Material(
-                      color: Color(0xC534B003),
+                      color: PrimaryButtonColor,
                       borderRadius: BorderRadius.circular(10),
                       child: InkWell(
                         onTap: () {

@@ -1,4 +1,4 @@
-import 'package:b2ei_app/pages/form_historical/FormPage.dart';
+import 'package:b2ei_app/pages/dashboard/FormPage.dart';
 import 'package:b2ei_app/pages/impression/PDFPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
