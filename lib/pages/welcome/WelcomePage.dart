@@ -3,6 +3,8 @@ import 'package:b2ei_app/pages/welcome/DelayedAnimation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../authentication/AuthenticationPage.dart';
+
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
 
@@ -13,21 +15,27 @@ class WelcomePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.symmetric(
-            vertical: 200,
-            horizontal: 60,
+            vertical: 60,
+            horizontal: 30,
           ),
           child: Column(
             children: [
               DelayedAnimation(
                   delay: 1500,
                   child: Container(
-                  height: 170,
+                  height: 100,
                   child: Image.asset("assets/images/logo.png"),
                   )),
               DelayedAnimation(
                   delay: 2500,
                   child: Container(
-                    height: 300,
+                    height: 400,
+                    child: Image.asset("assets/images/welcome3.png"),
+                  )),
+              DelayedAnimation(
+                  delay: 3500,
+                  child: Container(
+                    height: 150,
                     child: Text("Gérez vos demandes de matériel en un clin d'œil",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(
@@ -37,7 +45,7 @@ class WelcomePage extends StatelessWidget {
                     ),
                   )),
               DelayedAnimation(
-                  delay: 3500,
+                  delay: 4500,
                   child: Container(
                     width: double.infinity,
                     child: ElevatedButton(
@@ -53,7 +61,14 @@ class WelcomePage extends StatelessWidget {
                         color: Colors.white
                       ),
                       ),
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AuthenticationPage(),
+                            )
+                        );
+                      },
                     ),
                   )
               ),
