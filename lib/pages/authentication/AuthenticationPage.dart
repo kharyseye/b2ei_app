@@ -1,4 +1,6 @@
 import 'package:b2ei_app/constant.dart';
+import 'package:b2ei_app/pages/authentication/LoginPage.dart';
+import 'package:b2ei_app/pages/authentication/RegisterPage.dart';
 import 'package:b2ei_app/pages/welcome/DelayedAnimation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,7 +19,9 @@ class AuthenticationPage extends StatelessWidget {
                 child: Container(
                   margin: EdgeInsets.all(50),
                   height: 300,
-                  child: Image.asset('assets/images/login.png'),
+                  child: Image.asset('assets/images/login.png',
+                  //fit: BoxFit.cover,
+                  ),
                 )
             ),
             DelayedAnimation(
@@ -39,7 +43,7 @@ class AuthenticationPage extends StatelessWidget {
                       SizedBox(
                         height: 10,
                       ),
-                      Text("Pour acceder a vos demandes merci de vous connecter",
+                      Text("Pour acceder a vos demandes merci de vous authentifier",
                         textAlign: TextAlign.center,
                         style: GoogleFonts.poppins(
                             color: Colors.black54,
@@ -60,8 +64,15 @@ class AuthenticationPage extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      ElevatedButton(
-                          onPressed: (){},
+                     /* ElevatedButton(
+                          onPressed: (){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Dashboard(),
+                                )
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             shape: StadiumBorder(),
                             primary:  PrimaryButtonColor,
@@ -83,12 +94,19 @@ class AuthenticationPage extends StatelessWidget {
                               )
                             ],
                           )
-                      ),
-                      SizedBox(height: 10),
-                      Text("OU"),
+                      ),*/
+                     /* SizedBox(height: 10),
+                      Text("OU"),*/
                       SizedBox(height: 10),
                       ElevatedButton(
-                          onPressed: (){},
+                          onPressed: (){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginPage(),
+                                )
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             shape: StadiumBorder(),
                             primary:  PrimaryButtonColor,
@@ -102,7 +120,7 @@ class AuthenticationPage extends StatelessWidget {
                                 size: 30,
                               ),
                               SizedBox(width: 10,),
-                              Text("S'inscrire",
+                              Text("S'authentifier",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
@@ -115,7 +133,6 @@ class AuthenticationPage extends StatelessWidget {
                     ],
                   ),
                 ))
-
           ],
         ),
       ),

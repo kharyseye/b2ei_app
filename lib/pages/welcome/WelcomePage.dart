@@ -1,4 +1,5 @@
 import 'package:b2ei_app/constant.dart';
+import 'package:b2ei_app/pages/authentication/LoginPage.dart';
 import 'package:b2ei_app/pages/welcome/DelayedAnimation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,8 +24,8 @@ class WelcomePage extends StatelessWidget {
               DelayedAnimation(
                   delay: 1500,
                   child: Container(
-                  height: 100,
-                  child: Image.asset("assets/images/logo.png"),
+                  height: 150,
+                  child: Image.asset("assets/images/logoOff.png"),
                   )),
               DelayedAnimation(
                   delay: 2500,
@@ -35,7 +36,7 @@ class WelcomePage extends StatelessWidget {
               DelayedAnimation(
                   delay: 3500,
                   child: Container(
-                    height: 150,
+                    height: 100,
                     child: Text("Gérez vos demandes de matériel en un clin d'œil",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(
@@ -53,8 +54,6 @@ class WelcomePage extends StatelessWidget {
                         backgroundColor: PrimaryButtonColor,
                         shape: StadiumBorder(),
                         padding: EdgeInsets.all(13)
-
-
                       ),
                       child: Text("DEMARRER",
                       style: TextStyle(
@@ -65,7 +64,7 @@ class WelcomePage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AuthenticationPage(),
+                                builder: (context) => LoginPage(),
                             )
                         );
                       },

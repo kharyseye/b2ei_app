@@ -2,6 +2,8 @@ import 'package:b2ei_app/pages/dashboard/FormPage.dart';
 import 'package:b2ei_app/pages/dashboard/HistoryPage.dart';
 import 'package:flutter/material.dart';
 
+import '../../constant.dart';
+
 class Dashboard extends StatefulWidget {
   @override
   State<Dashboard> createState() => _DashboardState();
@@ -50,7 +52,7 @@ class _DashboardState extends State<Dashboard> {
     width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
-        color: Color(0xC534B003),
+        color: PrimaryColor,
         child: Column(
           children: [
             Container(

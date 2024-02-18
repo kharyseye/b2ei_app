@@ -46,6 +46,7 @@ dependencies:
   google_fonts: ^6.1.0
   animations: ^2.0.11
   animator: ^3.3.0
+  get:
 
 
 dev_dependencies:
