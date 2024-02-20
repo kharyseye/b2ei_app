@@ -1,12 +1,8 @@
 import 'package:b2ei_app/constant.dart';
-import 'package:b2ei_app/pages/authentication/RegisterPage.dart';
 import 'package:b2ei_app/pages/introScreen/HomePage.dart';
-import 'package:b2ei_app/pages/introScreen/splash_screen.dart';
 import 'package:b2ei_app/pages/welcome/WelcomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-//import 'pages/HomePage.dart';
-import 'pages/introScreen/SplashScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -30,7 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: PrimaryColor,
         scaffoldBackgroundColor: Colors.white,
-        useMaterial3: true,
+        //useMaterial3: true,
       ),
       routes: {
         "home": (context) => HomePage()

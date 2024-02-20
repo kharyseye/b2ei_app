@@ -1,5 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:b2ei_app/pages/authentication/RegisterPage.dart';
+import 'package:b2ei_app/pages/dashboard/Dashboard.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/material/colors.dart';
@@ -189,7 +190,7 @@ class _LoginPageState extends State<LoginPage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => AuthenticationPage(),
+                                      builder: (context) => Dashboard(),
                                     )
                                 );
                               },
