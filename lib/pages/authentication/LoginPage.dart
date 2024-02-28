@@ -1,16 +1,14 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:b2ei_app/pages/authentication/RegisterPage.dart';
-import 'package:b2ei_app/pages/dashboard/Dashboard.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/material/colors.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../constant.dart';
+import '../employee_interface/Dashboard.dart';
 import '../welcome/DelayedAnimation.dart';
-import 'AuthenticationPage.dart';
-import 'package:page_transition/page_transition.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -52,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: h*0.3,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage("assets/images/banniere.jpg"),
+                      image: AssetImage("assets/images/ban4.jpg"),
                       fit: BoxFit.cover
                     )
                   ),
@@ -177,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
                             width: double.infinity,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: PrimaryButtonColor,
+                                  backgroundColor: PrimaryColor,
                                   shape: StadiumBorder(),
                                   padding: EdgeInsets.all(13)
                               ),

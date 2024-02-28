@@ -1,12 +1,14 @@
-import 'package:b2ei_app/pages/dashboard/FormPage.dart';
-import 'package:b2ei_app/pages/dashboard/HistoryPage.dart';
+
 import 'package:flutter/material.dart';
 
 import '../../constant.dart';
+import '../employee_interface/FormPage.dart';
+import '../employee_interface/HistoryPage.dart';
 
-class Dashboard extends StatefulWidget {
+
+class Dashboard_Sup extends StatefulWidget {
   @override
-  State<Dashboard> createState() => _DashboardState();
+  State<Dashboard_Sup> createState() => _DashboardState();
 }
 
 class RouteItem {
@@ -16,7 +18,7 @@ class RouteItem {
   RouteItem({required this.name, required this.route});
 }
 
-class _DashboardState extends State<Dashboard> {
+class _DashboardState extends State<Dashboard_Sup> {
   var height, width;
 
   List imgData = [
@@ -74,7 +76,7 @@ class _DashboardState extends State<Dashboard> {
                         InkWell(
                           onTap: () {},
                           child: Icon(
-                            Icons.settings,
+                            Icons.notifications,
                             color: Colors.white,
                             size: 40,
                           ),
@@ -102,7 +104,7 @@ class _DashboardState extends State<Dashboard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Dashboard",
+                    Text("Superieur",
                     style: TextStyle(
                       fontSize: 30,
                       color: Colors.white,

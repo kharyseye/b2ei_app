@@ -1,9 +1,12 @@
-import 'package:b2ei_app/pages/dashboard/Dashboard.dart';
+import 'package:b2ei_app/pages/superior_interface/test.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../constant.dart';
+import '../employee_interface/Dashboard.dart';
+import '../superior_interface/Dashboard_Sup.dart';
 import '../welcome/DelayedAnimation.dart';
-import 'AuthenticationPage.dart';
+
+
 
 class RegisterPage extends StatefulWidget {
 
@@ -46,7 +49,7 @@ class _RegisterPageState extends State<RegisterPage> {
               height: h*0.3,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage("assets/images/banniere.jpg"),
+                      image: AssetImage("assets/images/ban3.jpg"),
                       fit: BoxFit.cover
                   )
               ),
@@ -130,10 +133,10 @@ class _RegisterPageState extends State<RegisterPage> {
                         labelText: "Email @b2ei-sarl.com",
                         hintStyle: TextStyle(color: Colors.grey),
                         prefixIcon: Icon(Icons.email),
-                        suffixIcon: IconButton(
+                        /*suffixIcon: IconButton(
                           icon: Icon(Icons.remove_red_eye),
                           onPressed: (){},
-                        ),
+                        ),*/
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                             borderSide: BorderSide(
@@ -351,7 +354,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Dashboard(),
+                                  builder: (context) => Dashboard_Sup(),
                                 )
                             );
                           },

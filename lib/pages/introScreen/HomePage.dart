@@ -1,7 +1,8 @@
 import 'package:b2ei_app/constant.dart';
-import 'package:b2ei_app/pages/dashboard/Dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:animator/animator.dart';
+
+import '../employee_interface/Dashboard.dart';
 
 
 
