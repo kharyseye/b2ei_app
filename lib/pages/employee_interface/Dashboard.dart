@@ -1,4 +1,5 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../constant.dart';
@@ -37,7 +38,7 @@ class _DashboardState extends State<Dashboard> {
   List<RouteItem> routes = [
     RouteItem(
       name: 'Faire une demande',
-      route: FormPage('faire une dem'), // Remplacez Route1 par le nom de votre première route
+      route: FormPage('faire une demande'), // Remplacez Route1 par le nom de votre première route
     ),
     RouteItem(
       name: 'Historique',
@@ -73,9 +74,15 @@ class _DashboardState extends State<Dashboard> {
                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            FirebaseAuth.instance.signOut().then((value){
+                              Navigator.of(context).pushReplacementNamed('/WelcomePage');
+                            }).catchError((e){
+                              print(e);
+                            });
+                          },
                           child: Icon(
-                            Icons.settings,
+                            Icons.exit_to_app,
                             color: Colors.white,
                             size: 40,
                           ),

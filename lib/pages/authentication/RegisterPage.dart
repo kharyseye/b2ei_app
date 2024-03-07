@@ -1,4 +1,6 @@
 import 'package:b2ei_app/pages/superior_interface/test.dart';
+import 'package:b2ei_app/services/usermanagement.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../constant.dart';
@@ -19,6 +21,13 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   String groupValue = "Employer";
   String selectedServiceType = 'Direction';
+
+  late String _name;
+  late String _email;
+  late String _password;
+  late String _confirmPassword;
+  late String _departement;
+  late String _type;
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -112,6 +121,11 @@ class _RegisterPageState extends State<RegisterPage> {
                             borderRadius: BorderRadius.circular(30)
                         ),
                       ),
+                      onChanged: (value){
+                        setState(() {
+                          _name = value;
+                        });
+                      },
                     ),
                   ),
                   SizedBox(height: 20,),
@@ -155,6 +169,11 @@ class _RegisterPageState extends State<RegisterPage> {
                             borderRadius: BorderRadius.circular(30)
                         ),
                       ),
+                      onChanged: (value){
+                        setState(() {
+                          _email = value;
+                        });
+                      },
 
                     ),
 
@@ -200,7 +219,11 @@ class _RegisterPageState extends State<RegisterPage> {
                             borderRadius: BorderRadius.circular(30)
                         ),
                       ),
-
+                      onChanged: (value){
+                        setState(() {
+                          _password = value;
+                        });
+                      },
                     ),
 
                   ),
@@ -245,6 +268,11 @@ class _RegisterPageState extends State<RegisterPage> {
                             borderRadius: BorderRadius.circular(30)
                         ),
                       ),
+                      onChanged: (value){
+                        setState(() {
+                          _confirmPassword = value;
+                        });
+                      },
 
                     ),
 
@@ -290,10 +318,12 @@ class _RegisterPageState extends State<RegisterPage> {
                             )
                         ),
                       ),
+
                       value: selectedServiceType,
                       onChanged: (value){
                         setState(() {
                           selectedServiceType = value!;
+                          _departement = value;
                         });
                       },
                     ),
@@ -306,6 +336,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           onChanged: (value){
                             setState(() {
                               groupValue = value!;
+                              _type = value;
                             });
                           }
                       ),
@@ -322,6 +353,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           onChanged: (value){
                             setState(() {
                               groupValue = value!;
+                              _type = value;
                             });
                           }
                       ),
@@ -351,12 +383,21 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                           ),
                           onPressed: (){
-                            Navigator.push(
+                            FirebaseAuth.instance.createUserWithEmailAndPassword(
+                                email: _email,
+                                password: _password,
+                            ).then((signedInUser){
+                              UserManagement().storeNewUser(signedInUser, context);
+                            })
+                            .catchError((e){
+                              print(e);
+                            });
+                            /*Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => Dashboard_Sup(),
                                 )
-                            );
+                            );*/
                           },
                         ),
                       )

@@ -1,4 +1,5 @@
 import 'package:b2ei_app/constant.dart';
+import 'package:b2ei_app/pages/employee_interface/Dashboard.dart';
 import 'package:b2ei_app/pages/introScreen/HomePage.dart';
 import 'package:b2ei_app/pages/welcome/WelcomePage.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,9 @@ class MyApp extends StatelessWidget {
         colorSchemeSeed: Colors.green
       ),
       routes: {
-        "home": (context) => HomePage()
+        "home": (context) => HomePage(),
+        "/Dashboard":(context) => Dashboard(),
+        '/WelcomePage': (context) => WelcomePage(),
       },
       home: WelcomePage(),
     );

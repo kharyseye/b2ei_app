@@ -1,13 +1,15 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:b2ei_app/pages/authentication/RegisterPage.dart';
 import 'package:flutter/gestures.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../constant.dart';
+import '../../services/usermanagement.dart';
 import '../employee_interface/Dashboard.dart';
 import '../welcome/DelayedAnimation.dart';
+
 
 
 class LoginPage extends StatefulWidget {
@@ -18,6 +20,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  late String _email;
+  late String _password;
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +115,11 @@ class _LoginPageState extends State<LoginPage> {
                               borderRadius: BorderRadius.circular(30)
                             ),
                           ),
+                          onChanged: (value){
+                            setState(() {
+                              _email = value;
+                            });
+                          },
                         ),
                       ),
                       SizedBox(height: 20,),
@@ -154,6 +163,13 @@ class _LoginPageState extends State<LoginPage> {
                                 borderRadius: BorderRadius.circular(30)
                             ),
                           ),
+                          onChanged: (value){
+                            setState(() {
+                              _password = value;
+                            });
+                          },
+                          obscureText: true,
+
                         ),
                       ),
                       SizedBox(height: 20,),
@@ -185,12 +201,15 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                               onPressed: (){
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => Dashboard(),
-                                    )
-                                );
+                                FirebaseAuth.instance.signInWithEmailAndPassword(
+                                  email: _email,
+                                  password: _password,
+                                ).then((User){
+                                  Navigator.of(context).pushReplacementNamed('/Dashboard');
+                                }
+                                ).catchError((e){
+                                  print(e);
+                                });
                               },
                             ),
                           )
