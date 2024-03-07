@@ -176,7 +176,7 @@ class _FormPageState extends State<FormPage> {
                         final designation = designationController.text;
                         final quantite = quantiteController.text;
                         ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("Envoie en cours..."))
+                            const SnackBar(content: Text("Demande envoyée"))
                         );
                         FocusScope.of(context).requestFocus(FocusNode());
 

@@ -24,9 +24,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Authentification',
       theme: ThemeData(
-        primaryColor: PrimaryColor,
+        //primaryColor: PrimaryColor,
         scaffoldBackgroundColor: Colors.white,
-        //useMaterial3: true,
+        useMaterial3: true,
+        colorSchemeSeed: Colors.green
       ),
       routes: {
         "home": (context) => HomePage()
