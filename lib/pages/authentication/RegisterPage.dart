@@ -343,7 +343,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             )
                                 .then((signedInUser) {
                               UserManagement()
-                                  .storeNewUser(signedInUser, context);
+                                  .storeNewUser(signedInUser.user, context);
                             }).catchError((e) {
                               print(e);
                             });
