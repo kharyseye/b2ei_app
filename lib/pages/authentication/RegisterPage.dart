@@ -1,17 +1,11 @@
-import 'package:b2ei_app/pages/superior_interface/test.dart';
 import 'package:b2ei_app/services/usermanagement.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../constant.dart';
-import '../employee_interface/Dashboard.dart';
-import '../superior_interface/Dashboard_Sup.dart';
 import '../welcome/DelayedAnimation.dart';
 
-
-
 class RegisterPage extends StatefulWidget {
-
   const RegisterPage({super.key});
 
   @override
@@ -33,7 +27,6 @@ class _RegisterPageState extends State<RegisterPage> {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     return Scaffold(
-
       /*
         appBar: AppBar(
           elevation: 0,
@@ -50,20 +43,17 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
         ),
       */
-      body:  SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
               width: w,
-              height: h*0.3,
+              height: h * 0.3,
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage("assets/images/ban3.jpg"),
-                      fit: BoxFit.cover
-                  )
-              ),
+                      fit: BoxFit.cover)),
             ),
-
             Container(
               margin: const EdgeInsets.only(left: 20, right: 20),
               width: w,
@@ -75,16 +65,18 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: Container(
                         //margin: EdgeInsets.all(50),
                         //height: 300,
-                        child: Text("S'inscrire",
+                        child: Text(
+                          "S'inscrire",
                           style: GoogleFonts.poppins(
                             color: PrimaryButtonColor,
                             fontSize: 60,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                      )
+                      )),
+                  SizedBox(
+                    height: 20,
                   ),
-                  SizedBox(height: 20,),
                   Container(
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -96,8 +88,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             offset: Offset(1, 1),
                             color: Colors.grey.withOpacity(0.2),
                           )
-                        ]
-                    ),
+                        ]),
                     child: TextField(
                       decoration: InputDecoration(
                         labelText: "Prenom & Nom",
@@ -105,30 +96,25 @@ class _RegisterPageState extends State<RegisterPage> {
                         prefixIcon: Icon(Icons.person),
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(
-                                color: Colors.white,
-                                width: 1.0
-                            )
-                        ),
+                            borderSide:
+                                BorderSide(color: Colors.white, width: 1.0)),
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(
-                                color: Colors.white,
-                                width: 1.0
-                            )
-                        ),
+                            borderSide:
+                                BorderSide(color: Colors.white, width: 1.0)),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30)
-                        ),
+                            borderRadius: BorderRadius.circular(30)),
                       ),
-                      onChanged: (value){
+                      onChanged: (value) {
                         setState(() {
                           _name = value;
                         });
                       },
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Container(
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -140,8 +126,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             offset: Offset(1, 1),
                             color: Colors.grey.withOpacity(0.2),
                           )
-                        ]
-                    ),
+                        ]),
                     child: TextField(
                       decoration: InputDecoration(
                         labelText: "Email @b2ei-sarl.com",
@@ -153,32 +138,25 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),*/
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(
-                                color: Colors.white,
-                                width: 1.0
-                            )
-                        ),
+                            borderSide:
+                                BorderSide(color: Colors.white, width: 1.0)),
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(
-                                color: Colors.white,
-                                width: 1.0
-                            )
-                        ),
+                            borderSide:
+                                BorderSide(color: Colors.white, width: 1.0)),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30)
-                        ),
+                            borderRadius: BorderRadius.circular(30)),
                       ),
-                      onChanged: (value){
+                      onChanged: (value) {
                         setState(() {
                           _email = value;
                         });
                       },
-
                     ),
-
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Container(
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -190,8 +168,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             offset: Offset(1, 1),
                             color: Colors.grey.withOpacity(0.2),
                           )
-                        ]
-                    ),
+                        ]),
                     child: TextField(
                       decoration: InputDecoration(
                         labelText: "Mot de passe",
@@ -199,35 +176,29 @@ class _RegisterPageState extends State<RegisterPage> {
                         prefixIcon: Icon(Icons.lock),
                         suffixIcon: IconButton(
                           icon: Icon(Icons.remove_red_eye),
-                          onPressed: (){},
+                          onPressed: () {},
                         ),
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                                color: Colors.white,
-                                width: 1.0
-                            )
-                        ),
+                            borderSide:
+                                BorderSide(color: Colors.white, width: 1.0)),
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(
-                                color: Colors.white,
-                                width: 1.0
-                            )
-                        ),
+                            borderSide:
+                                BorderSide(color: Colors.white, width: 1.0)),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30)
-                        ),
+                            borderRadius: BorderRadius.circular(30)),
                       ),
-                      onChanged: (value){
+                      onChanged: (value) {
                         setState(() {
                           _password = value;
                         });
                       },
                     ),
-
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Container(
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -239,8 +210,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             offset: Offset(1, 1),
                             color: Colors.grey.withOpacity(0.2),
                           )
-                        ]
-                    ),
+                        ]),
                     child: TextField(
                       decoration: InputDecoration(
                         labelText: "Confirmer le mot de passe",
@@ -248,36 +218,29 @@ class _RegisterPageState extends State<RegisterPage> {
                         prefixIcon: Icon(Icons.lock),
                         suffixIcon: IconButton(
                           icon: Icon(Icons.remove_red_eye),
-                          onPressed: (){},
+                          onPressed: () {},
                         ),
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(
-                                color: Colors.white,
-                                width: 1.0
-                            )
-                        ),
+                            borderSide:
+                                BorderSide(color: Colors.white, width: 1.0)),
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(
-                                color: Colors.white,
-                                width: 1.0
-                            )
-                        ),
+                            borderSide:
+                                BorderSide(color: Colors.white, width: 1.0)),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30)
-                        ),
+                            borderRadius: BorderRadius.circular(30)),
                       ),
-                      onChanged: (value){
+                      onChanged: (value) {
                         setState(() {
                           _confirmPassword = value;
                         });
                       },
-
                     ),
-
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Container(
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -289,38 +252,31 @@ class _RegisterPageState extends State<RegisterPage> {
                             offset: Offset(1, 1),
                             color: Colors.grey.withOpacity(0.2),
                           )
-                        ]
-                    ),
+                        ]),
                     margin: EdgeInsets.only(bottom: 10),
                     child: DropdownButtonFormField(
                       items: [
-                        DropdownMenuItem(value:'Direction' ,child: Text("DIRECTION")),
-                        DropdownMenuItem(value:'Operation' ,child: Text("OPERATION"))
+                        DropdownMenuItem(
+                            value: 'Direction', child: Text("DIRECTION")),
+                        DropdownMenuItem(
+                            value: 'Operation', child: Text("OPERATION"))
                       ],
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.home),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
-
                         ),
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(
-                                color: Colors.white,
-                                width: 1.0
-                            )
-                        ),
+                            borderSide:
+                                BorderSide(color: Colors.white, width: 1.0)),
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(
-                                color: Colors.white,
-                                width: 1.0
-                            )
-                        ),
+                            borderSide:
+                                BorderSide(color: Colors.white, width: 1.0)),
                       ),
-
                       value: selectedServiceType,
-                      onChanged: (value){
+                      onChanged: (value) {
                         setState(() {
                           selectedServiceType = value!;
                           _departement = value;
@@ -333,40 +289,39 @@ class _RegisterPageState extends State<RegisterPage> {
                       Radio(
                           value: "Employer",
                           groupValue: groupValue,
-                          onChanged: (value){
+                          onChanged: (value) {
                             setState(() {
                               groupValue = value!;
                               _type = value;
                             });
-                          }
-                      ),
-                       Text("Employer",
+                          }),
+                      Text(
+                        "Employer",
                         style: GoogleFonts.poppins(
-                          fontSize: 18,
-                          color: Colors.black
-                        ),
+                            fontSize: 18, color: Colors.black),
                       ),
-                      SizedBox(width: 60,),
+                      SizedBox(
+                        width: 60,
+                      ),
                       Radio(
                           value: "Superieur",
                           groupValue: groupValue,
-                          onChanged: (value){
+                          onChanged: (value) {
                             setState(() {
                               groupValue = value!;
                               _type = value;
                             });
-                          }
-                      ),
-                      Text("Superieur",
+                          }),
+                      Text(
+                        "Superieur",
                         style: GoogleFonts.poppins(
-                            fontSize: 18,
-                            color: Colors.black
-                        ),
+                            fontSize: 18, color: Colors.black),
                       )
                     ],
-
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   DelayedAnimation(
                       delay: 1000,
                       child: Container(
@@ -375,21 +330,21 @@ class _RegisterPageState extends State<RegisterPage> {
                           style: ElevatedButton.styleFrom(
                               backgroundColor: PrimaryButtonColor,
                               shape: StadiumBorder(),
-                              padding: EdgeInsets.all(13)
+                              padding: EdgeInsets.all(13)),
+                          child: Text(
+                            "CONNEXION",
+                            style: GoogleFonts.poppins(color: Colors.white),
                           ),
-                          child: Text("CONNEXION",
-                            style: GoogleFonts.poppins(
-                                color: Colors.white
-                            ),
-                          ),
-                          onPressed: (){
-                            FirebaseAuth.instance.createUserWithEmailAndPassword(
-                                email: _email,
-                                password: _password,
-                            ).then((signedInUser){
-                              UserManagement().storeNewUser(signedInUser, context);
-                            })
-                            .catchError((e){
+                          onPressed: () {
+                            FirebaseAuth.instance
+                                .createUserWithEmailAndPassword(
+                              email: _email,
+                              password: _password,
+                            )
+                                .then((signedInUser) {
+                              UserManagement()
+                                  .storeNewUser(signedInUser.user, context);
+                            }).catchError((e) {
                               print(e);
                             });
                             /*Navigator.push(
@@ -400,9 +355,10 @@ class _RegisterPageState extends State<RegisterPage> {
                             );*/
                           },
                         ),
-                      )
+                      )),
+                  SizedBox(
+                    height: 20,
                   ),
-                  SizedBox(height: 20,),
                 ],
               ),
             )
