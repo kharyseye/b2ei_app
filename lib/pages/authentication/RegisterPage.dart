@@ -1,11 +1,8 @@
-import 'package:b2ei_app/pages/superior_interface/test.dart';
 import 'package:b2ei_app/services/usermanagement.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../constant.dart';
-import '../employee_interface/Dashboard.dart';
-import '../superior_interface/Dashboard_Sup.dart';
 import '../welcome/DelayedAnimation.dart';
 
 class RegisterPage extends StatefulWidget {
