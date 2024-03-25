@@ -1,6 +1,5 @@
 import 'package:b2ei_app/constant.dart';
 import 'package:b2ei_app/pages/authentication/LoginPage.dart';
-import 'package:b2ei_app/pages/authentication/RegisterPage.dart';
 import 'package:b2ei_app/pages/welcome/DelayedAnimation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,11 +18,11 @@ class AuthenticationPage extends StatelessWidget {
                 child: Container(
                   margin: EdgeInsets.all(50),
                   height: 300,
-                  child: Image.asset('assets/images/login.png',
-                  //fit: BoxFit.cover,
+                  child: Image.asset(
+                    'assets/images/login.png',
+                    //fit: BoxFit.cover,
                   ),
-                )
-            ),
+                )),
             DelayedAnimation(
                 delay: 1500,
                 child: Container(
@@ -33,28 +32,27 @@ class AuthenticationPage extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      Text("Pret a faire vos Demandes",
-                      style: GoogleFonts.poppins(
-                        color: PrimaryTextHeading,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600
-                      ),
+                      Text(
+                        "Pret a faire vos Demandes",
+                        style: GoogleFonts.poppins(
+                            color: PrimaryTextHeading,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600),
                       ),
                       SizedBox(
                         height: 10,
                       ),
-                      Text("Pour acceder a vos demandes merci de vous authentifier",
+                      Text(
+                        "Pour acceder a vos demandes merci de vous authentifier",
                         textAlign: TextAlign.center,
                         style: GoogleFonts.poppins(
                             color: Colors.black54,
                             fontSize: 16,
-                            fontWeight: FontWeight.w600
-                        ),
+                            fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),
-                )
-            ),
+                )),
             DelayedAnimation(
                 delay: 2500,
                 child: Container(
@@ -64,7 +62,7 @@ class AuthenticationPage extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                     /* ElevatedButton(
+                      /* ElevatedButton(
                           onPressed: (){
                             Navigator.push(
                                 context,
@@ -95,40 +93,42 @@ class AuthenticationPage extends StatelessWidget {
                             ],
                           )
                       ),*/
-                     /* SizedBox(height: 10),
+                      /* SizedBox(height: 10),
                       Text("OU"),*/
                       SizedBox(height: 10),
                       ElevatedButton(
-                          onPressed: (){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => LoginPage(),
-                                )
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            shape: StadiumBorder(),
-                            primary:  PrimaryButtonColor,
-                            padding: EdgeInsets.all(13),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.person_add_alt,
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LoginPage(),
+                              ));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: StadiumBorder(),
+                          backgroundColor: PrimaryButtonColor,
+                          padding: EdgeInsets.all(13),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.person_add_alt,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "S'authentifier",
+                              style: TextStyle(
                                 color: Colors.white,
-                                size: 30,
+                                fontSize: 20,
                               ),
-                              SizedBox(width: 10,),
-                              Text("S'authentifier",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                ),
-                              )
-                            ],
-                          ),
-
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -137,6 +137,5 @@ class AuthenticationPage extends StatelessWidget {
         ),
       ),
     );
-      
   }
 }
