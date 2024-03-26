@@ -180,7 +180,9 @@ class _LoginPageState extends State<LoginPage> {
                       SizedBox(height: 20,),
                       Row(
                         children: [
-                          Expanded(child: Container(),),
+                          Expanded(
+                            child: Container(),
+                          ),
                           Text("Mot de passe oublié ?",
                             style: GoogleFonts.poppins(
                               fontSize: 20,
@@ -227,8 +229,6 @@ class _LoginPageState extends State<LoginPage> {
                                     //share preferences
                                     await UserPreferences.saveUserId('$uid');
 
-
-
                                     // Adapter la requête en fonction
                                     if(isSuperviseur != null && isSuperviseur) {
                                       Navigator.of(context).pushReplacementNamed('/Dashboard_Sup');
@@ -251,7 +251,7 @@ class _LoginPageState extends State<LoginPage> {
                           )
                       ),
                       SizedBox(height:w*0.1,),
-                      Center(
+                     /* Center(
                         child: RichText(
                             text: TextSpan(
                               text: "Pas de Compte ?",
@@ -273,7 +273,7 @@ class _LoginPageState extends State<LoginPage> {
                               ],
                             )
                         ),
-                      )
+                      )*/
                     ],
                   ),
                 )

@@ -45,7 +45,7 @@ dependencies:
   firebase_storage:
   cloud_firestore: ^4.15.4
   intl: ^0.18.1
-  google_fonts: ^6.1.0
+  google_fonts: ^5.1.0
   animations: ^2.0.11
   animator: ^3.3.0
   shared_preferences: ^2.2.2

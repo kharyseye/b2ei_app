@@ -84,6 +84,7 @@ class _HistoryPageState extends State<HistoryPage> {
               return  ListView.builder(
                 itemCount: demandes.length,
                 itemBuilder: (context, index){
+                  var id_demande = snapshot.data!.docs[index].id;
                   final demande = demandes[index];
                   final client = demande.client;
                   final Timestamp timestamp = demande.timestamp;
@@ -101,24 +102,40 @@ class _HistoryPageState extends State<HistoryPage> {
                         fontSize: 18,
                       ),),
                       //subtitle: Text("$affaire,$client, $date, $quantite"),
-                      trailing: IconButton(
-                        icon :Icon(Icons.info,
-                          color: Colors.green,),
-                        onPressed: () {
-                          showHistoryDialog(demande);
-                        },
+                      trailing: Wrap(
+                        spacing: -16,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.info,
+                            color: Colors.green,
+                            ),
+                            onPressed: () {
+                              showHistoryDialog(demande);
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.edit,
+                              color: Colors.yellow,
+                            ),
+                            onPressed: () {
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.redAccent,
+                            ),
+                            onPressed: () async{
+                              await FirebaseFirestore.instance
+                                  .collection("demande")
+                                  .doc(id_demande)
+                                  .delete();
+                            },
+                          ),
+                        ],
                       ),
-
-                      onTap: (){
-
-                        /*Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PDFPage() ,
-                          ));*/
-                      },
-                    ),
-                  );
+                      ),
+                    );
                 },
               );
             }
