@@ -1,13 +1,12 @@
-import 'package:b2ei_app/pages/superior_interface/test.dart';
+import 'package:b2ei_app/model/Users.dart';
 import 'package:b2ei_app/services/usermanagement.dart';
+import 'package:b2ei_app/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:toastification/toastification.dart';
 import '../../constant.dart';
-import '../employee_interface/Dashboard.dart';
-import '../superior_interface/Dashboard_Sup.dart';
 import '../welcome/DelayedAnimation.dart';
-
 
 
 class RegisterPage extends StatefulWidget {
@@ -19,15 +18,18 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  String groupValue = "Employer";
-  String selectedServiceType = 'Direction';
 
-  late String _name;
+  String _department = 'Direction';
+
+  late String _username;
   late String _email;
   late String _password;
+  String? _supervisor = 'Employer';
+
   late String _confirmPassword;
-  late String _departement;
   late String _type;
+
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -122,9 +124,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       onChanged: (value){
-                        setState(() {
-                          _name = value;
-                        });
+                          _username = value;
                       },
                     ),
                   ),
@@ -170,9 +170,9 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       onChanged: (value){
-                        setState(() {
+
                           _email = value;
-                        });
+
                       },
 
                     ),
@@ -220,9 +220,9 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       onChanged: (value){
-                        setState(() {
+
                           _password = value;
-                        });
+
                       },
                     ),
 
@@ -269,9 +269,9 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       onChanged: (value){
-                        setState(() {
+
                           _confirmPassword = value;
-                        });
+
                       },
 
                     ),
@@ -319,11 +319,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
 
-                      value: selectedServiceType,
+                      value: _department,
                       onChanged: (value){
                         setState(() {
-                          selectedServiceType = value!;
-                          _departement = value;
+                          _department = value?? 'Direction';
+
                         });
                       },
                     ),
@@ -332,11 +332,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: [
                       Radio(
                           value: "Employer",
-                          groupValue: groupValue,
+                          groupValue: _supervisor,
                           onChanged: (value){
                             setState(() {
-                              groupValue = value!;
-                              _type = value;
+                              _supervisor= value;
                             });
                           }
                       ),
@@ -349,11 +348,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       SizedBox(width: 60,),
                       Radio(
                           value: "Superieur",
-                          groupValue: groupValue,
+                          groupValue: _supervisor,
                           onChanged: (value){
                             setState(() {
-                              groupValue = value!;
-                              _type = value;
+                              _supervisor= value;
                             });
                           }
                       ),
@@ -377,19 +375,53 @@ class _RegisterPageState extends State<RegisterPage> {
                               shape: StadiumBorder(),
                               padding: EdgeInsets.all(13)
                           ),
-                          child: Text("CONNEXION",
+                          child:
+                          _isLoading ? CircularProgressIndicator(
+                            color: Colors.white,
+                          ):
+                          Text("CONNEXION",
                             style: GoogleFonts.poppins(
                                 color: Colors.white
                             ),
                           ),
                           onPressed: (){
+                            setState(() {
+                              _isLoading = true;
+                            });
+                            //debugPrint('supervisor: ${_supervisor != 'Employer'}');
                             FirebaseAuth.instance.createUserWithEmailAndPassword(
                                 email: _email,
                                 password: _password,
                             ).then((signedInUser){
-                              UserManagement().storeNewUser(signedInUser, context);
+
+                              final user = signedInUser.user;
+                              UserManagement().storeNewUser(context, user: Users(
+                                  email: user?.email ??'',
+                                  uid: user?.uid ??'' ,
+                                  username: _username,
+                                  department: _department,
+                                  supervisor: _supervisor != 'Employer',
+                                 ));
+
                             })
                             .catchError((e){
+                              showToast(
+                                context,
+                                backgroundColor: Colors.pink,
+                                title: Text('Erreur 😭',style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,)
+                                ),
+                                description: Text('Oups une erreur est survenue !',style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,)),
+                                alignment: Alignment.center,
+                                type: ToastificationType.error,
+                                style: ToastificationStyle.flat,
+                              );
+                              setState(() {
+                                _isLoading = false;
+                              });
                               print(e);
                             });
                             /*Navigator.push(
@@ -398,6 +430,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   builder: (context) => Dashboard_Sup(),
                                 )
                             );*/
+
                           },
                         ),
                       )

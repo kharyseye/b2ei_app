@@ -49,6 +49,8 @@ dependencies:
   animations: ^2.0.11
   animator: ^3.3.0
   get:
+  shared_preferences: ^2.2.2
+  toastification: ^1.2.1
 
 
 dev_dependencies:

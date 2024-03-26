@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 
+import '../../services/user_preferences.dart';
+
 class FormPage extends StatefulWidget {
 
   String img;
@@ -168,37 +170,44 @@ class _FormPageState extends State<FormPage> {
                   child: ElevatedButton(
                     //style: ElevatedButton.styleFrom(
                       //primary: Color(0xC5D6F1CB),),
-                    onPressed: (){
+                    onPressed: () async {
+
                       if (_formKey.currentState!.validate()){
 
                         final affaire = affaireController.text;
                         final reference = refController.text;
                         final designation = designationController.text;
                         final quantite = quantiteController.text;
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("Demande envoyée"))
-                        );
+
                         FocusScope.of(context).requestFocus(FocusNode());
+                        String? userId = await UserPreferences.getUserId();
+                        if(userId != null){
+                          debugPrint(userId);
 
-                        // AJOUT DANS LA BASE DE DONNEES
-                        CollectionReference demandeRef = FirebaseFirestore.instance.collection("demande");
-                        demandeRef.add({
-                          'client': selectedClientType,
-                          'date': selectedDateTime,
-                          'affaire': affaire,
-                          'reference': reference,
-                          'designation': designation,
-                          'quantite': quantite,
+                          // AJOUT DANS LA BASE DE DONNEES
+                          CollectionReference demandeRef = FirebaseFirestore.instance.collection("demande");
+                          demandeRef.add({
+                            'client': selectedClientType,
+                            'date': selectedDateTime,
+                            'affaire': affaire,
+                            'reference': reference,
+                            'designation': designation,
+                            'quantite': quantite,
+                            'id_user' : userId,
 
-                        });
+                          });
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Demande envoyée"))
+                          );
+                        }
+                        quantiteController.clear();
+                        affaireController.clear();
+                        refController.clear();
+                        designationController.clear();
+                        quantiteController.clear();
+                        selectedClientType.trim();
                       }
-
-                      quantiteController.clear();
-                      affaireController.clear();
-                      refController.clear();
-                      designationController.clear();
-                      quantiteController.clear();
-                      selectedClientType.trim();
 
                     },
                     child: Text("Envoyer"),

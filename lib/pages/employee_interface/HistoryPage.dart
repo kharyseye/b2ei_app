@@ -1,5 +1,6 @@
 import 'package:b2ei_app/pages/impression/PDFPage.dart';
 import 'package:b2ei_app/model/Request.dart';
+import 'package:b2ei_app/services/user_demande.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -15,6 +16,8 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
+  final UserDemande userdemande = UserDemande();
+
   @override
   Widget build(BuildContext context) {
 
@@ -67,58 +70,59 @@ class _HistoryPageState extends State<HistoryPage> {
       ),
       body: Center(
         child: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection("demande").snapshots(),
+          stream:userdemande.getDemandeById(),
           builder:(BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
             if(snapshot.connectionState == ConnectionState.waiting){
               return CircularProgressIndicator();
-            }
-            if(!snapshot.hasData){
+            }else if(!snapshot.hasData){
               return Text("Aucune demande");
-            }
-            List<Request> demandes = [];
-            snapshot.data!.docs.forEach((data) {
-              demandes.add(Request.fromData(data));
-            });
-            return  ListView.builder(
-              itemCount: demandes.length,
-              itemBuilder: (context, index){
-                final demande = demandes[index];
-                final client = demande.client;
-                final Timestamp timestamp = demande.timestamp;
-                final String date = DateFormat.yMMMMd('en_US').add_jm().format(timestamp.toDate());
-                final affaire = demande.affaire;
-                final reference = demande.reference;
-                final designation = demande.designation;
-                final quantite = demande.quantite;
+            }else{
+              List<Request> demandes = [];
+              snapshot.data!.docs.forEach((data) {
+                demandes.add(Request.fromData(data));
+              });
+              return  ListView.builder(
+                itemCount: demandes.length,
+                itemBuilder: (context, index){
+                  final demande = demandes[index];
+                  final client = demande.client;
+                  final Timestamp timestamp = demande.timestamp;
+                  final String date = DateFormat.yMMMMd('en_US').add_jm().format(timestamp.toDate());
+                  final affaire = demande.affaire;
+                  final reference = demande.reference;
+                  final designation = demande.designation;
+                  final quantite = demande.quantite;
 
-                return Card(
-                  child: ListTile(
-                    //leading: Image.asset("assets/images/history.jpg"),
-                    title: Text("REF: $reference",style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),),
-                    //subtitle: Text("$affaire,$client, $date, $quantite"),
-                    trailing: IconButton(
-                      icon :Icon(Icons.info,
-                      color: Colors.green,),
-                      onPressed: () {
-                        showHistoryDialog(demande);
-                      },
-                    ),
+                  return Card(
+                    child: ListTile(
+                      //leading: Image.asset("assets/images/history.jpg"),
+                      title: Text("REF: $reference",style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),),
+                      //subtitle: Text("$affaire,$client, $date, $quantite"),
+                      trailing: IconButton(
+                        icon :Icon(Icons.info,
+                          color: Colors.green,),
+                        onPressed: () {
+                          showHistoryDialog(demande);
+                        },
+                      ),
 
-                    onTap: (){
+                      onTap: (){
 
-                      /*Navigator.push(
+                        /*Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => PDFPage() ,
                           ));*/
-                    },
-                  ),
-                );
-              },
-            );
+                      },
+                    ),
+                  );
+                },
+              );
+            }
+
           } ,
         )
       ),

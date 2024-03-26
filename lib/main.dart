@@ -1,6 +1,7 @@
 import 'package:b2ei_app/constant.dart';
 import 'package:b2ei_app/pages/employee_interface/Dashboard.dart';
 import 'package:b2ei_app/pages/introScreen/HomePage.dart';
+import 'package:b2ei_app/pages/superior_interface/Dashboard_Sup.dart';
 import 'package:b2ei_app/pages/welcome/WelcomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "home": (context) => HomePage(),
         "/Dashboard":(context) => Dashboard(),
+        "/Dashboard_Sup":(context) => Dashboard_Sup(),
         '/WelcomePage': (context) => WelcomePage(),
       },
       home: WelcomePage(),

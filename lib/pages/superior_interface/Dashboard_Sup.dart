@@ -1,9 +1,12 @@
 
+import 'package:b2ei_app/pages/superior_interface/drawer/DrawerPage.dart';
 import 'package:flutter/material.dart';
 
 import '../../constant.dart';
 import '../employee_interface/FormPage.dart';
 import '../employee_interface/HistoryPage.dart';
+import 'drawer/Drawer_List.dart';
+import 'drawer/Header_Drawer.dart';
 
 
 class Dashboard_Sup extends StatefulWidget {
@@ -20,8 +23,9 @@ class RouteItem {
 
 class _DashboardState extends State<Dashboard_Sup> {
   var height, width;
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  List imgData = [
+  /*List imgData = [
     "assets/images/papeterie.png",
     "assets/images/historique.png",
     "assets/images/pdf.png",
@@ -46,13 +50,19 @@ class _DashboardState extends State<Dashboard_Sup> {
     ),
     // Ajoutez d'autres routes si nécessaire
   ];
+*/
 
 
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
+
+
+
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: DrawerPage(),
       body: Container(
         color: PrimaryColor,
         child: Column(
@@ -70,9 +80,16 @@ class _DashboardState extends State<Dashboard_Sup> {
                       left: 20,
                       right: 20,
                     ),
-                   child: Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        IconButton(
+                          icon: Icon(Icons.menu,
+                            color: Colors.white,
+                            size: 40,
+                          ),
+                          onPressed: () => _scaffoldKey.currentState?.openDrawer(),
+                        ),
                         InkWell(
                           onTap: () {},
                           child: Icon(
@@ -81,38 +98,27 @@ class _DashboardState extends State<Dashboard_Sup> {
                             size: 40,
                           ),
                         ),
-                        Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: Colors.white,
-                            image: DecorationImage(
-                              image: AssetImage("assets/images/profil2.png")
-                            ),
-                          ),
-                        ),
                       ],
                     ),
-                 ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: 20,
-                  left: 20,
-                  right: 20,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Superieur",
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500
-                    ),)
-                  ],
-                ),
-              ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: 20,
+                      left: 20,
+                      right: 20,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Superieur",
+                          style: TextStyle(
+                              fontSize: 30,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500
+                          ),)
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -126,7 +132,10 @@ class _DashboardState extends State<Dashboard_Sup> {
               ),
               height: height * 0.75,
               width: width,
-              child: GridView.builder(
+              child: Center(
+                child: Text("TEST"),
+              ),
+              /*child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 1.1,
@@ -179,7 +188,7 @@ class _DashboardState extends State<Dashboard_Sup> {
                       ),
                     );
                 },
-              ),
+              ),*/
             ),
           ],
         ),

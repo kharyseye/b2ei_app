@@ -1,16 +1,14 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:b2ei_app/pages/authentication/RegisterPage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../constant.dart';
-import '../../services/usermanagement.dart';
-import '../employee_interface/Dashboard.dart';
+import '../../services/user_preferences.dart';
 import '../welcome/DelayedAnimation.dart';
-
-
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -22,6 +20,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   late String _email;
   late String _password;
+
+  bool _isVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -137,13 +137,18 @@ class _LoginPageState extends State<LoginPage> {
                             ]
                         ),
                         child: TextField(
+                          obscureText: _isVisible,
                           decoration: InputDecoration(
                             labelText: "Mot de passe",
                             hintStyle: TextStyle(color: Colors.grey),
                             prefixIcon: Icon(Icons.lock),
                             suffixIcon: IconButton(
-                              icon: Icon(Icons.remove_red_eye),
-                              onPressed: (){},
+                              icon: Icon(_isVisible?CupertinoIcons.eye_slash : CupertinoIcons.eye),
+                              onPressed: (){
+                                setState(() {
+                                  _isVisible = !_isVisible;
+                                });
+                              },
                             ),
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
@@ -168,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
                               _password = value;
                             });
                           },
-                          obscureText: true,
+
 
                         ),
                       ),
@@ -204,10 +209,41 @@ class _LoginPageState extends State<LoginPage> {
                                 FirebaseAuth.instance.signInWithEmailAndPassword(
                                   email: _email,
                                   password: _password,
-                                ).then((User){
-                                  Navigator.of(context).pushReplacementNamed('/Dashboard');
+                                ).then((data) async {
+                                  final user = data.user;
+                                  if(user!= null) {
+                                  final uid = user.uid;
+                                  // Récupérer le document employé
+                                  try {
+                                    final employeRef = FirebaseFirestore.instance.collection('users').where('uid', isEqualTo: uid);
+
+                                    final employeDoc = await employeRef.get();
+                                    print(employeDoc.docs.first.data());
+                                    // Stocker les données localement
+                                    final employeData = employeDoc.docs.first.data();
+                                    // Assurez-vous que vous utilisez le type correct ici
+                                    final isSuperviseur = employeData['supervisor'];
+
+                                    //share preferences
+                                    await UserPreferences.saveUserId('$uid');
+
+
+
+                                    // Adapter la requête en fonction
+                                    if(isSuperviseur != null && isSuperviseur) {
+                                      Navigator.of(context).pushReplacementNamed('/Dashboard_Sup');
+                                      // Récupérer toutes les demandes
+                                    } else {
+                                      Navigator.of(context).pushReplacementNamed('/Dashboard');
+                                    }
+                                  } catch (e) {
+                                    print("Une erreur s'est produite lors de la récupération des données : $e");
+
+                                  }
+                                  ;
                                 }
-                                ).catchError((e){
+                                }
+                                  ).catchError((e){
                                   print(e);
                                 });
                               },
