@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import '../../services/user_preferences.dart';
 
 class FormPage extends StatefulWidget {
-
-  String img;
+  final String img;
 
   FormPage(this.img);
 
@@ -15,6 +14,7 @@ class FormPage extends StatefulWidget {
 }
 
 class _FormPageState extends State<FormPage> {
+  final UserPreferences userPref = UserPreferences();
 
   final _formKey = GlobalKey<FormState>();
   final affaireController = TextEditingController();
@@ -26,8 +26,7 @@ class _FormPageState extends State<FormPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
-
+    super.dispose();
     affaireController.dispose();
     refController.dispose();
     designationController.dispose();
@@ -43,54 +42,52 @@ class _FormPageState extends State<FormPage> {
       body: Container(
         margin: EdgeInsets.all(20),
         child: Form(
-          key : _formKey,
+          key: _formKey,
           child: SingleChildScrollView(
             child: Column(
               children: [
-
                 Container(
                   margin: EdgeInsets.only(bottom: 10),
                   child: DropdownButtonFormField(
                     items: [
-                      DropdownMenuItem(value:'Direction' ,child: Text("B2EI-DIRECTION")),
-                      DropdownMenuItem(value:'Operation' ,child: Text("B2EI-SERVICE TECHNIQUE"))
+                      DropdownMenuItem(
+                          value: 'Direction', child: Text("B2EI-DIRECTION")),
+                      DropdownMenuItem(
+                          value: 'Operation',
+                          child: Text("B2EI-SERVICE TECHNIQUE"))
                     ],
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                     ),
                     value: selectedClientType,
-                    onChanged: (value){
+                    onChanged: (value) {
                       setState(() {
                         selectedClientType = value!;
                       });
                     },
                   ),
                 ),
-
                 Container(
                   margin: EdgeInsets.only(bottom: 10),
                   child: DateTimeFormField(
                     decoration: const InputDecoration(
-                      labelText: 'Entrer la Date',
-                      hintStyle: TextStyle(color: Colors.black26),
-                      errorStyle: TextStyle(color: Colors.redAccent),
-                      border: OutlineInputBorder(),
-                      suffixIcon: Icon(Icons.date_range)
-                    ),
+                        labelText: 'Entrer la Date',
+                        hintStyle: TextStyle(color: Colors.black26),
+                        errorStyle: TextStyle(color: Colors.redAccent),
+                        border: OutlineInputBorder(),
+                        suffixIcon: Icon(Icons.date_range)),
                     mode: DateTimeFieldPickerMode.date,
                     autovalidateMode: AutovalidateMode.always,
-                    validator:
-                    (e) => (e?.day ?? 0) == 1 ? 'Please not the first day': null,
+                    validator: (e) =>
+                        (e?.day ?? 0) == 1 ? 'Please not the first day' : null,
                     onChanged: (DateTime? value) {
-                     print(value);
-                     setState(() {
-                       selectedDateTime = value!;
-                     });
+                      print(value);
+                      setState(() {
+                        selectedDateTime = value!;
+                      });
                     },
                   ),
                 ),
-
-
                 Container(
                   margin: EdgeInsets.only(bottom: 10),
                   child: Material(
@@ -100,10 +97,11 @@ class _FormPageState extends State<FormPage> {
                         hintText: "Entrer le Nom de l'Affaire",
                         border: OutlineInputBorder(),
                       ),
-                      validator: (value){
-                        if(value == null || value.isEmpty){
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
                           return "champs incomplet";
-                        }return null;
+                        }
+                        return null;
                       },
                       controller: affaireController,
                     ),
@@ -118,10 +116,11 @@ class _FormPageState extends State<FormPage> {
                         hintText: "Renseigner la reference",
                         border: OutlineInputBorder(),
                       ),
-                      validator: (value){
-                        if(value == null || value.isEmpty){
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
                           return "champs incomplet";
-                        }return null;
+                        }
+                        return null;
                       },
                       controller: refController,
                     ),
@@ -136,10 +135,11 @@ class _FormPageState extends State<FormPage> {
                         hintText: "Entrer la designation",
                         border: OutlineInputBorder(),
                       ),
-                      validator: (value){
-                        if(value == null || value.isEmpty){
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
                           return "champs incomplet";
-                        }return null;
+                        }
+                        return null;
                       },
                       controller: designationController,
                     ),
@@ -154,38 +154,35 @@ class _FormPageState extends State<FormPage> {
                         hintText: "Entrer la quantite",
                         border: OutlineInputBorder(),
                       ),
-                      validator: (value){
-                        if(value == null || value.isEmpty){
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
                           return "champs incomplet";
-                        }return null;
+                        }
+                        return null;
                       },
                       controller: quantiteController,
                     ),
                   ),
                 ),
-
                 SizedBox(
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
                     //style: ElevatedButton.styleFrom(
-                      //primary: Color(0xC5D6F1CB),),
+                    //primary: Color(0xC5D6F1CB),),
                     onPressed: () async {
-
-                      if (_formKey.currentState!.validate()){
-
+                      if (_formKey.currentState!.validate()) {
                         final affaire = affaireController.text;
                         final reference = refController.text;
                         final designation = designationController.text;
                         final quantite = quantiteController.text;
 
                         FocusScope.of(context).requestFocus(FocusNode());
-                        String? userId = await UserPreferences.getUserId();
-                        if(userId != null){
-                          debugPrint(userId);
-
+                        String? userId = await userPref.getUserId();
+                        if (userId != null) {
                           // AJOUT DANS LA BASE DE DONNEES
-                          CollectionReference demandeRef = FirebaseFirestore.instance.collection("demande");
+                          CollectionReference demandeRef =
+                              FirebaseFirestore.instance.collection("demande");
                           demandeRef.add({
                             'client': selectedClientType,
                             'date': selectedDateTime,
@@ -193,13 +190,11 @@ class _FormPageState extends State<FormPage> {
                             'reference': reference,
                             'designation': designation,
                             'quantite': quantite,
-                            'id_user' : userId,
-
+                            'id_user': userId,
                           });
 
                           ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Demande envoyée"))
-                          );
+                              const SnackBar(content: Text("Demande envoyée")));
                         }
                         quantiteController.clear();
                         affaireController.clear();
@@ -208,7 +203,6 @@ class _FormPageState extends State<FormPage> {
                         quantiteController.clear();
                         selectedClientType.trim();
                       }
-
                     },
                     child: Text("Envoyer"),
                   ),

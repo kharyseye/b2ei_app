@@ -4,11 +4,9 @@ import 'package:b2ei_app/pages/welcome/DelayedAnimation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../authentication/AuthenticationPage.dart';
-
 class WelcomePage extends StatelessWidget {
-  const WelcomePage({super.key});
-
+  const WelcomePage({super.key, this.isAuthenticated});
+  final bool? isAuthenticated;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,8 +22,8 @@ class WelcomePage extends StatelessWidget {
               DelayedAnimation(
                   delay: 1500,
                   child: Container(
-                  height: 150,
-                  child: Image.asset("assets/images/logoOff.png"),
+                    height: 150,
+                    child: Image.asset("assets/images/logoOff.png"),
                   )),
               DelayedAnimation(
                   delay: 2500,
@@ -37,7 +35,8 @@ class WelcomePage extends StatelessWidget {
                   delay: 3500,
                   child: Container(
                     height: 100,
-                    child: Text("Gérez vos demandes de matériel en un clin d'œil",
+                    child: Text(
+                      "Gérez vos demandes de matériel en un clin d'œil",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(
                         color: Colors.grey.shade900,
@@ -51,26 +50,22 @@ class WelcomePage extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: PrimaryButtonColor,
-                        shape: StadiumBorder(),
-                        padding: EdgeInsets.all(13)
+                          backgroundColor: PrimaryButtonColor,
+                          shape: StadiumBorder(),
+                          padding: EdgeInsets.all(13)),
+                      child: Text(
+                        "DEMARRER",
+                        style: TextStyle(color: Colors.white),
                       ),
-                      child: Text("DEMARRER",
-                      style: TextStyle(
-                        color: Colors.white
-                      ),
-                      ),
-                      onPressed: (){
+                      onPressed: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => LoginPage(),
-                            )
-                        );
+                              builder: (context) => LoginPage(),
+                            ));
                       },
                     ),
-                  )
-              ),
+                  )),
             ],
           ),
         ),
