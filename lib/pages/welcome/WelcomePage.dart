@@ -12,8 +12,6 @@ class WelcomePage extends StatelessWidget {
   final AuthState authState;
   @override
   Widget build(BuildContext context) {
-    debugPrint(
-        'auth: ${authState.isAuthenticated}, sup: ${authState.isSupervisor}');
     return Scaffold(
       backgroundColor: Background,
       body: SingleChildScrollView(
