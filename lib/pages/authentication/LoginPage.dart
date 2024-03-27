@@ -1,8 +1,10 @@
+import 'package:b2ei_app/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:toastification/toastification.dart';
 import '../../constant.dart';
 import '../../services/user_preferences.dart';
 import '../welcome/DelayedAnimation.dart';
@@ -21,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   late String _password;
 
   bool _isVisible = true;
+  bool _isloading = false;
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -136,8 +139,8 @@ class _LoginPageState extends State<LoginPage> {
                         prefixIcon: Icon(Icons.lock),
                         suffixIcon: IconButton(
                           icon: Icon(_isVisible
-                              ? CupertinoIcons.eye_slash
-                              : CupertinoIcons.eye),
+                              ? CupertinoIcons.eye
+                              : CupertinoIcons.eye_slash),
                           onPressed: () {
                             setState(() {
                               _isVisible = !_isVisible;
@@ -191,12 +194,28 @@ class _LoginPageState extends State<LoginPage> {
                               backgroundColor: PrimaryColor,
                               shape: StadiumBorder(),
                               padding: EdgeInsets.all(13)),
-                          child: Text(
-                            "CONNEXION",
-                            style: GoogleFonts.poppins(color: Colors.white),
-                          ),
+                          child: _isloading
+                              ? Container(
+                                  width: 25,
+                                  height: 25,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : Text(
+                                  "CONNEXION",
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                           onPressed: () {
                             if (_email == null) return;
+                            setState(
+                              () {
+                                _isloading = true;
+                              },
+                            );
                             FirebaseAuth.instance
                                 .signInWithEmailAndPassword(
                               email: _email ?? '',
@@ -224,6 +243,7 @@ class _LoginPageState extends State<LoginPage> {
                                   //share preferences
 
                                   await userPref.saveUserId('$uid');
+                                  await userPref.saveSupervisor(isSuperviseur);
 
                                   // Adapter la requête en fonction
                                   if (isSuperviseur != null && isSuperviseur) {
@@ -241,7 +261,30 @@ class _LoginPageState extends State<LoginPage> {
                                 ;
                               }
                             }).catchError((e) {
-                              print(e);
+                              showToast(
+                                context,
+                                backgroundColor: Colors.pink,
+                                title: Text('Erreur 😭',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                    )),
+                                description:
+                                    Text('Oups une erreur est survenue !',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                        )),
+                                alignment: Alignment.bottomCenter,
+                                type: ToastificationType.error,
+                                style: ToastificationStyle.flat,
+                              );
+                              setState(
+                                () {
+                                  _isloading = false;
+                                },
+                              );
+                              debugPrint(e);
                             });
                           },
                         ),

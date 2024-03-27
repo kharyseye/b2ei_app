@@ -1,14 +1,19 @@
 import 'package:b2ei_app/constant.dart';
 import 'package:b2ei_app/pages/authentication/LoginPage.dart';
+import 'package:b2ei_app/pages/employee_interface/Dashboard.dart';
+import 'package:b2ei_app/pages/superior_interface/Dashboard_Sup.dart';
 import 'package:b2ei_app/pages/welcome/DelayedAnimation.dart';
+import 'package:b2ei_app/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class WelcomePage extends StatelessWidget {
-  const WelcomePage({super.key, this.isAuthenticated});
-  final bool? isAuthenticated;
+  const WelcomePage({super.key, required this.authState});
+  final AuthState authState;
   @override
   Widget build(BuildContext context) {
+    debugPrint(
+        'auth: ${authState.isAuthenticated}, sup: ${authState.isSupervisor}');
     return Scaffold(
       backgroundColor: Background,
       body: SingleChildScrollView(
@@ -36,7 +41,9 @@ class WelcomePage extends StatelessWidget {
                   child: Container(
                     height: 100,
                     child: Text(
-                      "Gérez vos demandes de matériel en un clin d'œil",
+                      authState.isAuthenticated
+                          ? "Content de vous revoir !"
+                          : "Gérez vos demandes de matériel en un clin d'œil",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(
                         color: Colors.grey.shade900,
@@ -54,14 +61,20 @@ class WelcomePage extends StatelessWidget {
                           shape: StadiumBorder(),
                           padding: EdgeInsets.all(13)),
                       child: Text(
-                        "DEMARRER",
-                        style: TextStyle(color: Colors.white),
+                        authState.isAuthenticated
+                            ? "Tableau de bord"
+                            : "DEMARRER",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => LoginPage(),
+                              builder: (context) => authState.isAuthenticated
+                                  ? authState.isSupervisor
+                                      ? Dashboard_Sup()
+                                      : Dashboard()
+                                  : LoginPage(),
                             ));
                       },
                     ),

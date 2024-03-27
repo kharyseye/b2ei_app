@@ -27,8 +27,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isAuthenticated = ref.watch(authStateProvider);
-
+    final authState = ref.watch(authStateProvider);
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Authentification',
@@ -41,11 +40,9 @@ class MyApp extends ConsumerWidget {
         "home": (context) => HomePage(),
         "/Dashboard": (context) => Dashboard(),
         "/Dashboard_Sup": (context) => Dashboard_Sup(),
-        '/WelcomePage': (context) => WelcomePage(),
+        '/WelcomePage': (context) => WelcomePage(authState: authState),
       },
-      home: WelcomePage(
-        isAuthenticated: isAuthenticated,
-      ),
+      home: WelcomePage(authState: authState),
     );
   }
 }
