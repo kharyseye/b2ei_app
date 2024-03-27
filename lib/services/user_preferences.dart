@@ -23,4 +23,10 @@ class UserPreferences {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool(_supervisor);
   }
+
+  Future<void> logout() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_userIdKey);
+    await prefs.remove(_supervisor);
+  }
 }
