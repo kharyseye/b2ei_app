@@ -25,19 +25,19 @@ class WelcomePage extends StatelessWidget {
           child: Column(
             children: [
               DelayedAnimation(
-                  delay: 1500,
+                  delay: 500,
                   child: Container(
                     height: 150,
                     child: Image.asset("assets/images/logoOff.png"),
                   )),
               DelayedAnimation(
-                  delay: 2500,
+                  delay: 1000,
                   child: Container(
                     height: 400,
                     child: Image.asset("assets/images/welcome3.png"),
                   )),
               DelayedAnimation(
-                  delay: 3500,
+                  delay: 1600,
                   child: Container(
                     height: 100,
                     child: Text(
@@ -52,7 +52,7 @@ class WelcomePage extends StatelessWidget {
                     ),
                   )),
               DelayedAnimation(
-                  delay: 4500,
+                  delay: 1800,
                   child: Container(
                     width: double.infinity,
                     child: ElevatedButton(
