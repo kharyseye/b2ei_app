@@ -15,24 +15,22 @@ class _MyDrawerListState extends State<MyDrawerList> {
   var currentPage = DrawerSections.dashbord;
   @override
   Widget build(BuildContext context) {
-
-    var container;
-    if(currentPage == DrawerSections.dashbord){
-      container = Dashboard_Sup();
-    }else if(currentPage == DrawerSections.addUser){
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => RegisterPage(),
-          )
-      );
-    }else if(currentPage == DrawerSections.notification){
-      container = Dashboard_Sup();
-    }else if(currentPage == DrawerSections.request){
-      container = Dashboard_Sup();
-    }else if(currentPage == DrawerSections.setting){
-      container = Dashboard_Sup();
-    }
+    // var container;
+    // if (currentPage == DrawerSections.dashbord) {
+    //   container = Dashboard_Sup();
+    // } else if (currentPage == DrawerSections.addUser) {
+    //   Navigator.push(
+    //       context,
+    //       MaterialPageRoute(
+    //         builder: (context) => RegisterPage(),
+    //       ));
+    // } else if (currentPage == DrawerSections.notification) {
+    //   container = Dashboard_Sup();
+    // } else if (currentPage == DrawerSections.request) {
+    //   container = Dashboard_Sup();
+    // } else if (currentPage == DrawerSections.setting) {
+    //   container = Dashboard_Sup();
+    // }
 
     return Container(
       padding: EdgeInsets.only(
@@ -40,57 +38,45 @@ class _MyDrawerListState extends State<MyDrawerList> {
       ),
       child: Column(
         children: [
-          menuItem(
-            1,
-            "Dashbord",
-            Icons.dashboard_outlined,
-            currentPage == DrawerSections.dashbord? true:false
-          ),
+          menuItem(1, "Dashbord", Icons.dashboard_outlined,
+              currentPage == DrawerSections.dashbord ? true : false),
           menuItem(
               2,
               "Gestion des utilisateurs",
               Icons.person_add_alt_1_outlined,
-              currentPage == DrawerSections.addUser? true:false
-          ),
-          menuItem(
-              3,
-              "Notification",
-              Icons.notifications_active_outlined,
-              currentPage == DrawerSections.notification? true:false
-          ),
-          menuItem(
-              4,
-              "Demandes",
-              Icons.list_alt,
-              currentPage == DrawerSections.request? true:false
-          ),
-          menuItem(
-              5,
-              "paramettre",
-              Icons.settings_applications,
-              currentPage == DrawerSections.setting? true:false
-          ),
+              currentPage == DrawerSections.addUser ? true : false),
+          menuItem(3, "Notification", Icons.notifications_active_outlined,
+              currentPage == DrawerSections.notification ? true : false),
+          menuItem(4, "Demandes", Icons.list_alt,
+              currentPage == DrawerSections.request ? true : false),
+          menuItem(5, "paramettre", Icons.settings_applications,
+              currentPage == DrawerSections.setting ? true : false),
         ],
       ),
     );
   }
 
-  Widget menuItem(int id, String title, IconData icon, bool selected){
+  Widget menuItem(int id, String title, IconData icon, bool selected) {
     return Material(
       color: selected ? Colors.grey[300] : Colors.transparent,
       child: InkWell(
-        onTap: (){
+        onTap: () {
           Navigator.pop(context);
           setState(() {
-            if(id == 1){
+            if (id == 1) {
               currentPage = DrawerSections.dashbord;
-            }else if(id == 2) {
-              currentPage = DrawerSections.addUser;
-            }else if(id == 3) {
+            } else if (id == 2) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  maintainState: false,
+                  builder: (context) => RegisterPage(),
+                ),
+              );
+            } else if (id == 3) {
               currentPage = DrawerSections.notification;
-            }else if(id == 4) {
+            } else if (id == 4) {
               currentPage = DrawerSections.request;
-            }else if(id == 5) {
+            } else if (id == 5) {
               currentPage = DrawerSections.setting;
             }
           });
@@ -100,21 +86,18 @@ class _MyDrawerListState extends State<MyDrawerList> {
           child: Row(
             children: [
               Expanded(
-                  child: Icon(
-                    icon,
-                    size: 20,
-                    color: PrimaryColor,
-                  ),
+                child: Icon(
+                  icon,
+                  size: 20,
+                  color: PrimaryColor,
+                ),
               ),
               Expanded(
                 flex: 3,
-                  child: Text(title,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18
-                  ),
-                  ),
-
+                child: Text(
+                  title,
+                  style: TextStyle(color: Colors.black, fontSize: 18),
+                ),
               )
             ],
           ),
@@ -122,14 +105,6 @@ class _MyDrawerListState extends State<MyDrawerList> {
       ),
     );
   }
-
 }
 
-enum DrawerSections{
-  dashbord,
-  addUser,
-  notification,
-  request,
-  setting,
-  exit
-}
+enum DrawerSections { dashbord, addUser, notification, request, setting, exit }

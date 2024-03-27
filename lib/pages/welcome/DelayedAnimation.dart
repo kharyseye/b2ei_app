@@ -10,42 +10,47 @@ class DelayedAnimation extends StatefulWidget {
   State<DelayedAnimation> createState() => _DelayedAnimationState();
 }
 
-class _DelayedAnimationState extends State<DelayedAnimation> with SingleTickerProviderStateMixin{
- late AnimationController _controller;
- late Animation<Offset> animOffset;
+class _DelayedAnimationState extends State<DelayedAnimation>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Offset> animOffset;
 
- @override
- void initState(){
-   super.initState();
+  @override
+  void initState() {
+    super.initState();
 
-   _controller = AnimationController(
-       vsync: this,
-       duration: Duration(milliseconds: 800),
-   );
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 800),
+    );
 
-   final curve = CurvedAnimation(
-       parent: _controller,
-       curve: Curves.decelerate);
+    final curve =
+        CurvedAnimation(parent: _controller, curve: Curves.decelerate);
 
-   animOffset = Tween<Offset>(
-     begin: Offset(0.0, -0.35),
-     end: Offset.zero,
-   ).animate(curve);
+    animOffset = Tween<Offset>(
+      begin: Offset(0.0, -0.35),
+      end: Offset.zero,
+    ).animate(curve);
 
-   Timer(Duration(milliseconds: widget.delay), (){
-     _controller.forward();
-   });
-}
+    Timer(Duration(milliseconds: widget.delay), () {
+      _controller.forward();
+    });
+  }
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
-        opacity: _controller,
-        child: SlideTransition(
-          position: animOffset,
-          child: widget.child,
-        ),
+      opacity: _controller,
+      child: SlideTransition(
+        position: animOffset,
+        child: widget.child,
+      ),
     );
   }
 }

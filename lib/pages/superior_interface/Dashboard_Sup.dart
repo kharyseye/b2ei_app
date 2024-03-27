@@ -1,4 +1,3 @@
-
 import 'package:b2ei_app/pages/superior_interface/drawer/DrawerPage.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +6,6 @@ import '../employee_interface/FormPage.dart';
 import '../employee_interface/HistoryPage.dart';
 import 'drawer/Drawer_List.dart';
 import 'drawer/Header_Drawer.dart';
-
 
 class Dashboard_Sup extends StatefulWidget {
   @override
@@ -52,13 +50,10 @@ class _DashboardState extends State<Dashboard_Sup> {
   ];
 */
 
-
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
-
-
 
     return Scaffold(
       key: _scaffoldKey,
@@ -84,11 +79,13 @@ class _DashboardState extends State<Dashboard_Sup> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                          icon: Icon(Icons.menu,
+                          icon: Icon(
+                            Icons.menu,
                             color: Colors.white,
                             size: 40,
                           ),
-                          onPressed: () => _scaffoldKey.currentState?.openDrawer(),
+                          onPressed: () =>
+                              _scaffoldKey.currentState?.openDrawer(),
                         ),
                         InkWell(
                           onTap: () {},
@@ -110,12 +107,13 @@ class _DashboardState extends State<Dashboard_Sup> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Superieur",
+                        Text(
+                          "Superieur",
                           style: TextStyle(
                               fontSize: 30,
                               color: Colors.white,
-                              fontWeight: FontWeight.w500
-                          ),)
+                              fontWeight: FontWeight.w500),
+                        )
                       ],
                     ),
                   ),

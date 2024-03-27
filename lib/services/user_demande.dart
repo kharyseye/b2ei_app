@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserDemande {
   Stream<QuerySnapshot<Map<String, dynamic>>> getDemandeById() async* {
-    final String? userId =  await UserPreferences.getUserId();
+    final String? userId = await UserPreferences().getUserId();
 
     if (userId != null) {
       yield* FirebaseFirestore.instance
