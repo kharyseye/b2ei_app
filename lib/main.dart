@@ -8,7 +8,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
@@ -26,19 +26,17 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Authentification',
       theme: ThemeData(
-        //primaryColor: PrimaryColor,
-        scaffoldBackgroundColor: Colors.white,
-        useMaterial3: true,
-        colorSchemeSeed: Colors.green
-      ),
+          //primaryColor: PrimaryColor,
+          scaffoldBackgroundColor: Colors.white,
+          useMaterial3: true,
+          colorSchemeSeed: Colors.green),
       routes: {
         "home": (context) => HomePage(),
-        "/Dashboard":(context) => Dashboard(),
-        "/Dashboard_Sup":(context) => Dashboard_Sup(),
+        "/Dashboard": (context) => Dashboard(),
+        "/Dashboard_Sup": (context) => Dashboard_Sup(),
         '/WelcomePage': (context) => WelcomePage(),
       },
       home: WelcomePage(),
     );
   }
 }
-
