@@ -14,16 +14,16 @@ class _DrawerPageState extends State<DrawerPage> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      child: SafeArea(
         child: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: [
-                MyHeaderDrawer(),
-                MyDrawerList(),
-              ],
-            ),
+          child: Column(
+            children: [
+              MyHeaderDrawer(),
+              MyDrawerList(),
+            ],
           ),
         ),
+      ),
     );
   }
 }

@@ -1,14 +1,15 @@
 import 'package:b2ei_app/constant.dart';
 import 'package:b2ei_app/pages/authentication/LoginPage.dart';
+import 'package:b2ei_app/pages/employee_interface/Dashboard.dart';
+import 'package:b2ei_app/pages/superior_interface/Dashboard_Sup.dart';
 import 'package:b2ei_app/pages/welcome/DelayedAnimation.dart';
+import 'package:b2ei_app/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../authentication/AuthenticationPage.dart';
-
 class WelcomePage extends StatelessWidget {
-  const WelcomePage({super.key});
-
+  const WelcomePage({super.key, required this.authState});
+  final AuthState authState;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,22 +23,25 @@ class WelcomePage extends StatelessWidget {
           child: Column(
             children: [
               DelayedAnimation(
-                  delay: 1500,
+                  delay: 500,
                   child: Container(
-                  height: 150,
-                  child: Image.asset("assets/images/logoOff.png"),
+                    height: 150,
+                    child: Image.asset("assets/images/logoOff.png"),
                   )),
               DelayedAnimation(
-                  delay: 2500,
+                  delay: 1000,
                   child: Container(
                     height: 400,
                     child: Image.asset("assets/images/welcome3.png"),
                   )),
               DelayedAnimation(
-                  delay: 3500,
+                  delay: 1600,
                   child: Container(
                     height: 100,
-                    child: Text("Gérez vos demandes de matériel en un clin d'œil",
+                    child: Text(
+                      authState.isAuthenticated
+                          ? "Content de vous revoir !"
+                          : "Gérez vos demandes de matériel en un clin d'œil",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(
                         color: Colors.grey.shade900,
@@ -46,31 +50,33 @@ class WelcomePage extends StatelessWidget {
                     ),
                   )),
               DelayedAnimation(
-                  delay: 4500,
+                  delay: 1800,
                   child: Container(
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: PrimaryButtonColor,
-                        shape: StadiumBorder(),
-                        padding: EdgeInsets.all(13)
+                          backgroundColor: PrimaryButtonColor,
+                          shape: StadiumBorder(),
+                          padding: EdgeInsets.all(13)),
+                      child: Text(
+                        authState.isAuthenticated
+                            ? "Tableau de bord"
+                            : "DEMARRER",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
-                      child: Text("DEMARRER",
-                      style: TextStyle(
-                        color: Colors.white
-                      ),
-                      ),
-                      onPressed: (){
-                        Navigator.push(
+                      onPressed: () {
+                        Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => LoginPage(),
-                            )
-                        );
+                              builder: (context) => authState.isAuthenticated
+                                  ? authState.isSupervisor
+                                      ? Dashboard_Sup()
+                                      : Dashboard()
+                                  : LoginPage(),
+                            ));
                       },
                     ),
-                  )
-              ),
+                  )),
             ],
           ),
         ),
