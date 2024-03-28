@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../constant.dart';
 import '../../services/user_preferences.dart';
@@ -5,7 +6,6 @@ import 'FormPage.dart';
 import 'HistoryPage.dart';
 
 class Dashboard extends StatefulWidget {
-
   @override
   State<Dashboard> createState() => _DashboardState();
 }
@@ -32,16 +32,17 @@ class _DashboardState extends State<Dashboard> {
     "Historique",
     "PDF",
     "Parametre",
-
   ];
   List<RouteItem> routes = [
     RouteItem(
       name: 'Faire une demande',
-      route: FormPage('faire une demande'), // Remplacez Route1 par le nom de votre première route
+      route: FormPage(
+          'faire une demande'), // Remplacez Route1 par le nom de votre première route
     ),
     RouteItem(
       name: 'Historique',
-      route: HistoryPage('historique'), // Remplacez Route2 par le nom de votre deuxième route
+      route: HistoryPage(
+          'historique'), // Remplacez Route2 par le nom de votre deuxième route
     ),
     // Ajoutez d'autres routes si nécessaire
   ];
@@ -70,18 +71,18 @@ class _DashboardState extends State<Dashboard> {
                           left: 20,
                           right: 20,
                         ),
-                       child: Row(
-                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             InkWell(
                               onTap: () {
-                                UserPreferences userPreferences = UserPreferences();
-                                userPreferences.logout;
-                                /*FirebaseAuth.instance.signOut().then((value){
-                                  Navigator.of(context).pushReplacementNamed('/WelcomePage');
-                                }).catchError((e){
+                                FirebaseAuth.instance
+                                    .signOut()
+                                    .then((value) async {
+                                  await UserPreferences().logout(context);
+                                }).catchError((e) {
                                   print(e);
-                                });*/
+                                });
                               },
                               child: Icon(
                                 Icons.exit_to_app,
@@ -96,34 +97,32 @@ class _DashboardState extends State<Dashboard> {
                                 borderRadius: BorderRadius.circular(25),
                                 color: Colors.white,
                                 image: DecorationImage(
-                                  image: AssetImage("assets/images/profil2.png")
-                                ),
+                                    image: AssetImage(
+                                        "assets/images/profil2.png")),
                               ),
                             ),
                           ],
                         ),
-                     ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: 20,
-                      left: 20,
-                      right: 20,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Bonjour',
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          top: 20,
+                          left: 20,
+                          right: 20,
                         ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Bonjour',
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ],
                         ),
-
-                      ],
-                  
-                    ),
-                  ),
+                      ),
                     ],
                   ),
                 ),
@@ -139,57 +138,53 @@ class _DashboardState extends State<Dashboard> {
                 height: height * 0.75,
                 width: width,
                 child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 1.1,
-                      mainAxisSpacing: 25,
-                    ),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 1.1,
+                    mainAxisSpacing: 25,
+                  ),
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: imgData.length,
-                  itemBuilder: (context, index){
-                      return InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder:
-                                    (context) =>
-                                        routes[index].route,
-
-                              ));
-                        },
-                        child: Container(
-                          margin: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black26,
-                                spreadRadius: 1,
-                                blurRadius: 6,
-                              )
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                imgData[index],
-                              width: 100,
-                              ),
-                              Text(
-                                Titles[index],
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold
-                                ),
-                              ),
-                            ],
-                          ),
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => routes[index].route,
+                            ));
+                      },
+                      child: Container(
+                        margin:
+                            EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black26,
+                              spreadRadius: 1,
+                              blurRadius: 6,
+                            )
+                          ],
                         ),
-                      );
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Image.asset(
+                              imgData[index],
+                              width: 100,
+                            ),
+                            Text(
+                              Titles[index],
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
                   },
                 ),
               ),
@@ -198,6 +193,5 @@ class _DashboardState extends State<Dashboard> {
         ),
       ),
     );
-
   }
 }

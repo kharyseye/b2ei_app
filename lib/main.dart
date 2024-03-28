@@ -1,3 +1,4 @@
+import 'package:b2ei_app/pages/authentication/LoginPage.dart';
 import 'package:b2ei_app/pages/employee_interface/Dashboard.dart';
 import 'package:b2ei_app/pages/introScreen/HomePage.dart';
 import 'package:b2ei_app/pages/superior_interface/Dashboard_Sup.dart';
@@ -40,6 +41,7 @@ class MyApp extends ConsumerWidget {
         "home": (context) => HomePage(),
         "/Dashboard": (context) => Dashboard(),
         "/Dashboard_Sup": (context) => Dashboard_Sup(),
+        "/login": (context) => LoginPage(),
         '/WelcomePage': (context) => WelcomePage(authState: authState),
       },
       home: WelcomePage(authState: authState),
