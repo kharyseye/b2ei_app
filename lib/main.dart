@@ -1,9 +1,11 @@
+import 'package:b2ei_app/pages/authentication/LoginPage.dart';
 import 'package:b2ei_app/pages/employee_interface/Dashboard.dart';
 import 'package:b2ei_app/pages/introScreen/HomePage.dart';
 import 'package:b2ei_app/pages/superior_interface/Dashboard_Sup.dart';
 import 'package:b2ei_app/pages/welcome/WelcomePage.dart';
 import 'package:b2ei_app/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,11 +30,16 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authStateProvider);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Authentification',
       theme: ThemeData(
           //primaryColor: PrimaryColor,
+          brightness: Brightness.light,
           scaffoldBackgroundColor: Colors.white,
           useMaterial3: true,
           colorSchemeSeed: Colors.green),
@@ -40,6 +47,7 @@ class MyApp extends ConsumerWidget {
         "home": (context) => HomePage(),
         "/Dashboard": (context) => Dashboard(),
         "/Dashboard_Sup": (context) => Dashboard_Sup(),
+        "/login": (context) => LoginPage(),
         '/WelcomePage': (context) => WelcomePage(authState: authState),
       },
       home: WelcomePage(authState: authState),
