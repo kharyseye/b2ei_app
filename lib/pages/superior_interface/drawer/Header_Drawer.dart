@@ -29,7 +29,7 @@ class _MyDrawerHeaderState extends State<MyHeaderDrawer> {
               )
             ),
           ),
-          Text("Superieur",
+          Text("Oumar Guire",
           style: TextStyle(
             color: Colors.white,
             fontSize: 25,
