@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../constant.dart';
-import '../../services/user_preferences.dart';
 import 'FormPage.dart';
 import 'HistoryPage.dart';
 
@@ -75,13 +74,7 @@ class _DashboardState extends State<Dashboard> {
                           children: [
                             InkWell(
                               onTap: () {
-                                UserPreferences userPreferences = UserPreferences();
-                                userPreferences.logout;
-                                /*FirebaseAuth.instance.signOut().then((value){
-                                  Navigator.of(context).pushReplacementNamed('/WelcomePage');
-                                }).catchError((e){
-                                  print(e);
-                                });*/
+
                               },
                               child: Icon(
                                 Icons.exit_to_app,
