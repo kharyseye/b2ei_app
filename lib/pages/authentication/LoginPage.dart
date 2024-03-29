@@ -284,7 +284,6 @@ class _LoginPageState extends State<LoginPage> {
                                   _isloading = false;
                                 },
                               );
-                              debugPrint(e);
                             });
                           },
                         ),
