@@ -1,7 +1,7 @@
-
-import 'package:b2ei_app/pages/authentication/LoginPage.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../pages/authentication/LoginPage.dart';
 
 class UserPreferences {
   static const String _userIdKey = 'user_id';
@@ -31,6 +31,10 @@ class UserPreferences {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(_userIdKey);
     await prefs.remove(_supervisor);
+
     await Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder:(context) => LoginPage()), (route) => false);
+
+    Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
+
   }
 }
