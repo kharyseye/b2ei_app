@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../pages/authentication/LoginPage.dart';
-
 class UserPreferences {
   static const String _userIdKey = 'user_id';
   static const String _supervisor = 'supervisor';
