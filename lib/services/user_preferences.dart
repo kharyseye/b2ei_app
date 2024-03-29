@@ -31,10 +31,6 @@ class UserPreferences {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(_userIdKey);
     await prefs.remove(_supervisor);
-
-    await Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder:(context) => LoginPage()), (route) => false);
-
     Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
-
   }
 }
