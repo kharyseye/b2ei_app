@@ -52,7 +52,39 @@ class _DashboardState extends State<Dashboard> {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     return Scaffold(
-      /*body: Container(
+      backgroundColor: PrimaryColor,
+      appBar: AppBar(
+        backgroundColor: PrimaryColor,
+        leading: InkWell(
+          onTap: () {
+            FirebaseAuth.instance.signOut().then((value) async {
+              await UserPreferences().logout(context);
+            }).catchError((e) {
+              print(e);
+            });
+          },
+          child:
+          Icon(
+            Icons.exit_to_app,
+            color: Colors.white,
+            size: 40,
+          ),
+        ),
+        actions: [
+          Container(
+            width: 50,
+            margin: EdgeInsets.symmetric(vertical: 4.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(25),
+              color: Colors.white,
+              image: DecorationImage(
+                  image: AssetImage("assets/images/profil2.png")),
+            ),
+          ),
+        ],
+      ),
+
+      body: Container(
         color: PrimaryColor,
         child: SingleChildScrollView(
           child: Column(
@@ -189,39 +221,9 @@ class _DashboardState extends State<Dashboard> {
             ],
           ),
         ),
-      ),*/
-
-      backgroundColor: PrimaryColor,
-      appBar: AppBar(
-        backgroundColor: PrimaryColor,
-        leading: InkWell(
-          onTap: () {
-            FirebaseAuth.instance.signOut().then((value) async {
-              await UserPreferences().logout(context);
-            }).catchError((e) {
-              print(e);
-            });
-          },
-          child: Icon(
-            Icons.exit_to_app,
-            color: Colors.white,
-            size: 40,
-          ),
-        ),
-        actions: [
-          Container(
-            width: 50,
-            margin: EdgeInsets.symmetric(vertical: 4.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-              color: Colors.white,
-              image: DecorationImage(
-                  image: AssetImage("assets/images/profil2.png")),
-            ),
-          ),
-        ],
       ),
-      body: Column(
+
+      /*body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
@@ -295,7 +297,7 @@ class _DashboardState extends State<Dashboard> {
             ),
           ),
         ],
-      ),
+      ),*/
     );
   }
 }
