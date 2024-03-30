@@ -53,37 +53,6 @@ class _DashboardState extends State<Dashboard> {
     width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: PrimaryColor,
-      appBar: AppBar(
-        backgroundColor: PrimaryColor,
-        leading: InkWell(
-          onTap: () {
-            FirebaseAuth.instance.signOut().then((value) async {
-              await UserPreferences().logout(context);
-            }).catchError((e) {
-              print(e);
-            });
-          },
-          child:
-          Icon(
-            Icons.exit_to_app,
-            color: Colors.white,
-            size: 40,
-          ),
-        ),
-        actions: [
-          Container(
-            width: 50,
-            margin: EdgeInsets.symmetric(vertical: 4.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-              color: Colors.white,
-              image: DecorationImage(
-                  image: AssetImage("assets/images/profil2.png")),
-            ),
-          ),
-        ],
-      ),
-
       body: Container(
         color: PrimaryColor,
         child: SingleChildScrollView(
@@ -103,27 +72,56 @@ class _DashboardState extends State<Dashboard> {
                           left: 20,
                           right: 20,
                         ),
-                        //
-                     ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: 20,
-                      left: 20,
-                      right: 20,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Bonjour',
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                FirebaseAuth.instance.signOut().then((value) {
+                                  UserPreferences().logout(context);
+                                }).catchError((e) {
+                                  print(e);
+                                });
+                              },
+                              child: Icon(
+                                Icons.exit_to_app,
+                                color: Colors.white,
+                                size: 40,
+                              ),
+                            ),
+                            Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                color: Colors.white,
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/images/profil2.png")),
+                              ),
+                            ),
+                          ],
                         ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          top: 20,
+                          left: 20,
+                          right: 20,
                         ),
-                      ],
-                    ),
-                  ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Bonjour',
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -139,57 +137,53 @@ class _DashboardState extends State<Dashboard> {
                 height: height * 0.75,
                 width: width,
                 child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 1.1,
-                      mainAxisSpacing: 25,
-                    ),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 1.1,
+                    mainAxisSpacing: 25,
+                  ),
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: imgData.length,
-                  itemBuilder: (context, index){
-                      return InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder:
-                                    (context) =>
-                                        routes[index].route,
-
-                              ));
-                        },
-                        child: Container(
-                          margin: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black26,
-                                spreadRadius: 1,
-                                blurRadius: 6,
-                              )
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                imgData[index],
-                              width: 100,
-                              ),
-                              Text(
-                                Titles[index],
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold
-                                ),
-                              ),
-                            ],
-                          ),
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => routes[index].route,
+                            ));
+                      },
+                      child: Container(
+                        margin:
+                            EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black26,
+                              spreadRadius: 1,
+                              blurRadius: 6,
+                            )
+                          ],
                         ),
-                      );
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Image.asset(
+                              imgData[index],
+                              width: 100,
+                            ),
+                            Text(
+                              Titles[index],
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
                   },
                 ),
               ),
@@ -197,82 +191,6 @@ class _DashboardState extends State<Dashboard> {
           ),
         ),
       ),
-
-      /*body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            margin: EdgeInsets.all(12.0),
-            child: Text(
-              'Bonjour',
-              style: TextStyle(
-                  fontSize: 35,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 6.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(30.0),
-            ),
-            height: height * 0.75,
-            width: width,
-            child: SingleChildScrollView(
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 1.1,
-                  mainAxisSpacing: 25,
-                ),
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: imgData.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => routes[index].route,
-                          ));
-                    },
-                    child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black26,
-                            spreadRadius: 1,
-                            blurRadius: 6,
-                          )
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Image.asset(
-                            imgData[index],
-                            width: 100,
-                          ),
-                          Text(
-                            Titles[index],
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
-        ],
-      ),*/
     );
   }
 }
