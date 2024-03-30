@@ -196,16 +196,16 @@ class _DashboardState extends State<Dashboard> {
         backgroundColor: PrimaryColor,
         leading: InkWell(
           onTap: () {
-          FirebaseAuth.instance.signOut().then((value) async {
-          await UserPreferences().logout(context);
-           }).catchError((e) {
-           print(e);
-           });
+            FirebaseAuth.instance.signOut().then((value) async {
+              await UserPreferences().logout(context);
+            }).catchError((e) {
+              print(e);
+            });
           },
           child: Icon(
-                Icons.exit_to_app,
-                color: Colors.white,
-                size: 40,
+            Icons.exit_to_app,
+            color: Colors.white,
+            size: 40,
           ),
         ),
         actions: [
@@ -222,29 +222,27 @@ class _DashboardState extends State<Dashboard> {
         ],
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: width,
             margin: EdgeInsets.all(12.0),
             child: Text(
               'Bonjour',
               style: TextStyle(
-                  fontSize: 30,
+                  fontSize: 35,
                   color: Colors.white,
                   fontWeight: FontWeight.w500),
             ),
           ),
-            SingleChildScrollView(
-             child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
-                ),
-              ),
-              height: height * 0.75,
-              width: width,
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 6.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+            height: height * 0.75,
+            width: width,
+            child: SingleChildScrollView(
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
