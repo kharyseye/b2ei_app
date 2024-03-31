@@ -1,7 +1,9 @@
 import 'package:b2ei_app/pages/superior_interface/drawer/DrawerPage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../constant.dart';
+import '../../services/user_preferences.dart';
 import '../employee_interface/FormPage.dart';
 import '../employee_interface/HistoryPage.dart';
 import 'drawer/Drawer_List.dart';
@@ -88,9 +90,15 @@ class _DashboardState extends State<Dashboard_Sup> {
                               _scaffoldKey.currentState?.openDrawer(),
                         ),
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            FirebaseAuth.instance.signOut().then((value) {
+                              UserPreferences().logout(context);
+                            }).catchError((e) {
+                              print(e);
+                            });
+                          },
                           child: Icon(
-                            Icons.notifications,
+                            Icons.logout,
                             color: Colors.white,
                             size: 40,
                           ),

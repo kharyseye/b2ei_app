@@ -1,7 +1,9 @@
+import 'package:b2ei_app/pages/employee_interface/drawer/drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../constant.dart';
 import '../../services/user_preferences.dart';
+import '../superior_interface/drawer/DrawerPage.dart';
 import 'FormPage.dart';
 import 'HistoryPage.dart';
 
@@ -19,6 +21,7 @@ class RouteItem {
 
 class _DashboardState extends State<Dashboard> {
   var height, width;
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   List imgData = [
     "assets/images/papeterie.png",
@@ -52,6 +55,8 @@ class _DashboardState extends State<Dashboard> {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: DrawerPage_emp(),
       backgroundColor: PrimaryColor,
       body: Container(
         color: PrimaryColor,
@@ -75,6 +80,15 @@ class _DashboardState extends State<Dashboard> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.sort,
+                                color: Colors.white,
+                                size: 40,
+                              ),
+                              onPressed: () =>
+                                  _scaffoldKey.currentState?.openDrawer(),
+                            ),
                             InkWell(
                               onTap: () {
                                 FirebaseAuth.instance.signOut().then((value) {
@@ -84,22 +98,12 @@ class _DashboardState extends State<Dashboard> {
                                 });
                               },
                               child: Icon(
-                                Icons.exit_to_app,
+                                Icons.logout,
                                 color: Colors.white,
                                 size: 40,
                               ),
                             ),
-                            Container(
-                              height: 50,
-                              width: 50,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                color: Colors.white,
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/images/profil2.png")),
-                              ),
-                            ),
+
                           ],
                         ),
                       ),

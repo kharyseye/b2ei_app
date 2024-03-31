@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../services/user_preferences.dart';
 
 class FormPage extends StatefulWidget {
-  final String img;
+   final String img;
 
   FormPage(this.img);
 
