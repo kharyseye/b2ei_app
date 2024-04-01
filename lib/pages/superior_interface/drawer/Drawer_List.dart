@@ -1,8 +1,12 @@
 import 'package:b2ei_app/pages/authentication/RegisterPage.dart';
 import 'package:b2ei_app/pages/superior_interface/Dashboard_Sup.dart';
+import 'package:b2ei_app/pages/superior_interface/employee.dart';
+import 'package:b2ei_app/pages/superior_interface/request_emp.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constant.dart';
+import '../../../services/user_preferences.dart';
 
 class MyDrawerList extends StatefulWidget {
   const MyDrawerList({super.key});
@@ -12,50 +16,61 @@ class MyDrawerList extends StatefulWidget {
 }
 
 class _MyDrawerListState extends State<MyDrawerList> {
-  var currentPage = DrawerSections.dashbord;
+  var currentPage = DrawerSections.dashboard;
   @override
   Widget build(BuildContext context) {
-    // var container;
-    // if (currentPage == DrawerSections.dashbord) {
-    //   container = Dashboard_Sup();
-    // } else if (currentPage == DrawerSections.addUser) {
-    //   Navigator.push(
-    //       context,
-    //       MaterialPageRoute(
-    //         builder: (context) => RegisterPage(),
-    //       ));
-    // } else if (currentPage == DrawerSections.notification) {
-    //   container = Dashboard_Sup();
-    // } else if (currentPage == DrawerSections.request) {
-    //   container = Dashboard_Sup();
-    // } else if (currentPage == DrawerSections.setting) {
-    //   container = Dashboard_Sup();
-    // }
-
     return Container(
       padding: EdgeInsets.only(
         top: 15,
       ),
+
       child: Column(
         children: [
-          menuItem(1, "Dashbord", Icons.dashboard_outlined,
-              currentPage == DrawerSections.dashbord ? true : false),
+          SizedBox(
+            height: 20,
+          ),
+          menuItem(
+              1, "H O M E", Icons.home_outlined,
+              currentPage == DrawerSections.dashboard ? true : false
+          ),
+          SizedBox(
+            height: 20,
+          ),
           menuItem(
               2,
-              "Gestion des utilisateurs",
-              Icons.person_add_alt_1_outlined,
-              currentPage == DrawerSections.addUser ? true : false),
-          menuItem(3, "Notification", Icons.notifications_active_outlined,
-              currentPage == DrawerSections.notification ? true : false),
-          menuItem(4, "Demandes", Icons.list_alt,
-              currentPage == DrawerSections.request ? true : false),
-          menuItem(5, "paramettre", Icons.settings_applications,
-              currentPage == DrawerSections.setting ? true : false),
+              "U T I L I S A T E U R S",
+              Icons.list_alt_outlined,
+              currentPage == DrawerSections.addUser ? true : false
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          menuItem(
+              3, "D E M A N D E S", Icons.history_outlined,
+              currentPage == DrawerSections.request ? true : false
+          ),
+          SizedBox(
+            height: 20,
+          ),
+
+          menuItem(
+              4, "P A R A M E T R E S", Icons.settings_outlined,
+              currentPage == DrawerSections.setting ? true : false
+          ),
+          SizedBox(
+            height: 200,
+          ),
+
+          menuItem(
+              5, "D E C O N N E X I O N", Icons.logout,
+              currentPage == DrawerSections.exit ? true : false
+          ),
+
         ],
+
       ),
     );
   }
-
   Widget menuItem(int id, String title, IconData icon, bool selected) {
     return Material(
       color: selected ? Colors.grey[300] : Colors.transparent,
@@ -64,20 +79,30 @@ class _MyDrawerListState extends State<MyDrawerList> {
           Navigator.pop(context);
           setState(() {
             if (id == 1) {
-              currentPage = DrawerSections.dashbord;
+              currentPage = DrawerSections.dashboard;
             } else if (id == 2) {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   maintainState: false,
-                  builder: (context) => RegisterPage(),
+                  builder: (context) => EmployeePage(),
                 ),
               );
             } else if (id == 3) {
-              currentPage = DrawerSections.notification;
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  maintainState: false,
+                  builder: (context) => Request_emp(),
+                ),
+              );
             } else if (id == 4) {
-              currentPage = DrawerSections.request;
-            } else if (id == 5) {
               currentPage = DrawerSections.setting;
+
+            }else if (id == 5) {
+              FirebaseAuth.instance.signOut().then((value) {
+                UserPreferences().logout(context);
+              }).catchError((e) {
+                print(e);
+              });
             }
           });
         },
@@ -88,7 +113,7 @@ class _MyDrawerListState extends State<MyDrawerList> {
               Expanded(
                 child: Icon(
                   icon,
-                  size: 20,
+                  size: 30,
                   color: PrimaryColor,
                 ),
               ),
@@ -107,4 +132,6 @@ class _MyDrawerListState extends State<MyDrawerList> {
   }
 }
 
-enum DrawerSections { dashbord, addUser, notification, request, setting, exit }
+
+
+enum DrawerSections { dashboard, addUser, notification, request, setting, exit }
