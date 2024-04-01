@@ -116,6 +116,7 @@ class _DashboardState extends State<Dashboard> {
                           left: 20,
                           right: 20,
                         ),
+                        user-data
                         child: StreamBuilder(
                             stream: userService.getUserInfo(),
                             builder: (context, snapshot) {
@@ -141,7 +142,21 @@ class _DashboardState extends State<Dashboard> {
                                 ],
                               );
                             }),
-                      ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Bonjour',
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500),
+                            ),
+
+                          ],
+                        ),
+
+                     ),
                     ],
                   ),
                 ),
