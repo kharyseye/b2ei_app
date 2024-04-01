@@ -38,7 +38,11 @@ class _Request_empState extends State<AddUserPage> {
 
               },
               icon: Icon(Icons.add),
-              label: Text('Ajouter un Utilisateur'),
+              label: Text('Ajouter un Utilisateur',
+              style: TextStyle(
+                fontSize: 18,
+              ),
+              ),
             ),
           ),
           Positioned(
@@ -62,6 +66,7 @@ class _Request_empState extends State<AddUserPage> {
                   return  ListView.builder(
                     itemCount: users.length,
                     itemBuilder: (context, index){
+                      var id_user = snapshot.data!.docs[index].id;
                       final user = users[index];
                       final email = user.email;
                       final username = user.username;
@@ -75,15 +80,64 @@ class _Request_empState extends State<AddUserPage> {
                           title: Text("$username",style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 24,
-                          ),),
-                          //subtitle: Text("$affaire,$client, $date, $quantite"),
-                          trailing: IconButton(
-                            icon :Icon(Icons.info,
-                              color: Colors.green,),
-                            onPressed: () {},
                           ),
+                          ),
+                          trailing: Wrap(
+                            spacing: -16,
+                            children: [
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.info,
+                                  color: Colors.green,
+                                  size: 35,
+                                ),
+                                onPressed: () {},
+                              ),
 
-                          onTap: (){},
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.redAccent,
+                                  size: 35,
+                                ),
+                                onPressed: () async {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text('Confirmation'),
+                                        content: Text('Êtes-vous sûr de vouloir supprimer cet utilisateur ?'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('Annuler'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () async {
+                                              await FirebaseFirestore.instance
+                                                  .collection("users")
+                                                  .doc(id_user)
+                                                  .delete();
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                SnackBar(
+                                                  content: Text('Utilisateur supprimé avec succès'),
+                                                ),
+                                              );
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('Supprimer'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+
+                            ],
+                          ),
                         ),
                       );
                     },

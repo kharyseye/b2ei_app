@@ -95,7 +95,6 @@ class _HistoryPageState extends State<HistoryPage> {
 
                 return Card(
                   child: ListTile(
-                    //leading: Image.asset("assets/images/history.jpg"),
                     title: Text(
                       "REF: $reference",
                       style: TextStyle(
@@ -103,7 +102,6 @@ class _HistoryPageState extends State<HistoryPage> {
                         fontSize: 18,
                       ),
                     ),
-                    //subtitle: Text("$affaire,$client, $date, $quantite"),
                     trailing: Wrap(
                       spacing: -16,
                       children: [

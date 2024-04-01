@@ -34,7 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.green[200],
         title: Text('Ajouter un Utilisateur'),
       ),
       body: SingleChildScrollView(
@@ -42,14 +42,15 @@ class _RegisterPageState extends State<RegisterPage> {
           children: [
             Stack(
               children: [
-                /*Container(
-                  width: w,
+                Container(
+                  /*width: w,
                   height: h * 0.2,
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage("assets/images/ban3.jpg"),
-                          fit: BoxFit.cover)),
-                ),*/
+                          fit: BoxFit.cover)
+                  ),*/
+                ),
                 DelayedAnimation(
                     delay: 500,
                     child: Container(
