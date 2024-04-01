@@ -1,4 +1,6 @@
 import 'package:b2ei_app/pages/employee_interface/drawer/drawer.dart';
+import 'package:b2ei_app/services/user_service.dart';
+import 'package:b2ei_app/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../constant.dart';
@@ -20,6 +22,8 @@ class RouteItem {
 }
 
 class _DashboardState extends State<Dashboard> {
+  final UserService userService = UserService();
+
   var height, width;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -103,7 +107,6 @@ class _DashboardState extends State<Dashboard> {
                                 size: 40,
                               ),
                             ),
-
                           ],
                         ),
                       ),
@@ -113,6 +116,32 @@ class _DashboardState extends State<Dashboard> {
                           left: 20,
                           right: 20,
                         ),
+                        user-data
+                        child: StreamBuilder(
+                            stream: userService.getUserInfo(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Center(child: showLoading());
+                              }
+                              if (snapshot.hasError)
+                                return Center(
+                                  child: Text('${snapshot.error.toString()}'),
+                                );
+                              final user = snapshot.data;
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '${saluer(capitalize(user?.username ?? ''))}',
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
+                              );
+                            }),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -127,12 +156,13 @@ class _DashboardState extends State<Dashboard> {
                           ],
                         ),
 
-                      ),
+                     ),
                     ],
                   ),
                 ),
               ),
               Container(
+                margin: EdgeInsets.symmetric(horizontal: 2.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(

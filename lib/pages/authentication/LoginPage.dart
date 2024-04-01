@@ -195,13 +195,7 @@ class _LoginPageState extends State<LoginPage> {
                               shape: StadiumBorder(),
                               padding: EdgeInsets.all(13)),
                           child: _isloading
-                              ? Container(
-                                  width: 25,
-                                  height: 25,
-                                  child: CircularProgressIndicator(
-                                    color: Colors.white,
-                                  ),
-                                )
+                              ? showLoading()
                               : Text(
                                   "CONNEXION",
                                   style: GoogleFonts.poppins(
@@ -232,10 +226,10 @@ class _LoginPageState extends State<LoginPage> {
                                       .where('uid', isEqualTo: uid);
 
                                   final employeDoc = await employeRef.get();
-                                  print(employeDoc.docs.first.data());
+                                  print(employeDoc.docs.single.data());
                                   // Stocker les données localement
                                   final employeData =
-                                      employeDoc.docs.first.data();
+                                      employeDoc.docs.single.data();
                                   // Assurez-vous que vous utilisez le type correct ici
                                   final isSuperviseur =
                                       employeData['supervisor'];

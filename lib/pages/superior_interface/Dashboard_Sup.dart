@@ -1,13 +1,11 @@
 import 'package:b2ei_app/pages/superior_interface/drawer/DrawerPage.dart';
+import 'package:b2ei_app/services/user_service.dart';
+import 'package:b2ei_app/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../constant.dart';
 import '../../services/user_preferences.dart';
-import '../employee_interface/FormPage.dart';
-import '../employee_interface/HistoryPage.dart';
-import 'drawer/Drawer_List.dart';
-import 'drawer/Header_Drawer.dart';
 
 class Dashboard_Sup extends StatefulWidget {
   @override
@@ -22,6 +20,8 @@ class RouteItem {
 }
 
 class _DashboardState extends State<Dashboard_Sup> {
+  final UserService userService = UserService();
+
   var height, width;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -112,18 +112,31 @@ class _DashboardState extends State<Dashboard_Sup> {
                       left: 20,
                       right: 20,
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Superieur",
-                          style: TextStyle(
-                              fontSize: 30,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500),
-                        )
-                      ],
-                    ),
+                    child: StreamBuilder(
+                        stream: userService.getUserInfo(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return showLoading();
+                          }
+                          if (snapshot.hasError)
+                            return Center(
+                              child: Text('${snapshot.error.toString()}'),
+                            );
+                          final user = snapshot.data;
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${saluer(capitalize(user?.username ?? ''))}',
+                                style: TextStyle(
+                                    fontSize: 30,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ],
+                          );
+                        }),
                   ),
                 ],
               ),
