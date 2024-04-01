@@ -1,6 +1,6 @@
 import 'package:b2ei_app/pages/authentication/RegisterPage.dart';
 import 'package:b2ei_app/pages/superior_interface/Dashboard_Sup.dart';
-import 'package:b2ei_app/pages/superior_interface/employee.dart';
+import 'package:b2ei_app/pages/superior_interface/add_user.dart';
 import 'package:b2ei_app/pages/superior_interface/request_emp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +84,7 @@ class _MyDrawerListState extends State<MyDrawerList> {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   maintainState: false,
-                  builder: (context) => EmployeePage(),
+                  builder: (context) => AddUserPage(),
                 ),
               );
             } else if (id == 3) {

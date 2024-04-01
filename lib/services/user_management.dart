@@ -32,7 +32,7 @@ class UserManagement{
         style: ToastificationStyle.flat,
       );
       await Future.delayed(Duration(seconds: 3));
-      Navigator.of(context).pushReplacementNamed('/Dashboard');
+      Navigator.of(context).pushReplacementNamed('/AddUserPage');
     }).catchError((e){
       print(e);
     });

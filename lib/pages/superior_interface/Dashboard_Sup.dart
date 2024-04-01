@@ -90,15 +90,9 @@ class _DashboardState extends State<Dashboard_Sup> {
                               _scaffoldKey.currentState?.openDrawer(),
                         ),
                         InkWell(
-                          onTap: () {
-                            FirebaseAuth.instance.signOut().then((value) {
-                              UserPreferences().logout(context);
-                            }).catchError((e) {
-                              print(e);
-                            });
-                          },
+                          onTap: () {},
                           child: Icon(
-                            Icons.logout,
+                            Icons.notifications_none,
                             color: Colors.white,
                             size: 40,
                           ),

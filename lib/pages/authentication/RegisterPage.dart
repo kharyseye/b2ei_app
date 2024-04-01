@@ -1,5 +1,5 @@
 import 'package:b2ei_app/model/Users.dart';
-import 'package:b2ei_app/services/usermanagement.dart';
+import 'package:b2ei_app/services/user_management.dart';
 import 'package:b2ei_app/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -34,32 +34,32 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white.withOpacity(0),
-        title: Text('Gestions des utilisateurs'),
+        backgroundColor: Colors.green,
+        title: Text('Ajouter un Utilisateur'),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Stack(
               children: [
-                Container(
+                /*Container(
                   width: w,
                   height: h * 0.2,
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage("assets/images/ban3.jpg"),
                           fit: BoxFit.cover)),
-                ),
+                ),*/
                 DelayedAnimation(
                     delay: 500,
                     child: Container(
-                      //margin: EdgeInsets.all(50),
-                      //height: 300,
+                      margin: EdgeInsets.all(30),
+                      height: 70,
                       child: Text(
-                        "Inscription",
+                        "INSCRIPTION",
                         style: GoogleFonts.poppins(
                           color: PrimaryButtonColor,
-                          fontSize: 60,
+                          fontSize: 40,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -89,7 +89,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ]),
                     child: TextField(
                         decoration: InputDecoration(
-                          labelText: "Prenom & Nom",
+                          labelText: "Nom d'utilisateur",
                           hintStyle: TextStyle(color: Colors.grey),
                           prefixIcon: Icon(Icons.person),
                           focusedBorder: OutlineInputBorder(
@@ -124,7 +124,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ]),
                     child: TextField(
                         decoration: InputDecoration(
-                          labelText: "Email @b2ei-sarl.com",
+                          labelText: "Exemple@b2ei-sarl.com",
                           hintStyle: TextStyle(color: Colors.grey),
                           prefixIcon: Icon(Icons.email),
                           /*suffixIcon: IconButton(
@@ -204,35 +204,8 @@ class _RegisterPageState extends State<RegisterPage> {
                             color: Colors.grey.withOpacity(0.2),
                           )
                         ]),
-                    child: TextField(
-                        decoration: InputDecoration(
-                          labelText: "Confirmer le mot de passe",
-                          hintStyle: TextStyle(color: Colors.grey),
-                          prefixIcon: Icon(Icons.lock),
-                          suffixIcon: IconButton(
-                            icon: Icon(Icons.remove_red_eye),
-                            onPressed: () {},
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide:
-                                  BorderSide(color: Colors.white, width: 1.0)),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide:
-                                  BorderSide(color: Colors.white, width: 1.0)),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30)),
-                        ),
-                        onChanged: (value) {
-                          setState(() {
-                            _confirmPassword = value;
-                          });
-                        }),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+
                   Container(
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -275,6 +248,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       },
                     ),
                   ),
+                  SizedBox(
+                    height: 50,
+                  ),
                   Row(
                     children: [
                       Radio(
@@ -309,7 +285,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ],
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 80,
                   ),
                   DelayedAnimation(
                     delay: 1000,
@@ -325,7 +301,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 color: Colors.white,
                               )
                             : Text(
-                                "CONNEXION",
+                                "AJOUTER UN UTILISATEUR",
                                 style: GoogleFonts.poppins(color: Colors.white),
                               ),
                         onPressed: () {

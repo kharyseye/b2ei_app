@@ -2,6 +2,7 @@ import 'package:b2ei_app/pages/authentication/LoginPage.dart';
 import 'package:b2ei_app/pages/employee_interface/Dashboard.dart';
 import 'package:b2ei_app/pages/introScreen/HomePage.dart';
 import 'package:b2ei_app/pages/superior_interface/Dashboard_Sup.dart';
+import 'package:b2ei_app/pages/superior_interface/add_user.dart';
 import 'package:b2ei_app/pages/welcome/WelcomePage.dart';
 import 'package:b2ei_app/services/auth.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +50,8 @@ class MyApp extends ConsumerWidget {
         "/Dashboard_Sup": (context) => Dashboard_Sup(),
         "/login": (context) => LoginPage(),
         '/WelcomePage': (context) => WelcomePage(authState: authState),
+        '/AddUserPage': (context) => AddUserPage(),
+
       },
       home: WelcomePage(authState: authState),
     );

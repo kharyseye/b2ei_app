@@ -1,16 +1,17 @@
+import 'package:b2ei_app/pages/authentication/RegisterPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/Users.dart';
 
-class EmployeePage extends StatefulWidget {
-  const EmployeePage({super.key});
+class AddUserPage extends StatefulWidget {
+  const AddUserPage({super.key});
 
   @override
-  State<EmployeePage> createState() => _Request_empState();
+  State<AddUserPage> createState() => _Request_empState();
 }
 
-class _Request_empState extends State<EmployeePage> {
+class _Request_empState extends State<AddUserPage> {
 
   final users = [];
 
@@ -29,6 +30,11 @@ class _Request_empState extends State<EmployeePage> {
             right: 10.0,
             child: ElevatedButton.icon(
               onPressed: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RegisterPage(),
+                    ));
 
               },
               icon: Icon(Icons.add),
