@@ -52,6 +52,7 @@ dependencies:
   get: ^4.6.6
   toastification: ^1.2.1
   flutter_riverpod: ^2.4.9
+  ionicons: ^0.2.2
 
 
 
