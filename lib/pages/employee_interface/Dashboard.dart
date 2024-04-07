@@ -111,7 +111,7 @@ class _DashboardState extends State<Dashboard> {
                           right: 20,
                         ),
                         child: StreamBuilder(
-                            stream: userService.getUserInfo(),
+                            stream: userService.getUserInfo( ),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {

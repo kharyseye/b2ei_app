@@ -1,8 +1,12 @@
+import 'package:b2ei_app/model/Users.dart';
 import 'package:b2ei_app/pages/employee_interface/settings/screens/edit_screen.dart';
 import 'package:b2ei_app/pages/employee_interface/settings/widgets/setting_switch.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
+import '../../../../services/user_service.dart';
+import '../../../../utils.dart';
 import '../widgets/forward_button.dart';
 import '../widgets/settings_items.dart';
 
@@ -15,15 +19,42 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
-
+  final UserService userService = UserService();
+  String username = '';
+  String email = '';
   bool isDarkMode= false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Appel de la fonction pour récupérer les informations de l'utilisateur actuellement connecté
+    getUserInfo();
+  }
+
+  Future<void> getUserInfo() async {
+    // Récupération de l'utilisateur actuellement connecté
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      // Récupération du nom d'utilisateur
+      username = user.displayName ?? 'Nom d\'utilisateur introuvable';
+
+      // Récupération de l'e-mail
+      email = user.email ?? 'E-mail introuvable';
+
+      // Mettre à jour l'interface utilisateur avec les informations récupérées
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: (){},
+          onPressed: (){
+            Navigator.pop(context);
+          },
           icon: Icon(Icons.chevron_left_outlined,
           size: 40,),
         ),
@@ -31,7 +62,7 @@ class _AccountScreenState extends State<AccountScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(25),
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -58,22 +89,23 @@ class _AccountScreenState extends State<AccountScreen> {
                       height: 70,
                     ),
                     const SizedBox(height: 20,),
+
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Khary SEYE",
+                        Text(email,
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 20,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        const SizedBox(height: 10,),
-                        Text("khary@gmail.com",
+                        /*const SizedBox(height: 10,),
+                        Text(email,
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.grey,
                           ),
-                        ),
+                        ),*/
                       ],
                     ),
                     const Spacer(),

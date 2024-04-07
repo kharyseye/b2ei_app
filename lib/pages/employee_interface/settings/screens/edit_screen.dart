@@ -1,5 +1,9 @@
+import 'package:b2ei_app/pages/authentication/resetpassword.dart';
+import 'package:b2ei_app/pages/employee_interface/settings/widgets/settings_items.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+
+import '../widgets/edit_item.dart';
 
 class EditAccountScreen extends StatefulWidget {
   const EditAccountScreen({super.key});
@@ -42,54 +46,57 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
           ),
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-        Text("Compte",
-        style: TextStyle(
-          fontSize: 40,
-          fontWeight: FontWeight.bold,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+          Text("Compte",
+          style: TextStyle(
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-      ),
-          SizedBox(height: 40,),
-          Row(
-            children: [
-              Expanded(
-                  child: Text(
-                    "Photo",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.grey
+            SizedBox(height: 40,),
+            EditItem(
+              title: 'Photo',
+              widget: Column(
+                children: [
+                  Image.asset("assets/images/avatar.png",
+                    width: 100,
+                    height: 100,
+                  ),
+                  TextButton(
+                    onPressed: (){},
+                    style: TextButton.styleFrom(
+                        foregroundColor: Colors.green.shade200
+                    ),
+                    child: Text("Changer",
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
                     ),
                   ),
+                ],
               ),
-              Expanded(
-                flex: 5,
-                  child: Column(
-                    children: [
-                      Image.asset("assets/images/avatar.png",
-                      width: 100,
-                      height: 100,
-                      ),
-                      TextButton(
-                          onPressed: (){},
-                          style: TextButton.styleFrom(
-                            foregroundColor: Colors.green.shade200
-                          ),
-                          child: Text("Changer",
-                            style: TextStyle(
-                              fontSize: 25,
-                          ),
-                      ),
-                      ),
-                    ],
-
-                  ),
-              )
-            ],
-          ),
-      ],
+            ),
+            SizedBox(height: 40,),
+            SettingItem(
+                title: "Mot de passe",
+                bgColor: Colors.green.shade100,
+                iconColor: Colors.green,
+                icon: Ionicons.swap_horizontal_outline,
+                onTap: (){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ChangePasswordPage() )
+                  );
+                })
+        ],
+        ),
       ),
     );
   }
 }
+

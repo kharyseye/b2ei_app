@@ -62,7 +62,7 @@ class _MyDrawerListState extends State<MyDrawerList_emp> {
 
           menuItem(
               5, "D E C O N N E X I O N", Icons.logout,
-              currentPage == DrawerSections.setting ? true : false
+              currentPage == DrawerSections.exit ? true : false
           ),
 
         ],

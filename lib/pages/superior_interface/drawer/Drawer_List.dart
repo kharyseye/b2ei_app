@@ -1,4 +1,5 @@
 import 'package:b2ei_app/pages/authentication/RegisterPage.dart';
+import 'package:b2ei_app/pages/employee_interface/settings/screens/account_screen.dart';
 import 'package:b2ei_app/pages/superior_interface/Dashboard_Sup.dart';
 import 'package:b2ei_app/pages/superior_interface/add_user.dart';
 import 'package:b2ei_app/pages/superior_interface/request_emp.dart';
@@ -96,6 +97,12 @@ class _MyDrawerListState extends State<MyDrawerList> {
               );
             } else if (id == 4) {
               currentPage = DrawerSections.setting;
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  maintainState: false,
+                  builder: (context) => AccountScreen(),
+                ),
+              );
 
             }else if (id == 5) {
               FirebaseAuth.instance.signOut().then((value) {
