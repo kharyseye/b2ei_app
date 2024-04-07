@@ -2,11 +2,9 @@ import 'package:b2ei_app/pages/superior_interface/drawer/DrawerPage.dart';
 import 'package:b2ei_app/services/user_service.dart';
 import 'package:b2ei_app/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import '../../constant.dart';
-import '../../services/user_preferences.dart';
+import '../../model/Request.dart';
 
 class Dashboard_Sup extends StatefulWidget {
   @override
@@ -26,37 +24,48 @@ class _DashboardState extends State<Dashboard_Sup> {
   var height, width;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  /*List imgData = [
-    "assets/images/papeterie.png",
-    "assets/images/historique.png",
-    "assets/images/pdf.png",
-    "assets/images/parametre.png",
-  ];
-
-  List Titles = [
-    "Faire une Demande",
-    "Historique",
-    "PDF",
-    "Parametre",
-
-  ];
-  List<RouteItem> routes = [
-    RouteItem(
-      name: 'Faire une demande',
-      route: FormPage('faire une dem'), // Remplacez Route1 par le nom de votre première route
-    ),
-    RouteItem(
-      name: 'Historique',
-      route: HistoryPage('historique'), // Remplacez Route2 par le nom de votre deuxième route
-    ),
-    // Ajoutez d'autres routes si nécessaire
-  ];
-*/
-
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
+
+    Future<void> showHistoryDialog(Request requestData) async {
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: true, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(' Service : ${requestData.client}'),
+            backgroundColor: Colors.green[100],
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('Date : ${formatDate(requestData.timestamp.toDate(), format: 'EEEE d MMMM yyyy')}'),
+                  Text('Affaire : ${requestData.affaire}'),
+                  Text('Reference : ${requestData.reference}'),
+                  Text('Designation : ${requestData.designation}'),
+                  Text('Quantite : ${requestData.quantite}'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("Valider")
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("Refuser")
+              ),
+            ],
+          );
+        },
+      );
+    }
 
     return Scaffold(
       key: _scaffoldKey,
@@ -154,7 +163,6 @@ class _DashboardState extends State<Dashboard_Sup> {
                       child: CircularProgressIndicator(),
                     );
                   }
-
                   if (snapshot.hasError) {
                     return Center(
                       child: Text('Une erreur s\'est produite'),
@@ -181,7 +189,21 @@ class _DashboardState extends State<Dashboard_Sup> {
                             child : ListTile(
                               title: Text('Affaire: $affaire'),
                               subtitle: Text('Client: $clientId\nDate: $date'),
-                              trailing: Text('Quantité: $quantite'),
+                             // trailing: Text('Quantité: $quantite'),
+                              trailing: Wrap(
+                              spacing: -16,
+                              children: [
+                                IconButton(
+                                  icon:  Icon(
+                                    Icons.info,
+                                    color: Colors.green,
+                                  ),
+                                  onPressed: () {
+                                  },
+                                ),
+
+                              ],
+                            ),
                               // Vous pouvez personnaliser davantage l'affichage ici
                             ),
                         ),

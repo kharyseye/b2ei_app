@@ -85,14 +85,6 @@ class _Request_empState extends State<AddUserPage> {
                           trailing: Wrap(
                             spacing: -16,
                             children: [
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.info,
-                                  color: Colors.green,
-                                  size: 35,
-                                ),
-                                onPressed: () {},
-                              ),
 
                               IconButton(
                                 icon: const Icon(

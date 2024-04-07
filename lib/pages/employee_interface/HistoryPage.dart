@@ -30,8 +30,7 @@ class _HistoryPageState extends State<HistoryPage> {
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
-                  Text(
-                      'Date : ${formatDate(requestData.timestamp.toDate(), format: 'EEEE d MMMM yyyy')}'),
+                  Text('Date : ${formatDate(requestData.timestamp.toDate(), format: 'EEEE d MMMM yyyy')}'),
                   Text('Affaire : ${requestData.affaire}'),
                   Text('Reference : ${requestData.reference}'),
                   Text('Designation : ${requestData.designation}'),

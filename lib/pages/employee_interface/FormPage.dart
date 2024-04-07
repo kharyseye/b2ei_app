@@ -195,7 +195,10 @@ class _FormPageState extends State<FormPage> {
                           });
 
                           ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Demande envoyée")));
+                              const SnackBar(
+                                  content: Text("Demande envoyée")
+                              )
+                          );
                         }
 
                         // Effacer les champs après l'envoi
