@@ -1,6 +1,7 @@
 import 'package:b2ei_app/pages/superior_interface/drawer/DrawerPage.dart';
 import 'package:b2ei_app/services/user_service.dart';
 import 'package:b2ei_app/utils.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -145,63 +146,51 @@ class _DashboardState extends State<Dashboard_Sup> {
               ),
               height: height * 0.75,
               width: width,
-              child: Center(
-                child: Text("TEST"),
-              ),
-              /*child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 1.1,
-                    mainAxisSpacing: 25,
-                  ),
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: imgData.length,
-                itemBuilder: (context, index){
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) =>
-                                      routes[index].route,
-
-                            ));
-                      },
-                      child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black26,
-                              spreadRadius: 1,
-                              blurRadius: 6,
-                            )
-                          ],
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Image.asset(
-                              imgData[index],
-                            width: 100,
-                            ),
-                            Text(
-                              Titles[index],
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+              child: StreamBuilder(
+                stream: FirebaseFirestore.instance.collection('demande').snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
                     );
+                  }
+
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text('Une erreur s\'est produite'),
+                    );
+                  }
+
+                  final demands = snapshot.data!.docs;
+
+                  return ListView.builder(
+                    itemCount: demands.length,
+                    itemBuilder: (context, index) {
+                      final demand = demands[index];
+                      final clientId = demand['id_user'];
+                      final clientType = demand['client'];
+                      final affaire = demand['affaire'];
+                      final reference = demand['reference'];
+                      final designation = demand['designation'];
+                      final quantite = demand['quantite'];
+                      final date = (demand['date'] as Timestamp).toDate();
+
+                      // Affichez les informations de la demande dans un widget ListTile ou Card
+                      return SingleChildScrollView(
+                        child: Card(
+                            child : ListTile(
+                              title: Text('Affaire: $affaire'),
+                              subtitle: Text('Client: $clientId\nDate: $date'),
+                              trailing: Text('Quantité: $quantite'),
+                              // Vous pouvez personnaliser davantage l'affichage ici
+                            ),
+                        ),
+                      );
+                    },
+                  );
                 },
-              ),*/
+              )
+
             ),
           ],
         ),

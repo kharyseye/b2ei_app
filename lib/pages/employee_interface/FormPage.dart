@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../services/user_preferences.dart';
 
 class FormPage extends StatefulWidget {
-   final String img;
+  final String img;
 
   FormPage(this.img);
 
@@ -79,7 +79,7 @@ class _FormPageState extends State<FormPage> {
                     mode: DateTimeFieldPickerMode.date,
                     autovalidateMode: AutovalidateMode.always,
                     validator: (e) =>
-                        (e?.day ?? 0) == 1 ? 'Please not the first day' : null,
+                    (e?.day ?? 0) == 1 ? 'Please not the first day' : null,
                     onChanged: (DateTime? value) {
                       print(value);
                       setState(() {
@@ -168,8 +168,6 @@ class _FormPageState extends State<FormPage> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    //style: ElevatedButton.styleFrom(
-                    //primary: Color(0xC5D6F1CB),),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         final affaire = affaireController.text;
@@ -179,10 +177,12 @@ class _FormPageState extends State<FormPage> {
 
                         FocusScope.of(context).requestFocus(FocusNode());
                         String? userId = await userPref.getUserId();
-                        if (userId != null) {
+                        String? adminId = "lINZD5E8GyWYxpj5uY44s6viqfG3"; // Remplacez par l'identifiant de votre administrateur
+
+                        if (userId != null && adminId != null) {
                           // AJOUT DANS LA BASE DE DONNEES
                           CollectionReference demandeRef =
-                              FirebaseFirestore.instance.collection("demande");
+                          FirebaseFirestore.instance.collection("demande");
                           demandeRef.add({
                             'client': selectedClientType,
                             'date': selectedDateTime,
@@ -191,11 +191,14 @@ class _FormPageState extends State<FormPage> {
                             'designation': designation,
                             'quantite': quantite,
                             'id_user': userId,
+                            'destinataire': adminId, // Spécifier l'administrateur comme destinataire
                           });
 
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text("Demande envoyée")));
                         }
+
+                        // Effacer les champs après l'envoi
                         quantiteController.clear();
                         affaireController.clear();
                         refController.clear();

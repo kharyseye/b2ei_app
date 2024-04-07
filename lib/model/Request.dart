@@ -7,6 +7,7 @@ class Request {
   final reference;
   final designation;
   final quantite;
+  //final destinataire;
   //final Statut statut;
 
 
@@ -17,6 +18,7 @@ class Request {
   required this.reference,
   required this.designation,
   required this.quantite,
+  //required this.destinataire,
   //required this.statut,
 });
   factory Request.fromData(dynamic data){
@@ -27,6 +29,7 @@ class Request {
         reference: data['reference'],
         designation: data['designation'],
         quantite: data['quantite'],
+        //destinataire: data['destinataire'],
         //statut: data['statut'],
     );
 

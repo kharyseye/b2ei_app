@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:toastification/toastification.dart';
 import '../../constant.dart';
+import '../../services/send_service.dart';
 import '../welcome/DelayedAnimation.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -325,6 +326,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                   department: _department,
                                   supervisor: _supervisor != 'Employer',
                                 ));
+                            // Envoi de l'e-mail avec les identifiants
+                            sendCredentialsEmail(_email, _username, _password);
                           }).catchError((e) {
                             showToast(
                               context,

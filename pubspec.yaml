@@ -54,6 +54,7 @@ dependencies:
   flutter_riverpod: ^2.4.9
   ionicons: ^0.2.2
   awesome_dialog: ^3.2.0
+  mailer:
 
 
 
