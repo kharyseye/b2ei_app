@@ -40,7 +40,7 @@ class _MyDrawerHeaderState extends State<MyHeaderDrawer> {
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                          image: AssetImage("assets/images/PP.jpg"))),
+                          image: AssetImage("assets/images/avatar.png"))),
                 ),
                 Text(
                   capitalize('${user?.username}'),
