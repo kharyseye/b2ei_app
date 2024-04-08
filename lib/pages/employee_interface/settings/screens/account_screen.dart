@@ -1,18 +1,15 @@
-import 'package:b2ei_app/model/Users.dart';
 import 'package:b2ei_app/pages/employee_interface/settings/screens/edit_screen.dart';
 import 'package:b2ei_app/pages/employee_interface/settings/widgets/setting_switch.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-
 import '../../../../services/user_service.dart';
-import '../../../../utils.dart';
 import '../widgets/forward_button.dart';
 import '../widgets/settings_items.dart';
 
 class AccountScreen extends StatefulWidget {
 
-  const AccountScreen({super.key});
+  const AccountScreen(String s, {super.key});
 
   @override
   State<AccountScreen> createState() => _AccountScreenState();

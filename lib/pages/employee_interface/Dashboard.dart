@@ -1,12 +1,10 @@
 import 'package:b2ei_app/pages/employee_interface/drawer/drawer.dart';
-import 'package:b2ei_app/pages/employee_interface/test.dart';
+import 'package:b2ei_app/pages/employee_interface/settings/screens/account_screen.dart';
+import 'package:b2ei_app/pages/impression/PDFPage.dart';
 import 'package:b2ei_app/services/user_service.dart';
 import 'package:b2ei_app/utils.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../constant.dart';
-import '../../services/user_preferences.dart';
-import '../superior_interface/drawer/DrawerPage.dart';
 import 'FormPage.dart';
 import 'HistoryPage.dart';
 
@@ -51,6 +49,16 @@ class _DashboardState extends State<Dashboard> {
       name: 'Historique',
       route: HistoryPage(
           'historique'), // Remplacez Route2 par le nom de votre deuxième route
+    ),
+    RouteItem(
+      name: 'PDF',
+      route: PDFPage(
+          'PDF'), // Remplacez Route2 par le nom de votre deuxième route
+    ),
+    RouteItem(
+      name: 'Parametre',
+      route: AccountScreen(
+          'Parametre'), // Remplacez Route2 par le nom de votre deuxième route
     ),
     // Ajoutez d'autres routes si nécessaire
   ];

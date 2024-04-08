@@ -45,7 +45,7 @@ class _HistoryPageState extends State<HistoryPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PDFPage(),
+                          builder: (context) => PDFPage('PDF'),
                         ));
                   },
                   label: Text("PDF")),
@@ -66,17 +66,17 @@ class _HistoryPageState extends State<HistoryPage> {
       ),
       body: Center(
           child: StreamBuilder(
-        stream: userdemande.getDemandeById(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
-          } else if (!snapshot.hasData) {
-            return Text("Aucune demande");
-          } else {
-            List<Request> demandes = [];
-            snapshot.data!.docs.forEach((data) {
-              demandes.add(Request.fromData(data));
-            });
+          stream: userdemande.getDemandeById(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            } else if (!snapshot.hasData) {
+              return Text("Aucune demande");
+            } else {
+              List<Request> demandes = [];
+              snapshot.data!.docs.forEach((data) {
+                demandes.add(Request.fromData(data));
+              });
             return ListView.builder(
               itemCount: demandes.length,
               itemBuilder: (context, index) {

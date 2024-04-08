@@ -4,7 +4,7 @@ import 'package:b2ei_app/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../constant.dart';
-import '../../model/Request.dart';
+
 
 class Dashboard_Sup extends StatefulWidget {
   @override
@@ -29,7 +29,7 @@ class _DashboardState extends State<Dashboard_Sup> {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
 
-    Future<void> showHistoryDialog(Request requestData) async {
+   /* Future<void> showHistoryDialog(Request requestData) async {
       return showDialog<void>(
         context: context,
         barrierDismissible: true, // user must tap button!
@@ -65,7 +65,7 @@ class _DashboardState extends State<Dashboard_Sup> {
           );
         },
       );
-    }
+    }*/
 
     return Scaffold(
       key: _scaffoldKey,
@@ -199,9 +199,9 @@ class _DashboardState extends State<Dashboard_Sup> {
                                     color: Colors.green,
                                   ),
                                   onPressed: () {
+
                                   },
                                 ),
-
                               ],
                             ),
                               // Vous pouvez personnaliser davantage l'affichage ici
