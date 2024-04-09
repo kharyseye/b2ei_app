@@ -6,6 +6,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'PDFPage.dart';
+
 class HistoryPage extends StatefulWidget {
   final String route;
   HistoryPage(this.route);
@@ -40,15 +42,13 @@ class _HistoryPageState extends State<HistoryPage> {
             ),
             actions: <Widget>[
               ElevatedButton.icon(
-                  icon: Icon(Icons.picture_as_pdf),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PDFPage('PDF'),
-                        ));
-                  },
-                  label: Text("PDF")),
+                icon: Icon(Icons.picture_as_pdf),
+                onPressed: ()  {
+
+                  // Maintenant, vous pouvez utiliser les données du PDF, par exemple, pour l'enregistrer localement ou l'envoyer par e-mail.
+                },
+                label: Text("PDF"),
+              ),
               ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop();
@@ -98,7 +98,7 @@ class _HistoryPageState extends State<HistoryPage> {
                       "REF: $reference",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        fontSize: 20,
                       ),
                     ),
                     trailing: Wrap(
