@@ -2,7 +2,6 @@ import 'package:b2ei_app/model/Users.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
-
 import '../utils.dart';
 
 class UserManagement{
