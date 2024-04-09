@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   final UserPreferences userPref = UserPreferences();
 
   String? _email;
-  late String _password;
+  String? _password;
 
   bool _isVisible = true;
   bool _isloading = false;
@@ -203,10 +203,13 @@ class _LoginPageState extends State<LoginPage> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                          onPressed: _isloading
+                          onPressed: _isloading ||
+                                  _email == null ||
+                                  _password == null
                               ? null
                               : () {
-                                  if (_email == null) return;
+                                  if (_email == null || _password == null)
+                                    return;
                                   setState(
                                     () {
                                       _isloading = true;
@@ -215,7 +218,7 @@ class _LoginPageState extends State<LoginPage> {
                                   FirebaseAuth.instance
                                       .signInWithEmailAndPassword(
                                     email: _email ?? '',
-                                    password: _password,
+                                    password: _password ?? '',
                                   )
                                       .then((data) async {
                                     final user = data.user;
