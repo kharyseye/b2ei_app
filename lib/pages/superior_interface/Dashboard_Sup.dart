@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../constant.dart';
 
-
 class Dashboard_Sup extends StatefulWidget {
   @override
   State<Dashboard_Sup> createState() => _DashboardState();
@@ -29,7 +28,7 @@ class _DashboardState extends State<Dashboard_Sup> {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
 
-   /* Future<void> showHistoryDialog(Request requestData) async {
+    /* Future<void> showHistoryDialog(Request requestData) async {
       return showDialog<void>(
         context: context,
         barrierDismissible: true, // user must tap button!
@@ -70,82 +69,63 @@ class _DashboardState extends State<Dashboard_Sup> {
     return Scaffold(
       key: _scaffoldKey,
       drawer: DrawerPage(),
-      body: Container(
-        color: PrimaryColor,
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(),
-              height: height * 0.25,
-              width: width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: 45,
-                      left: 20,
-                      right: 20,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          icon: Icon(
-                            Icons.menu,
-                            color: Colors.white,
-                            size: 40,
-                          ),
-                          onPressed: () =>
-                              _scaffoldKey.currentState?.openDrawer(),
-                        ),
-                        InkWell(
-                          onTap: () {},
-                          child: Icon(
-                            Icons.notifications_none,
-                            color: Colors.white,
-                            size: 40,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: 20,
-                      left: 20,
-                      right: 20,
-                    ),
-                    child: StreamBuilder(
-                        stream: userService.getUserInfo(),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return showLoading();
-                          }
-                          if (snapshot.hasError)
-                            return Center(
-                              child: Text('${snapshot.error.toString()}'),
-                            );
-                          final user = snapshot.data;
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${saluer(capitalize(user?.username ?? ''))}',
-                                style: TextStyle(
-                                    fontSize: 30,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          );
-                        }),
-                  ),
-                ],
-              ),
+      backgroundColor: PrimaryColor,
+      appBar: AppBar(
+        backgroundColor: PrimaryColor,
+        leading: IconButton(
+          icon: Icon(
+            Icons.menu,
+            color: Colors.white,
+            size: 35,
+          ),
+          onPressed: () => _scaffoldKey.currentState?.openDrawer(),
+        ),
+        actions: [
+          InkWell(
+            onTap: () {},
+            child: Icon(
+              Icons.notifications_none,
+              color: Colors.white,
+              size: 40,
             ),
-            Container(
+          ),
+        ],
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: EdgeInsets.only(left: 8.0),
+            margin: EdgeInsets.only(bottom: 16.0),
+            child: StreamBuilder(
+                stream: userService.getUserInfo(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return showLoading();
+                  }
+                  if (snapshot.hasError)
+                    return Center(
+                      child: Text('${snapshot.error.toString()}'),
+                    );
+                  final user = snapshot.data;
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${saluer(capitalize(user?.username ?? ''))}',
+                        style: TextStyle(
+                            fontSize: 30,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ],
+                  );
+                }),
+          ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 4.0),
+              margin: EdgeInsets.symmetric(horizontal: 4.0),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -153,69 +133,64 @@ class _DashboardState extends State<Dashboard_Sup> {
                   topRight: Radius.circular(50),
                 ),
               ),
-              height: height * 0.75,
-              width: width,
-              child: StreamBuilder(
-                stream: FirebaseFirestore.instance.collection('demande').snapshots(),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  if (snapshot.hasError) {
-                    return Center(
-                      child: Text('Une erreur s\'est produite'),
-                    );
-                  }
-
-                  final demands = snapshot.data!.docs;
-
-                  return ListView.builder(
-                    itemCount: demands.length,
-                    itemBuilder: (context, index) {
-                      final demand = demands[index];
-                      final clientId = demand['id_user'];
-                      final clientType = demand['client'];
-                      final affaire = demand['affaire'];
-                      final reference = demand['reference'];
-                      final designation = demand['designation'];
-                      final quantite = demand['quantite'];
-                      final date = (demand['date'] as Timestamp).toDate();
-
-                      // Affichez les informations de la demande dans un widget ListTile ou Card
-                      return SingleChildScrollView(
-                        child: Card(
-                            child : ListTile(
-                              title: Text('Affaire: $affaire'),
-                              subtitle: Text('Client: $clientId\nDate: $date'),
-                             // trailing: Text('Quantité: $quantite'),
-                              trailing: Wrap(
-                              spacing: -16,
-                              children: [
-                                IconButton(
-                                  icon:  Icon(
-                                    Icons.info,
-                                    color: Colors.green,
-                                  ),
-                                  onPressed: () {
-
-                                  },
-                                ),
-                              ],
-                            ),
-                              // Vous pouvez personnaliser davantage l'affichage ici
-                            ),
-                        ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(50.0),
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('demande')
+                      .snapshots(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(),
                       );
-                    },
-                  );
-                },
-              )
+                    }
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text('Une erreur s\'est produite'),
+                      );
+                    }
 
+                    final demands = snapshot.data!.docs;
+
+                    return SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 20,
+                          ),
+                          for (var demand in demands)
+                            Card(
+                              child: ListTile(
+                                title: Text('Affaire: ${demand['affaire']}'),
+                                subtitle: Text(
+                                    'Client: ${demand['id_user']}\nDate: ${(demand['date'] as Timestamp).toDate()}'),
+                                trailing: Wrap(
+                                  spacing: -16,
+                                  children: [
+                                    IconButton(
+                                      icon: Icon(
+                                        Icons.info,
+                                        color: Colors.green,
+                                      ),
+                                      onPressed: () {},
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          SizedBox(
+                            height: 50,
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

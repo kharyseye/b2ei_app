@@ -203,83 +203,142 @@ class _LoginPageState extends State<LoginPage> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                          onPressed: () {
-                            if (_email == null) return;
-                            setState(
-                              () {
-                                _isloading = true;
-                              },
-                            );
-                            FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
-                              email: _email ?? '',
-                              password: _password,
-                            )
-                                .then((data) async {
-                              final user = data.user;
-                              if (user != null) {
-                                final uid = user.uid;
-                                // Récupérer le document employé
-                                try {
-                                  final employeRef = FirebaseFirestore.instance
-                                      .collection('users')
-                                      .where('uid', isEqualTo: uid);
+                          onPressed: _isloading
+                              ? null
+                              : () {
+                                  if (_email == null) return;
+                                  setState(
+                                    () {
+                                      _isloading = true;
+                                    },
+                                  );
+                                  FirebaseAuth.instance
+                                      .signInWithEmailAndPassword(
+                                    email: _email ?? '',
+                                    password: _password,
+                                  )
+                                      .then((data) async {
+                                    final user = data.user;
+                                    if (user != null) {
+                                      final uid = user.uid;
+                                      // Récupérer le document employé
+                                      try {
+                                        final employeRef = FirebaseFirestore
+                                            .instance
+                                            .collection('users')
+                                            .where('uid', isEqualTo: uid);
+                                        final employeQuerySnapshot =
+                                            await employeRef.get();
 
-                                  final employeDoc = await employeRef.get();
-                                  print(employeDoc.docs.single.data());
-                                  // Stocker les données localement
-                                  final employeData =
-                                      employeDoc.docs.single.data();
-                                  // Assurez-vous que vous utilisez le type correct ici
-                                  final isSuperviseur =
-                                      employeData['supervisor'];
+                                        if (employeQuerySnapshot
+                                            .docs.isNotEmpty) {
+                                          final employeDoc =
+                                              employeQuerySnapshot.docs.single;
+                                          print(employeDoc.data());
 
-                                  //share preferences
+                                          final employeData = employeDoc.data();
+                                          final isSuperviseur = employeData[
+                                                  'supervisor'] ??
+                                              false; // Default to false if 'supervisor' field is null
 
-                                  await userPref.saveUserId('$uid');
-                                  await userPref.saveSupervisor(isSuperviseur);
+                                          // Share preferences
+                                          await userPref.saveUserId('$uid');
+                                          await userPref
+                                              .saveSupervisor(isSuperviseur);
 
-                                  // Adapter la requête en fonction
-                                  if (isSuperviseur != null && isSuperviseur) {
-                                    Navigator.of(context)
-                                        .pushReplacementNamed('/Dashboard_Sup');
-                                    // Récupérer toutes les demandes
-                                  } else {
-                                    Navigator.of(context)
-                                        .pushReplacementNamed('/Dashboard');
-                                  }
-                                } catch (e) {
-                                  print(
-                                      "Une erreur s'est produite lors de la récupération des données : $e");
-                                }
-                                ;
-                              }
-                            }).catchError((e) {
-                              showToast(
-                                context,
-                                backgroundColor: Colors.pink,
-                                title: Text('Erreur 😭',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                    )),
-                                description:
-                                    Text('Oups une erreur est survenue !',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                        )),
-                                alignment: Alignment.bottomCenter,
-                                type: ToastificationType.error,
-                                style: ToastificationStyle.flat,
-                              );
-                              setState(
-                                () {
-                                  _isloading = false;
+                                          // Navigate user
+                                          if (isSuperviseur) {
+                                            Navigator.of(context)
+                                                .pushReplacementNamed(
+                                                    '/Dashboard_Sup');
+                                          } else {
+                                            Navigator.of(context)
+                                                .pushReplacementNamed(
+                                                    '/Dashboard');
+                                          }
+                                        } else {
+                                          debugPrint(
+                                              "No document found for UID: $uid");
+                                          setState(
+                                            () {
+                                              _isloading = false;
+                                            },
+                                          );
+                                          // Handle case where no document is found for the UID
+                                          showToast(
+                                            context,
+                                            backgroundColor: Colors.pink,
+                                            title: Text('Erreur 😭',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 18,
+                                                )),
+                                            description:
+                                                Text("Utilisateurs introuvable",
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 15,
+                                                    )),
+                                            alignment: Alignment.bottomCenter,
+                                            type: ToastificationType.error,
+                                            style: ToastificationStyle.flat,
+                                          );
+                                        }
+                                      } catch (e) {
+                                        setState(
+                                          () {
+                                            _isloading = false;
+                                          },
+                                        );
+                                        // print(
+                                        //     "Une erreur s'est produite lors de la récupération des données : $e");
+                                        showToast(
+                                          context,
+                                          backgroundColor: Colors.pink,
+                                          title: Text('Erreur 😭',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18,
+                                              )),
+                                          description: Text(
+                                              "Une erreur s'est produite lors de la récupération des données : $e",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15,
+                                              )),
+                                          alignment: Alignment.bottomCenter,
+                                          type: ToastificationType.error,
+                                          style: ToastificationStyle.flat,
+                                        );
+                                      }
+                                      ;
+                                    }
+                                  }).catchError((e) {
+                                    showToast(
+                                      context,
+                                      backgroundColor: Colors.pink,
+                                      title: Text('Erreur 😭',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                          )),
+                                      description:
+                                          Text('Oups une erreur est survenue !',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15,
+                                              )),
+                                      alignment: Alignment.bottomCenter,
+                                      type: ToastificationType.error,
+                                      style: ToastificationStyle.flat,
+                                    );
+                                    setState(
+                                      () {
+                                        _isloading = false;
+                                      },
+                                    );
+                                  });
                                 },
-                              );
-                            });
-                          },
                         ),
                       )),
                   SizedBox(
