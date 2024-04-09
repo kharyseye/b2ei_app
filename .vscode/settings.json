@@ -1,0 +1,6 @@
+{
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "dart.hotReloadPatterns": [
+    "**/assets/**", // Everything in assets
+]
+}
