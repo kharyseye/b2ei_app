@@ -35,7 +35,8 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.green[200],
+        foregroundColor: Colors.white,
+        backgroundColor: PrimaryColor,
         title: Text('Ajouter un Utilisateur'),
       ),
       body: SingleChildScrollView(
@@ -44,14 +45,14 @@ class _RegisterPageState extends State<RegisterPage> {
             Stack(
               children: [
                 Container(
-                  /*width: w,
+                    /*width: w,
                   height: h * 0.2,
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage("assets/images/ban3.jpg"),
                           fit: BoxFit.cover)
                   ),*/
-                ),
+                    ),
                 DelayedAnimation(
                     delay: 500,
                     child: Container(
@@ -207,7 +208,6 @@ class _RegisterPageState extends State<RegisterPage> {
                           )
                         ]),
                   ),
-
                   Container(
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -338,7 +338,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     fontSize: 18,
                                   )),
                               description:
-                                  Text('Oups une erreur est survenue !',
+                                  Text('Oups une erreur est survenue ! $e',
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
