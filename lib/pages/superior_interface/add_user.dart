@@ -1,9 +1,6 @@
 import 'package:b2ei_app/constant.dart';
 import 'package:b2ei_app/pages/authentication/RegisterPage.dart';
-import 'package:b2ei_app/services/user_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -113,11 +110,6 @@ class _Request_empState extends State<AddUserPage> {
                                         ),
                                         TextButton(
                                           onPressed: () async {
-                                            await FirebaseFirestore.instance
-                                                .collection('auth')
-                                                .doc(id_user)
-                                                .delete();
-
                                             await FirebaseFirestore.instance
                                                 .collection("users")
                                                 .doc(id_user)
