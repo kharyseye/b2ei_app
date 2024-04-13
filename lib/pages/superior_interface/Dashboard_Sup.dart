@@ -3,7 +3,10 @@ import 'package:b2ei_app/services/user_service.dart';
 import 'package:b2ei_app/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../constant.dart';
+import '../../model/Request.dart';
+import '../../services/status_service.dart';
 
 class Dashboard_Sup extends StatefulWidget {
   @override
@@ -22,20 +25,20 @@ class _DashboardState extends State<Dashboard_Sup> {
 
   var height, width;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final RequestService requestService = RequestService();
 
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
 
-    /* Future<void> showHistoryDialog(Request requestData) async {
+    Future _showRequestDialog(Request requestData) async {
       return showDialog<void>(
         context: context,
         barrierDismissible: true, // user must tap button!
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text(' Service : ${requestData.client}'),
-            backgroundColor: Colors.green[100],
+            title: Text('Service : ${requestData.client}'),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
@@ -44,18 +47,22 @@ class _DashboardState extends State<Dashboard_Sup> {
                   Text('Reference : ${requestData.reference}'),
                   Text('Designation : ${requestData.designation}'),
                   Text('Quantite : ${requestData.quantite}'),
+                  //Text('statut : ${requestData.statut}'),
                 ],
               ),
             ),
             actions: <Widget>[
               ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text("Valider")
+                onPressed: ()  {
+                  requestService.acceptRequest('fdBMn9PzZjNw3O4IwCng');
+                  Navigator.of(context).pop();
+                },
+                child: Text("Valider"),
+
               ),
               ElevatedButton(
                   onPressed: () {
+                    requestService.rejectRequest('fdBMn9PzZjNw3O4IwCng');
                     Navigator.of(context).pop();
                   },
                   child: Text("Refuser")
@@ -64,7 +71,7 @@ class _DashboardState extends State<Dashboard_Sup> {
           );
         },
       );
-    }*/
+    }
 
     return Scaffold(
       key: _scaffoldKey,
@@ -136,62 +143,99 @@ class _DashboardState extends State<Dashboard_Sup> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(50.0),
                 child: StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection('demande')
-                      .snapshots(),
-                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    if (snapshot.hasError) {
-                      return Center(
-                        child: Text('Une erreur s\'est produite'),
-                      );
-                    }
+                    stream: FirebaseFirestore.instance
+                        .collection('demande')
+                        .snapshots(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      if (snapshot.hasError) {
+                        return Center(
+                          child: Text('Une erreur s\'est produite'),
+                        );
+                      }
+                      return StreamBuilder(
+                        stream: FirebaseFirestore.instance.collection("demande").snapshots(),
+                        builder:(BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return CircularProgressIndicator();
+                          }
+                          if (!snapshot.hasData) {
+                            return Text("Aucune demande");
+                          }
+                          List<Request> demandes = [];
+                          snapshot.data!.docs.forEach((data) {
+                            demandes.add(Request.fromData(data));
+                          });
+                          return ListView.builder(
+                              itemCount: demandes.length,
+                              itemBuilder: (context, index) {
+                                final demande = demandes[index];
+                                final client = demande.client;
+                                final Timestamp timestamp = demande.timestamp;
+                                final String date = DateFormat.yMMMMd('en_US')
+                                    .add_jm()
+                                    .format(timestamp.toDate());
+                                final affaire = demande.affaire;
+                                final reference = demande.reference;
+                                final designation = demande.designation;
+                                final quantite = demande.quantite;
+                                final statut = demande.statut;
 
-                    final demands = snapshot.data!.docs;
-
-                    return SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 20,
-                          ),
-                          for (var demand in demands)
-                            Card(
-                              child: ListTile(
-                                title: Text('Affaire: ${demand['affaire']}'),
-                                subtitle: Text(
-                                    'Client: ${demand['id_user']}\nDate: ${(demand['date'] as Timestamp).toDate()}'),
-                                trailing: Wrap(
-                                  spacing: -16,
-                                  children: [
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.info,
-                                        color: Colors.green,
+                                return SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 20,
                                       ),
-                                      onPressed: () {},
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          SizedBox(
-                            height: 50,
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ),
+                                      for (var demand in demandes)
+                                        Card(
+                                          child: ListTile(
+                                            title: Text(
+                                                'Affaire: ${demand.affaire}'),
+                                            subtitle: Text(
+                                                'Client: ${demand
+                                                    .client}\nDate: ${(demand
+                                                    .timestamp).toDate()}'),
+                                            trailing: Wrap(
+                                              spacing: -16,
+                                              children: [
+                                                IconButton(
+                                                  icon: Icon(
+                                                    Icons.info,
+                                                    color: Colors.green,
+                                                  ),
+                                                  onPressed: () {
+                                                    _showRequestDialog(demand);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      SizedBox(
+                                        height: 50,
+                                      )
+                                    ],
+                                  ),
+                                );
+                              }
+                          );
+
+                        },
+              );
+            }
             ),
-          ),
+          )
+            )
+            )
         ],
       ),
     );
+
   }
 }

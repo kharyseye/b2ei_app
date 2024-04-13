@@ -19,6 +19,48 @@ class HistoryPage extends StatefulWidget {
 class _HistoryPageState extends State<HistoryPage> {
   final UserDemande userdemande = UserDemande();
 
+  //Cette formule me permet de formater l'affichage du statut
+  String formatStatut(Statut statut) {
+    switch (statut) {
+      case Statut.enAttente:
+        return 'En Attente';
+      case Statut.valide:
+        return 'Validé';
+      case Statut.refuse:
+        return 'Refusé';
+      default:
+        return '';
+    }
+  }
+
+  // Fonction pour obtenir la couleur du texte correspondant au statut
+  Color getStatusColor(Statut statut) {
+    switch (statut) {
+      case Statut.enAttente:
+        return Colors.orange;
+      case Statut.valide:
+        return Colors.green;
+      case Statut.refuse:
+        return Colors.red;
+      default:
+        return Colors.black; // Couleur par défaut si le statut n'est pas reconnu
+    }
+  }
+
+  // Fonction pour obtenir l'icône correspondante au statut
+  IconData getIconData(Statut statut) {
+    switch (statut) {
+      case Statut.enAttente:
+        return Icons.hourglass_empty;
+      case Statut.valide:
+        return Icons.check_circle;
+      case Statut.refuse:
+        return Icons.cancel;
+      default:
+        return Icons.error; // Icône par défaut si le statut n'est pas reconnu
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Future<void> showHistoryDialog(Request requestData) async {
@@ -43,17 +85,15 @@ class _HistoryPageState extends State<HistoryPage> {
             actions: <Widget>[
               ElevatedButton.icon(
                 icon: Icon(Icons.picture_as_pdf),
-                onPressed: ()  {
-
-                  // Maintenant, vous pouvez utiliser les données du PDF, par exemple, pour l'enregistrer localement ou l'envoyer par e-mail.
-                },
+                onPressed: ()  {},
                 label: Text("PDF"),
               ),
               ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text("Fermer")),
+                  child: Text("Fermer")
+              ),
             ],
           );
         },
@@ -91,10 +131,22 @@ class _HistoryPageState extends State<HistoryPage> {
                 final reference = demande.reference;
                 final designation = demande.designation;
                 final quantite = demande.quantite;
+                final statut = demande.statut;
+
 
                 return Card(
                   child: ListTile(
-                    title: Text(
+                    leading: Icon(
+                      getIconData(statut),
+                      color: getStatusColor(statut),
+                    ),
+                    title: Text("${formatStatut(statut)}"
+                      ,
+                      style: TextStyle(
+                        color: getStatusColor(statut),
+                      ),
+                    ),
+                    subtitle: Text(
                       "REF: $reference",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -113,13 +165,7 @@ class _HistoryPageState extends State<HistoryPage> {
                             showHistoryDialog(demande);
                           },
                         ),
-                        /* IconButton(
-                            icon: const Icon(Icons.edit,
-                              color: Colors.yellow,
-                            ),
-                            onPressed: () {
-                            },
-                          ),*/
+
                         IconButton(
                           icon: const Icon(
                             Icons.delete,
@@ -140,7 +186,8 @@ class _HistoryPageState extends State<HistoryPage> {
             );
           }
         },
-      )),
+      )
+      ),
     );
   }
 }

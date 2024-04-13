@@ -191,7 +191,8 @@ class _FormPageState extends State<FormPage> {
                             'designation': designation,
                             'quantite': quantite,
                             'id_user': userId,
-                            'destinataire': adminId, // Spécifier l'administrateur comme destinataire
+                            'destinataire': adminId,
+                            'statut': 'en Attente' ,
                           });
 
                           ScaffoldMessenger.of(context).showSnackBar(
