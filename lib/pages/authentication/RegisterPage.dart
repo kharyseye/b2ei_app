@@ -25,7 +25,6 @@ class _RegisterPageState extends State<RegisterPage> {
   String? _supervisor = 'Employer';
   late String _confirmPassword;
   late String _type;
-  bool isActive = true;
 
   bool _isLoading = false;
   @override
@@ -325,7 +324,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                   username: _username,
                                   department: _department,
                                   supervisor: _supervisor != 'Employer',
-
                                 ));
                             // Envoi de l'e-mail avec les identifiants
                             sendCredentialsEmail(_email, _username, _password);

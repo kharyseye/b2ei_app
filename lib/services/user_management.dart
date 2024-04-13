@@ -4,35 +4,39 @@ import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
 import '../utils.dart';
 
-class UserManagement{
-  storeNewUser(BuildContext context,{required Users user}){
+class UserManagement {
+  storeNewUser(BuildContext context, {required Users user}) {
     FirebaseFirestore.instance.collection('users').add({
-      'email':user.email,
-      'uid':user.uid,
-      'username' : user.username,
-      'department' : user.department,
-      'supervisor' : user.supervisor
+      'email': user.email,
+      'uid': user.uid,
+      'username': user.username,
+      'department': user.department,
+      'supervisor': user.supervisor,
+      'isActive': true
     }).then((value) async {
       showToast(
         context,
         foregroundColor: Colors.black,
         backgroundColor: Colors.white,
-        title: Text('Succés 🎉',
+        title: Text(
+          'Succés 🎉',
           style: TextStyle(
             fontSize: 18,
-          ),),
+          ),
+        ),
         alignment: Alignment.topCenter,
         duration: Duration(seconds: 3),
         description: Text('Employé ajouté avec succés',
             style: TextStyle(
-              fontSize: 15,)
-        ),
+              fontSize: 15,
+            )),
         type: ToastificationType.success,
         style: ToastificationStyle.flat,
       );
       await Future.delayed(Duration(seconds: 3));
-      Navigator.of(context).pushReplacementNamed('/AddUserPage');
-    }).catchError((e){
+      //Navigator.of(context).pushReplacementNamed('/AddUserPage');
+      Navigator.of(context).pop();
+    }).catchError((e) {
       print(e);
     });
   }

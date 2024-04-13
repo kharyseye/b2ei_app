@@ -245,11 +245,34 @@ class _LoginPageState extends State<LoginPage> {
                                           final isSuperviseur = employeData[
                                                   'supervisor'] ??
                                               false; // Default to false if 'supervisor' field is null
+                                          final isActive =
+                                              employeData['active'] ?? true;
 
                                           // Share preferences
                                           await userPref.saveUserId('$uid');
                                           await userPref
                                               .saveSupervisor(isSuperviseur);
+
+                                          if (!isActive) {
+                                            return showToast(
+                                              context,
+                                              backgroundColor: Colors.pink,
+                                              title: Text('Compte inactif 😭',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 18,
+                                                  )),
+                                              description: Text(
+                                                  "votre compte est inactif, veuillez contacter le support !",
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 15,
+                                                  )),
+                                              alignment: Alignment.bottomCenter,
+                                              type: ToastificationType.error,
+                                              style: ToastificationStyle.flat,
+                                            );
+                                          }
 
                                           // Navigate user
                                           if (isSuperviseur) {
