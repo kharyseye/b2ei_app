@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:toastification/toastification.dart';
 import '../../constant.dart';
@@ -20,14 +21,17 @@ class _LoginPageState extends State<LoginPage> {
   final UserPreferences userPref = UserPreferences();
 
   String? _email;
-  late String _password;
+  String? _password;
 
   bool _isVisible = true;
   bool _isloading = false;
+
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
+    final disabled =
+        _email == null || _email == '' || _password == null || _password == '';
 
     return Scaffold(
       /*
@@ -82,40 +86,41 @@ class _LoginPageState extends State<LoginPage> {
                     height: 50,
                   ),
                   Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 10,
-                            spreadRadius: 7,
-                            offset: Offset(1, 1),
-                            color: Colors.grey.withOpacity(0.2),
-                          )
-                        ]),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        labelText: "Nom d'utilisateur",
-                        hintStyle: TextStyle(color: Colors.grey),
-                        prefixIcon: Icon(Icons.person),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide:
-                                BorderSide(color: Colors.white, width: 1.0)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide:
-                                BorderSide(color: Colors.white, width: 1.0)),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30)),
-                      ),
-                      onChanged: (value) {
-                        setState(() {
-                          _email = value;
-                        });
-                      },
-                    ),
-                  ),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30),
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 10,
+                              spreadRadius: 7,
+                              offset: Offset(1, 1),
+                              color: Colors.grey.withOpacity(0.2),
+                            )
+                          ]),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          labelText: "Adresse email",
+                          hintText: "Entrez votre adresse email",
+                          hintStyle: TextStyle(color: Colors.grey),
+                          prefixIcon: Icon(Icons.email),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 1.0)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 1.0)),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30)),
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                        onChanged: (value) {
+                          setState(() {
+                            _email = value;
+                          });
+                        },
+                      )),
                   SizedBox(
                     height: 20,
                   ),
@@ -203,10 +208,10 @@ class _LoginPageState extends State<LoginPage> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                          onPressed: _isloading
+                          onPressed: _isloading || disabled
                               ? null
                               : () {
-                                  if (_email == null) return;
+                                  if (disabled) return;
                                   setState(
                                     () {
                                       _isloading = true;
@@ -215,7 +220,7 @@ class _LoginPageState extends State<LoginPage> {
                                   FirebaseAuth.instance
                                       .signInWithEmailAndPassword(
                                     email: _email ?? '',
-                                    password: _password,
+                                    password: _password ?? '',
                                   )
                                       .then((data) async {
                                     final user = data.user;
@@ -240,11 +245,34 @@ class _LoginPageState extends State<LoginPage> {
                                           final isSuperviseur = employeData[
                                                   'supervisor'] ??
                                               false; // Default to false if 'supervisor' field is null
+                                          final isActive =
+                                              employeData['active'] ?? true;
 
                                           // Share preferences
                                           await userPref.saveUserId('$uid');
                                           await userPref
                                               .saveSupervisor(isSuperviseur);
+
+                                          if (!isActive) {
+                                            return showToast(
+                                              context,
+                                              backgroundColor: Colors.pink,
+                                              title: Text('Compte inactif 😭',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 18,
+                                                  )),
+                                              description: Text(
+                                                  "votre compte est inactif, veuillez contacter le support !",
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 15,
+                                                  )),
+                                              alignment: Alignment.bottomCenter,
+                                              type: ToastificationType.error,
+                                              style: ToastificationStyle.flat,
+                                            );
+                                          }
 
                                           // Navigate user
                                           if (isSuperviseur) {

@@ -79,7 +79,7 @@ class Request {
 
   factory Request.fromData(dynamic data) {
     // Récupération de la chaîne de caractères du statut
-    final statutString = data['statut'];
+    final statutString = data['statut'] ?? 'enAttente';
 
     // Conversion de la chaîne de caractères en enum Statut
     Statut statut;

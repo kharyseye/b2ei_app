@@ -40,22 +40,19 @@ class MyApp extends ConsumerWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Authentification',
-      theme:
-      ThemeData(
+      theme: ThemeData(
           //primaryColor: PrimaryColor,
           brightness: Brightness.light,
           scaffoldBackgroundColor: Colors.white,
           useMaterial3: true,
           colorSchemeSeed: Colors.green),
-
-        routes: {
-          "home": (context) => HomePage(),
-          "/Dashboard": (context) => Dashboard(),
-          "/Dashboard_Sup": (context) => Dashboard_Sup(),
-          "/login": (context) => LoginPage(),
-          '/WelcomePage': (context) => WelcomePage(authState: authState),
-          '/AddUserPage': (context) => AddUserPage(),
-
+      routes: {
+        "home": (context) => HomePage(),
+        "/Dashboard": (context) => Dashboard(),
+        "/Dashboard_Sup": (context) => Dashboard_Sup(),
+        "/login": (context) => LoginPage(),
+        '/WelcomePage': (context) => WelcomePage(authState: authState),
+        '/AddUserPage': (context) => AddUserPage(),
       },
       home: WelcomePage(authState: authState),
     );

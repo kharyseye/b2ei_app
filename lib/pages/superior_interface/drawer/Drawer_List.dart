@@ -1,6 +1,4 @@
-import 'package:b2ei_app/pages/authentication/RegisterPage.dart';
 import 'package:b2ei_app/pages/employee_interface/settings/screens/account_screen.dart';
-import 'package:b2ei_app/pages/superior_interface/Dashboard_Sup.dart';
 import 'package:b2ei_app/pages/superior_interface/add_user.dart';
 import 'package:b2ei_app/pages/superior_interface/request_emp.dart';
 import 'package:b2ei_app/pages/superior_interface/test.dart';
@@ -25,54 +23,38 @@ class _MyDrawerListState extends State<MyDrawerList> {
       padding: EdgeInsets.only(
         top: 15,
       ),
-
       child: Column(
         children: [
           SizedBox(
             height: 20,
           ),
-          menuItem(
-              1, "H O M E", Icons.home_outlined,
-              currentPage == DrawerSections.dashboard ? true : false
-          ),
+          menuItem(1, "H O M E", Icons.home_outlined,
+              currentPage == DrawerSections.dashboard ? true : false),
           SizedBox(
             height: 20,
           ),
-          menuItem(
-              2,
-              "U T I L I S A T E U R S",
-              Icons.list_alt_outlined,
-              currentPage == DrawerSections.addUser ? true : false
-          ),
+          menuItem(2, "U T I L I S A T E U R S", Icons.list_alt_outlined,
+              currentPage == DrawerSections.addUser ? true : false),
           SizedBox(
             height: 20,
           ),
-          menuItem(
-              3, "D E M A N D E S", Icons.history_outlined,
-              currentPage == DrawerSections.request ? true : false
-          ),
+          menuItem(3, "D E M A N D E S", Icons.history_outlined,
+              currentPage == DrawerSections.request ? true : false),
           SizedBox(
             height: 20,
           ),
-
-          menuItem(
-              4, "P A R A M E T R E S", Icons.settings_outlined,
-              currentPage == DrawerSections.setting ? true : false
-          ),
+          menuItem(4, "P A R A M E T R E S", Icons.settings_outlined,
+              currentPage == DrawerSections.setting ? true : false),
           SizedBox(
             height: 200,
           ),
-
-          menuItem(
-              5, "D E C O N N E X I O N", Icons.logout,
-              currentPage == DrawerSections.exit ? true : false
-          ),
-
+          menuItem(5, "D E C O N N E X I O N", Icons.logout,
+              currentPage == DrawerSections.exit ? true : false),
         ],
-
       ),
     );
   }
+
   Widget menuItem(int id, String title, IconData icon, bool selected) {
     return Material(
       color: selected ? Colors.grey[300] : Colors.transparent,
@@ -104,8 +86,7 @@ class _MyDrawerListState extends State<MyDrawerList> {
                   builder: (context) => AccountScreen('Parametre'),
                 ),
               );
-
-            }else if (id == 5) {
+            } else if (id == 5) {
               FirebaseAuth.instance.signOut().then((value) {
                 UserPreferences().logout(context);
               }).catchError((e) {
@@ -139,7 +120,5 @@ class _MyDrawerListState extends State<MyDrawerList> {
     );
   }
 }
-
-
 
 enum DrawerSections { dashboard, addUser, notification, request, setting, exit }

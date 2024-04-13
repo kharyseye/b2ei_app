@@ -79,10 +79,10 @@ class _DashboardState extends State<Dashboard_Sup> {
       backgroundColor: PrimaryColor,
       appBar: AppBar(
         backgroundColor: PrimaryColor,
+        foregroundColor: Colors.white,
         leading: IconButton(
           icon: Icon(
             Icons.menu,
-            color: Colors.white,
             size: 35,
           ),
           onPressed: () => _scaffoldKey.currentState?.openDrawer(),
