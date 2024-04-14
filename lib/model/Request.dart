@@ -94,7 +94,7 @@ class Request {
     Statut statut;
     if (statutString == 'Validé') {
       statut = Statut.valide;
-    } else if (statutString == 'refuse') {
+    } else if (statutString == 'Refusé') {
       statut = Statut.refuse;
     } else {
       statut = Statut.enAttente;

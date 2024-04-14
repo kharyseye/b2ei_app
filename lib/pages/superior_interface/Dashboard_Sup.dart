@@ -143,7 +143,8 @@ class _DashboardState extends State<Dashboard_Sup> {
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(50.0),
                       child: StreamBuilder(
-                        stream: userDemande.getDemandesStream(context),
+                        stream: userDemande.getDemandesStream(context,
+                            enattente: true),
                         builder: (BuildContext context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
@@ -161,7 +162,6 @@ class _DashboardState extends State<Dashboard_Sup> {
                               itemBuilder: (context, index) {
                                 final demande = demandes[index];
                                 final id = demande.id;
-                                print('ff ${demande.id}');
                                 return SingleChildScrollView(
                                   child: Card(
                                     child: ListTile(

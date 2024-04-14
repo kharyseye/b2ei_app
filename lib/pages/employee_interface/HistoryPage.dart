@@ -15,49 +15,6 @@ class HistoryPage extends StatefulWidget {
 class _HistoryPageState extends State<HistoryPage> {
   final UserDemande userdemande = UserDemande();
 
-  //Cette formule me permet de formater l'affichage du statut
-  String formatStatut(Statut statut) {
-    switch (statut) {
-      case Statut.enAttente:
-        return 'En Attente';
-      case Statut.valide:
-        return 'Validé';
-      case Statut.refuse:
-        return 'Refusé';
-      default:
-        return '';
-    }
-  }
-
-  // Fonction pour obtenir la couleur du texte correspondant au statut
-  Color getStatusColor(Statut statut) {
-    switch (statut) {
-      case Statut.enAttente:
-        return Colors.orange;
-      case Statut.valide:
-        return Colors.green;
-      case Statut.refuse:
-        return Colors.red;
-      default:
-        return Colors
-            .black; // Couleur par défaut si le statut n'est pas reconnu
-    }
-  }
-
-  // Fonction pour obtenir l'icône correspondante au statut
-  IconData getIconData(Statut statut) {
-    switch (statut) {
-      case Statut.enAttente:
-        return Icons.hourglass_empty;
-      case Statut.valide:
-        return Icons.check_circle;
-      case Statut.refuse:
-        return Icons.cancel;
-      default:
-        return Icons.error; // Icône par défaut si le statut n'est pas reconnu
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     Future<void> showHistoryDialog(Request requestData) async {

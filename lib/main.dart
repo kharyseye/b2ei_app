@@ -5,8 +5,7 @@ import 'package:b2ei_app/pages/superior_interface/Dashboard_Sup.dart';
 import 'package:b2ei_app/pages/superior_interface/add_user.dart';
 import 'package:b2ei_app/pages/welcome/WelcomePage.dart';
 import 'package:b2ei_app/services/auth.dart';
-import 'package:b2ei_app/theme/dark_theme.dart';
-import 'package:b2ei_app/theme/light_theme.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

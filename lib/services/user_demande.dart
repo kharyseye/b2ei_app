@@ -19,13 +19,16 @@ class UserDemande {
     }
   }
 
-  Stream<List<Request>> getDemandesStream(BuildContext context) async* {
-    final List<Request> initialDemandes = await getDemandesEnAttente(context);
+  Stream<List<Request>> getDemandesStream(BuildContext context,
+      {required bool enattente}) async* {
+    final List<Request> initialDemandes =
+        await getDemandesEnAttente(context, enattente: enattente);
     yield initialDemandes;
 
     yield* Stream.periodic(const Duration(seconds: 3), (count) async {
       try {
-        final List<Request> demandes = await getDemandesEnAttente(context);
+        final List<Request> demandes =
+            await getDemandesEnAttente(context, enattente: enattente);
         return demandes;
       } catch (e) {
         return <Request>[];
@@ -33,11 +36,17 @@ class UserDemande {
     }).asyncMap<List<Request>>((event) => Future.value(event));
   }
 
-  Future<List<Request>> getDemandesEnAttente(BuildContext context) async {
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('demande')
-        .where('statut', isEqualTo: 'en Attente')
-        .get();
+  Future<List<Request>> getDemandesEnAttente(BuildContext context,
+      {required bool enattente}) async {
+    QuerySnapshot querySnapshot = enattente
+        ? await FirebaseFirestore.instance
+            .collection('demande')
+            .where('statut', isEqualTo: 'en Attente')
+            .get()
+        : await FirebaseFirestore.instance
+            .collection('demande')
+            .where('statut', isNotEqualTo: 'en Attente')
+            .get();
 
     List<Request> demandes = [];
 

@@ -1,7 +1,8 @@
 //NE DOIT CONTENIR QUE LES DEMANDES ACCEPTER
 
 import 'package:b2ei_app/model/Request.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:b2ei_app/services/user_demande.dart';
+import 'package:b2ei_app/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -11,6 +12,7 @@ class Request_emp extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<Request_emp> {
+  final UserDemande userDemande = UserDemande();
   @override
   Widget build(BuildContext context) {
     Future<void> showHistoryDialog(Request requestData) async {
@@ -51,35 +53,47 @@ class _HistoryPageState extends State<Request_emp> {
       ),
       body: Center(
           child: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection("demande").snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        stream: userDemande.getDemandesStream(context, enattente: false),
+        builder: (BuildContext context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return CircularProgressIndicator();
           }
           if (!snapshot.hasData) {
             return Text("Aucune demande");
           }
-          List<Request> demandes = [];
-          snapshot.data!.docs.forEach((data) {
-            demandes.add(Request.fromData(data));
-          });
+          List<Request> demandes = snapshot.data!;
           return ListView.builder(
             itemCount: demandes.length,
             itemBuilder: (context, index) {
               final demande = demandes[index];
-
-              final reference = demande.reference;
-
+              final statut = demande.statut;
+              final username = demande.name;
               return Card(
                 child: ListTile(
-                  //leading: Image.asset("assets/images/history.jpg"),
+                  leading: Icon(
+                    getIconData(statut),
+                    color: getStatusColor(statut),
+                  ),
                   title: Text(
-                    "Utilisateur: $reference",
+                    "${formatStatut(statut)}",
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
+                      color: getStatusColor(statut),
                     ),
                   ),
+                  subtitle: Text.rich(TextSpan(children: [
+                    TextSpan(
+                        text: "Utilisateur: ",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        )),
+                    TextSpan(
+                        text: "$username",
+                        style: TextStyle(
+                          fontSize: 18,
+                        ))
+                  ])),
+
                   //subtitle: Text("$affaire,$client, $date, $quantite"),
                   trailing: IconButton(
                     icon: Icon(
