@@ -167,7 +167,7 @@ class _DashboardState extends State<Dashboard_Sup> {
                                     child: ListTile(
                                       title: Text.rich(TextSpan(children: [
                                         TextSpan(
-                                          text: 'Demande : ',
+                                          text: 'Demande de : ',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold),
                                         ),

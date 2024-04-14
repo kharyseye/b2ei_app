@@ -76,6 +76,7 @@ class _Request_empState extends State<AddUserPage> {
                     final id_user = user.uid;
                     final username = user.username;
                     final isActive = user.isActive;
+                    final email = user.email;
                     if (user.supervisor && id_user == idAdmin)
                       return SizedBox();
 
@@ -93,6 +94,7 @@ class _Request_empState extends State<AddUserPage> {
                                 fontSize: 24,
                               ),
                             ),
+                            subtitle: Text('$email'),
                             trailing: Wrap(
                               spacing: -16,
                               children: [
