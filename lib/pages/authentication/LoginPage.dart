@@ -239,14 +239,14 @@ class _LoginPageState extends State<LoginPage> {
                                             .docs.isNotEmpty) {
                                           final employeDoc =
                                               employeQuerySnapshot.docs.single;
-                                          print(employeDoc.data());
+                                          debugPrint('${employeDoc.data()}');
 
                                           final employeData = employeDoc.data();
                                           final isSuperviseur = employeData[
                                                   'supervisor'] ??
                                               false; // Default to false if 'supervisor' field is null
                                           final isActive =
-                                              employeData['active'] ?? true;
+                                              employeData['isActive'] ?? true;
 
                                           // Share preferences
                                           await userPref.saveUserId('$uid');
@@ -254,10 +254,15 @@ class _LoginPageState extends State<LoginPage> {
                                               .saveSupervisor(isSuperviseur);
 
                                           if (!isActive) {
+                                            setState(
+                                              () {
+                                                _isloading = false;
+                                              },
+                                            );
                                             return showToast(
                                               context,
                                               backgroundColor: Colors.pink,
-                                              title: Text('Compte inactif 😭',
+                                              title: Text('Compte inactif 😱',
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 18,

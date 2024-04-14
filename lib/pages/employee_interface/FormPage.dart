@@ -1,3 +1,4 @@
+import 'package:b2ei_app/constant.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +80,7 @@ class _FormPageState extends State<FormPage> {
                     mode: DateTimeFieldPickerMode.date,
                     autovalidateMode: AutovalidateMode.always,
                     validator: (e) =>
-                    (e?.day ?? 0) == 1 ? 'Please not the first day' : null,
+                        (e?.day ?? 0) == 1 ? 'Please not the first day' : null,
                     onChanged: (DateTime? value) {
                       print(value);
                       setState(() {
@@ -177,12 +178,13 @@ class _FormPageState extends State<FormPage> {
 
                         FocusScope.of(context).requestFocus(FocusNode());
                         String? userId = await userPref.getUserId();
-                        String? adminId = "tzc5L11TrEPSHHHQJXUoRbFS7Jm2"; // Remplacez par l'identifiant de votre administrateur
+                        String? adminId =
+                            idAdmin; // Remplacez par l'identifiant de votre administrateur
 
-                        if (userId != null && adminId != null) {
+                        if (userId != null) {
                           // AJOUT DANS LA BASE DE DONNEES
                           CollectionReference demandeRef =
-                          FirebaseFirestore.instance.collection("demande");
+                              FirebaseFirestore.instance.collection("demande");
                           demandeRef.add({
                             'client': selectedClientType,
                             'date': selectedDateTime,
@@ -192,14 +194,11 @@ class _FormPageState extends State<FormPage> {
                             'quantite': quantite,
                             'id_user': userId,
                             'destinataire': adminId,
-                            'statut': 'en Attente' ,
+                            'statut': 'en Attente',
                           });
 
                           ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text("Demande envoyée")
-                              )
-                          );
+                              const SnackBar(content: Text("Demande envoyée")));
                         }
 
                         // Effacer les champs après l'envoi

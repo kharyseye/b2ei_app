@@ -1,5 +1,6 @@
 import 'package:b2ei_app/constant.dart';
 import 'package:b2ei_app/pages/authentication/RegisterPage.dart';
+import 'package:b2ei_app/services/user_management.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -15,6 +16,7 @@ class AddUserPage extends StatefulWidget {
 
 class _Request_empState extends State<AddUserPage> {
   final users = [];
+  final userManagement = UserManagement();
 
   @override
   Widget build(BuildContext context) {
@@ -69,12 +71,15 @@ class _Request_empState extends State<AddUserPage> {
                 return ListView.builder(
                   itemCount: users.length,
                   itemBuilder: (context, index) {
-                    var id_user = snapshot.data!.docs[index].id;
+                    final id = snapshot.data!.docs[index].id;
                     final user = users[index];
+                    final id_user = user.uid;
                     final username = user.username;
-                    if (user.supervisor) return SizedBox();
+                    final isActive = user.isActive;
+                    if (user.supervisor && id_user == idAdmin)
+                      return SizedBox();
 
-                    Container(
+                    return Container(
                       width: 300,
                       height: 100,
                       child: Card(
@@ -93,7 +98,7 @@ class _Request_empState extends State<AddUserPage> {
                               children: [
                                 SingleChildScrollView(
                                   child: LiteRollingSwitch(
-                                    value: true,
+                                    value: isActive ?? false,
                                     textOn: "Activé",
                                     textOff: "off",
                                     textOffColor: Colors.white,
@@ -101,8 +106,12 @@ class _Request_empState extends State<AddUserPage> {
                                     iconOn: Icons.done,
                                     iconOff: Icons.group_off_rounded,
                                     textSize: 20,
-                                    onChanged: (bool state) {
-                                      print('$state');
+                                    onChanged: (bool state) async {
+                                      await userManagement.updateIsActive(
+                                          context,
+                                          newIsActive: state,
+                                          id: id);
+                                      // await updateIsActive
                                     },
                                     onTap: () {},
                                     onDoubleTap: () {},
