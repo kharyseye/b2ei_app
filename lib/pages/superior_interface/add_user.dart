@@ -1,8 +1,11 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:b2ei_app/constant.dart';
 import 'package:b2ei_app/pages/authentication/RegisterPage.dart';
 import 'package:b2ei_app/services/user_management.dart';
+import 'package:b2ei_app/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import '../../model/Users.dart';
@@ -51,7 +54,7 @@ class _Request_empState extends State<AddUserPage> {
               ),
             ],
           ),
-          Gap(4.0),
+          Gap(20.0),
           Expanded(
             child: StreamBuilder(
               stream:
@@ -81,49 +84,51 @@ class _Request_empState extends State<AddUserPage> {
                       return SizedBox();
 
                     return Container(
-                      width: 300,
-                      height: 100,
-                      child: Card(
-                        child: Center(
-                          child: ListTile(
-                            //leading: Image.asset("assets/images/history.jpg"),
-                            title: Text(
-                              "$username",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24,
-                              ),
-                            ),
-                            subtitle: Text('$email'),
-                            trailing: Wrap(
-                              spacing: -16,
-                              children: [
-                                SingleChildScrollView(
-                                  child: LiteRollingSwitch(
-                                    value: isActive ?? false,
-                                    textOn: "Activé",
-                                    textOff: "off",
-                                    textOffColor: Colors.white,
-                                    textOnColor: Colors.white,
-                                    iconOn: Icons.done,
-                                    iconOff: Icons.group_off_rounded,
-                                    textSize: 20,
-                                    onChanged: (bool state) async {
-                                      await userManagement.updateIsActive(
-                                          context,
-                                          newIsActive: state,
-                                          id: id);
-                                      // await updateIsActive
-                                    },
-                                    onTap: () {},
-                                    onDoubleTap: () {},
-                                    onSwipe: () {},
+                      margin: EdgeInsets.all(4.0),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 7.0, horizontal: 10),
+                      decoration: BoxDecoration(
+                          color: Color.fromARGB(218, 200, 230, 201),
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 200,
+                                child: AutoSizeText(
+                                  "${capitalize(username)}",
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                              Text('$email'),
+                            ],
                           ),
-                        ),
+                          LiteRollingSwitch(
+                            value: isActive ?? false,
+                            textOn: "Activé",
+                            textOff: "off",
+                            textOffColor: Colors.white,
+                            textOnColor: Colors.white,
+                            iconOn: Icons.done,
+                            iconOff: Icons.group_off_rounded,
+                            textSize: 20,
+                            onChanged: (bool state) async {
+                              await userManagement.updateIsActive(context,
+                                  newIsActive: state, id: id);
+                              // await updateIsActive
+                            },
+                            onTap: () {},
+                            onDoubleTap: () {},
+                            onSwipe: () {},
+                          )
+                        ],
                       ),
                     );
                   },
