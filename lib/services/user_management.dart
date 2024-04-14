@@ -40,4 +40,13 @@ class UserManagement {
       print(e);
     });
   }
+
+  updateIsActive(BuildContext context,
+      {required String id, required bool newIsActive}) async {
+    final users = FirebaseFirestore.instance.collection("users");
+
+    try {
+      await users.doc(id).update({"isActive": newIsActive});
+    } catch (e) {}
+  }
 }
