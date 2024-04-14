@@ -41,10 +41,9 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       title: 'Authentification',
       theme: ThemeData(
-          //primaryColor: PrimaryColor,
           brightness: Brightness.light,
           scaffoldBackgroundColor: Colors.white,
-          useMaterial3: true,
+          //useMaterial3: true,
           colorSchemeSeed: Colors.green),
       routes: {
         "home": (context) => HomePage(),

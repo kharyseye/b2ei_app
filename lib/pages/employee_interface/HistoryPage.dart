@@ -102,7 +102,7 @@ class _HistoryPageState extends State<HistoryPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Mon historique"),
+        title: Text("Mes demandes"),
       ),
       body: Center(
           child: StreamBuilder(
@@ -132,6 +132,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 final designation = demande.designation;
                 final quantite = demande.quantite;
                 final statut = demande.statut;
+                debugPrint('$statut');
 
 
                 return Card(

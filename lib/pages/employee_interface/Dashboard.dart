@@ -35,7 +35,7 @@ class _DashboardState extends State<Dashboard> {
 
   List Titles = [
     "Faire une Demande",
-    "Historique",
+    "Demandes",
     "PDF",
     "Parametre",
   ];
@@ -46,9 +46,9 @@ class _DashboardState extends State<Dashboard> {
           'faire une demande'), // Remplacez Route1 par le nom de votre première route
     ),
     RouteItem(
-      name: 'Historique',
+      name: 'Demandes',
       route: HistoryPage(
-          'historique'), // Remplacez Route2 par le nom de votre deuxième route
+          'demandes'), // Remplacez Route2 par le nom de votre deuxième route
     ),
     RouteItem(
       name: 'PDF',
