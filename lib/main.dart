@@ -43,7 +43,7 @@ class MyApp extends ConsumerWidget {
       theme: ThemeData(
           brightness: Brightness.light,
           scaffoldBackgroundColor: Colors.white,
-          //useMaterial3: true,
+          useMaterial3: true,
           colorSchemeSeed: Colors.green),
       routes: {
         "home": (context) => HomePage(),
