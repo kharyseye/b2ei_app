@@ -35,7 +35,7 @@ class _DashboardState extends State<Dashboard> {
 
   List Titles = [
     "Faire une Demande",
-    "Demandes",
+    "Historique",
     "PDF",
     "Parametre",
   ];
@@ -52,8 +52,8 @@ class _DashboardState extends State<Dashboard> {
     ),
     RouteItem(
       name: 'PDF',
-      route: PDFPage(
-          'PDF'), // Remplacez Route2 par le nom de votre deuxième route
+      route:
+          PDFPage('PDF'), // Remplacez Route2 par le nom de votre deuxième route
     ),
     RouteItem(
       name: 'Parametre',
@@ -120,7 +120,7 @@ class _DashboardState extends State<Dashboard> {
                           right: 20,
                         ),
                         child: StreamBuilder(
-                            stream: userService.getUserInfo( ),
+                            stream: userService.getUserInfo(),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
@@ -144,7 +144,7 @@ class _DashboardState extends State<Dashboard> {
                                 ],
                               );
                             }),
-                     ),
+                      ),
                     ],
                   ),
                 ),

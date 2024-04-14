@@ -112,18 +112,6 @@ class _HistoryPageState extends State<HistoryPage> {
                             showHistoryDialog(demande);
                           },
                         ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.delete,
-                            color: Colors.redAccent,
-                          ),
-                          onPressed: () async {
-                            await FirebaseFirestore.instance
-                                .collection("demande")
-                                .doc(id_demande)
-                                .delete();
-                          },
-                        ),
                       ],
                     ),
                   ),

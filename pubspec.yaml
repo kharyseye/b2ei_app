@@ -60,6 +60,7 @@ dependencies:
   open_file: ^3.3.2
   gap: ^3.0.1
   lite_rolling_switch: ^1.0.1
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:
