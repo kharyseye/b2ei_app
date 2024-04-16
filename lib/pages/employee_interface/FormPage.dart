@@ -38,7 +38,7 @@ class _FormPageState extends State<FormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.img),
+        title: Center(child: Text('Faire une demande'/*widget.img*/)),
       ),
       body: Container(
         margin: EdgeInsets.all(20),
@@ -52,10 +52,10 @@ class _FormPageState extends State<FormPage> {
                   child: DropdownButtonFormField(
                     items: [
                       DropdownMenuItem(
-                          value: 'Direction', child: Text("B2EI-DIRECTION")),
+                          value: 'Direction', child: Text("DIRECTION")),
                       DropdownMenuItem(
                           value: 'Operation',
-                          child: Text("B2EI-SERVICE TECHNIQUE"))
+                          child: Text("OPERATION"))
                     ],
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -68,6 +68,7 @@ class _FormPageState extends State<FormPage> {
                     },
                   ),
                 ),
+                SizedBox(height: 20,),
                 Container(
                   margin: EdgeInsets.only(bottom: 10),
                   child: DateTimeFormField(
@@ -89,6 +90,7 @@ class _FormPageState extends State<FormPage> {
                     },
                   ),
                 ),
+                SizedBox(height: 20,),
                 Container(
                   margin: EdgeInsets.only(bottom: 10),
                   child: Material(
@@ -108,6 +110,7 @@ class _FormPageState extends State<FormPage> {
                     ),
                   ),
                 ),
+                SizedBox(height: 20,),
                 Container(
                   margin: EdgeInsets.only(bottom: 10),
                   child: Material(
@@ -127,6 +130,7 @@ class _FormPageState extends State<FormPage> {
                     ),
                   ),
                 ),
+                SizedBox(height: 20,),
                 Container(
                   margin: EdgeInsets.only(bottom: 10),
                   child: Material(
@@ -146,6 +150,7 @@ class _FormPageState extends State<FormPage> {
                     ),
                   ),
                 ),
+                SizedBox(height: 20,),
                 Container(
                   margin: EdgeInsets.only(bottom: 10),
                   child: Material(
@@ -165,6 +170,7 @@ class _FormPageState extends State<FormPage> {
                     ),
                   ),
                 ),
+                SizedBox(height: 50,),
                 SizedBox(
                   width: double.infinity,
                   height: 50,
@@ -198,7 +204,11 @@ class _FormPageState extends State<FormPage> {
                           });
 
                           ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Demande envoyée")));
+                              const SnackBar(content: Text("Demande envoyée"))
+                          );
+                          // Ajout d'un délai avant de fermer la page
+                          await Future.delayed(Duration(milliseconds: 1500));
+
                         }
 
                         // Effacer les champs après l'envoi
@@ -209,8 +219,11 @@ class _FormPageState extends State<FormPage> {
                         quantiteController.clear();
                         selectedClientType.trim();
                       }
+                      Navigator.pop(context);
                     },
+
                     child: Text("Envoyer"),
+
                   ),
                 ),
               ],

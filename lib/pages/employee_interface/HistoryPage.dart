@@ -38,11 +38,11 @@ class _HistoryPageState extends State<HistoryPage> {
               ),
             ),
             actions: <Widget>[
-              ElevatedButton.icon(
+              /*ElevatedButton.icon(
                 icon: Icon(Icons.picture_as_pdf),
                 onPressed: () {},
                 label: Text("PDF"),
-              ),
+              ),*/
               ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop();
@@ -56,7 +56,7 @@ class _HistoryPageState extends State<HistoryPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Mes demandes"),
+        title: Center(child: Text("Mon Historique")),
       ),
       body: Center(
           child: StreamBuilder(

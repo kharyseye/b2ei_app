@@ -57,7 +57,7 @@ class _MyDrawerListState extends State<MyDrawerList_emp> {
               currentPage == DrawerSections.setting ? true : false
           ),
           SizedBox(
-            height: 200,
+            height: 150,
           ),
 
           menuItem(

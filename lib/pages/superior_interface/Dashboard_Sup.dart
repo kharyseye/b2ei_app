@@ -2,10 +2,12 @@ import 'package:b2ei_app/pages/superior_interface/drawer/DrawerPage.dart';
 import 'package:b2ei_app/services/user_demande.dart';
 import 'package:b2ei_app/services/user_service.dart';
 import 'package:b2ei_app/utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../constant.dart';
 import '../../model/Request.dart';
 import '../../services/status_service.dart';
+import '../../services/user_preferences.dart';
 
 class Dashboard_Sup extends StatefulWidget {
   @override
@@ -88,9 +90,15 @@ class _DashboardState extends State<Dashboard_Sup> {
         ),
         actions: [
           InkWell(
-            onTap: () {},
+            onTap: () {
+              FirebaseAuth.instance.signOut().then((value) {
+                UserPreferences().logout(context);
+              }).catchError((e) {
+                print(e);
+              });
+            },
             child: Icon(
-              Icons.notifications_none,
+              Icons.logout,
               color: Colors.white,
               size: 40,
             ),

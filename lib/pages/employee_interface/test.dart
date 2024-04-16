@@ -1,3 +1,4 @@
+/*
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -94,3 +95,4 @@ class AdminPage extends StatelessWidget {
     // Code pour envoyer la notification
   }
 }
+*/

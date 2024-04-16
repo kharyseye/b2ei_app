@@ -3,8 +3,10 @@ import 'package:b2ei_app/pages/employee_interface/settings/screens/account_scree
 import 'package:b2ei_app/pages/impression/PDFPage.dart';
 import 'package:b2ei_app/services/user_service.dart';
 import 'package:b2ei_app/utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../constant.dart';
+import '../../services/user_preferences.dart';
 import 'FormPage.dart';
 import 'HistoryPage.dart';
 
@@ -43,22 +45,22 @@ class _DashboardState extends State<Dashboard> {
     RouteItem(
       name: 'Faire une demande',
       route: FormPage(
-          'faire une demande'), // Remplacez Route1 par le nom de votre première route
+          'Faire une demande'),
     ),
     RouteItem(
-      name: 'Demandes',
+      name: 'Historique',
       route: HistoryPage(
-          'demandes'), // Remplacez Route2 par le nom de votre deuxième route
+          'Mon historique'),
     ),
     RouteItem(
       name: 'PDF',
       route:
-          PDFPage('PDF'), // Remplacez Route2 par le nom de votre deuxième route
+          PDFPage('PDF'),
     ),
     RouteItem(
       name: 'Parametre',
       route: AccountScreen(
-          'Parametre'), // Remplacez Route2 par le nom de votre deuxième route
+          'Parametre'),
     ),
     // Ajoutez d'autres routes si nécessaire
   ];
@@ -103,11 +105,17 @@ class _DashboardState extends State<Dashboard> {
                                   _scaffoldKey.currentState?.openDrawer(),
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                FirebaseAuth.instance.signOut().then((value) {
+                                  UserPreferences().logout(context);
+                                }).catchError((e) {
+                                  print(e);
+                                });
+                              },
                               child: Icon(
-                                Icons.notifications_none,
+                                Icons.document_scanner_outlined,
                                 color: Colors.white,
-                                size: 40,
+                                size: 30,
                               ),
                             ),
                           ],

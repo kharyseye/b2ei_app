@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                     "Bonjour",
                     style: GoogleFonts.poppins(
                       color: PrimaryButtonColor,
-                      fontSize: 60,
+                      fontSize: 40,
                       fontWeight: FontWeight.w500,
                     ),
                   ),

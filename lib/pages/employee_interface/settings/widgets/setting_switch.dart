@@ -38,7 +38,7 @@ class SettingSwitch extends StatelessWidget {
           const SizedBox(width: 20,),
           Text(title,
             style: TextStyle(
-              fontSize: 24,
+              fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
           ),

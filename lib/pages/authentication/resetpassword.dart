@@ -32,7 +32,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   "Bienvenue !",
                   style: GoogleFonts.poppins(
                     color: PrimaryButtonColor,
-                    fontSize: 60,
+                    fontSize: 40,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -169,10 +169,10 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 SizedBox(height: 50),
                 AnimatedButton(
                   text: 'Changer mon mot de passe',
-                  /*buttonTextStyle: TextStyle(
+                  buttonTextStyle: TextStyle(
                     fontSize: 20,
                     color: Colors.white
-                  ),*/
+                  ),
                   color: Colors.green,
                   pressEvent: () {
                     if (_formKey.currentState!.validate()) {

@@ -36,7 +36,7 @@ class SettingItem extends StatelessWidget {
           const SizedBox(width: 20,),
           Text(title,
             style: TextStyle(
-              fontSize: 24,
+              fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -45,7 +45,7 @@ class SettingItem extends StatelessWidget {
           ? Text(
             value!,
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 16,
               color: Colors.grey,
             ),
           ): const SizedBox(),

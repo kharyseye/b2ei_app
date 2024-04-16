@@ -5,7 +5,6 @@ import 'package:b2ei_app/services/user_management.dart';
 import 'package:b2ei_app/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import '../../model/Users.dart';

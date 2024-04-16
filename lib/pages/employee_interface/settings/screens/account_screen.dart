@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import '../../../../services/user_service.dart';
+import '../../../authentication/resetpassword.dart';
 import '../widgets/forward_button.dart';
 import '../widgets/settings_items.dart';
 
@@ -53,7 +54,7 @@ class _AccountScreenState extends State<AccountScreen> {
             Navigator.pop(context);
           },
           icon: Icon(Icons.chevron_left_outlined,
-          size: 40,),
+          size: 20,),
         ),
         leadingWidth: 80,
       ),
@@ -65,14 +66,14 @@ class _AccountScreenState extends State<AccountScreen> {
             children: [
               Text("PARAMETRES",
               style: TextStyle(
-                fontSize: 40,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
               ),
               ),
               const SizedBox(height: 30,),
               Text("COMPTE",
                 style: TextStyle(
-                  fontSize: 36,
+                  fontSize: 26,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -88,7 +89,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     const SizedBox(height: 20,),
 
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(email,
                           style: TextStyle(
@@ -106,13 +107,14 @@ class _AccountScreenState extends State<AccountScreen> {
                       ],
                     ),
                     const Spacer(),
-                      ForwardButton(onTap: () {
+                      /*ForwardButton(onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => EditAccountScreen() )
                         );
-                      },),
+                      },
+                      ),*/
                   ],
                 ),
               ),
@@ -132,6 +134,19 @@ class _AccountScreenState extends State<AccountScreen> {
                 value: "Francais",
                 onTap: (){},
               ),
+              SizedBox(height: 40,),
+              SettingItem(
+                  title: "Mot de passe",
+                  bgColor: Colors.green.shade100,
+                  iconColor: Colors.green,
+                  icon: Ionicons.swap_horizontal_outline,
+                  onTap: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChangePasswordPage() )
+                    );
+                  }),
               SizedBox(height: 40,),
               SettingSwitch(
                 title: 'Dark Mode',
