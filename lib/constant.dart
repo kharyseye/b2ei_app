@@ -6,4 +6,4 @@ const PrimaryTextHeading = Color(0xFF65B65A);
 const Background = Color(0xFFFFFFFF);
 const SecondButtonColor = Color(0xFF014E00);
 
-const idAdmin = 'tzc5L11TrEPSHHHQJXUoRbFS7Jm2';
+const idAdmin = '1jqTNcNMcoMpqn3KW5LJVxm05033';

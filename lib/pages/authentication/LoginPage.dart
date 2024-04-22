@@ -350,13 +350,13 @@ class _LoginPageState extends State<LoginPage> {
                                     showToast(
                                       context,
                                       backgroundColor: Colors.pink,
-                                      title: Text('Erreur 😭',
+                                      title: Text('Erreur :',
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 18,
                                           )),
                                       description:
-                                          Text('Oups une erreur est survenue !',
+                                          Text('Email ou mot de passe incorrect !',
                                               style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 15,

@@ -1,98 +1,218 @@
-/*
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../../constant.dart';
+import '../../services/reset_password.dart';
 
-// Partie pour l'interface de l'administrateur
-class AdminPage extends StatelessWidget {
+class ChangePasswordtest extends StatefulWidget {
+  @override
+  _ChangePasswordPageState createState() => _ChangePasswordPageState();
+}
+
+class _ChangePasswordPageState extends State<ChangePasswordtest> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _currentPasswordController = TextEditingController();
+  TextEditingController _newPasswordController = TextEditingController();
+
+
+  void signOut() {
+    FirebaseAuth.instance.signOut();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Demandes Administrateur'),
+        title: Text('Changer le mot de passe'),
       ),
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('demande').snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-
-          if (snapshot.hasError) {
-            return Center(
-              child: Text('Une erreur s\'est produite'),
-            );
-          }
-
-          final demands = snapshot.data!.docs;
-
-          return ListView.builder(
-            itemCount: demands.length,
-            itemBuilder: (context, index) {
-              final demand = demands[index];
-              final clientId = demand['id_user'];
-              final clientType = demand['client'];
-              final affaire = demand['affaire'];
-              final reference = demand['reference'];
-              final designation = demand['designation'];
-              final quantite = demand['quantite'];
-              final date = (demand['date'] as Timestamp).toDate();
-              final status = demand['statut'];
-
-              return ListTile(
-                title: Text('Affaire: $affaire'),
-                subtitle: Text('Client: $clientId\nDate: $date\nStatut: $status'),
-                trailing: Text('Quantité: $quantite'),
-                onTap: () {
-                  // Afficher un dialogue ou une autre action pour permettre à l'administrateur
-                  // d'accepter ou de refuser la demande
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: Text('Action sur la demande'),
-                      content: Text('Accepter ou refuser cette demande ?'),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            acceptDemand(demand.reference);
-                            Navigator.pop(context);
-                          },
-                          child: Text('Accepter'),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            refuseDemand(demand.reference);
-                            Navigator.pop(context);
-                          },
-                          child: Text('Refuser'),
-                        ),
-                      ],
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Text(
+                  "Bienvenue !",
+                  style: GoogleFonts.poppins(
+                    color: PrimaryButtonColor,
+                    fontSize: 40,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                Text(
+                  "Changer votre mot de passe en toute sécurité",
+                  style: GoogleFonts.poppins(
+                    fontSize: 20,
+                    color: Colors.grey,
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 10,
+                          spreadRadius: 7,
+                          offset: Offset(1, 1),
+                          color: Colors.grey.withOpacity(0.2),
+                        )
+                      ]),
+                  child: TextFormField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      labelText: "Email",
+                      hintStyle: TextStyle(color: Colors.grey),
+                      prefixIcon: Icon(Icons.email),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide:
+                          BorderSide(color: Colors.white, width: 1.0)),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide:
+                          BorderSide(color: Colors.white, width: 1.0)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30)),
                     ),
-                  );
-                },
-              );
-            },
-          );
-        },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Veuillez saisir votre email.';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(height: 20,),
+                // Vos autres champs TextFormField...
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 10,
+                          spreadRadius: 7,
+                          offset: Offset(1, 1),
+                          color: Colors.grey.withOpacity(0.2),
+                        )
+                      ]
+                  ),
+                  child: TextFormField(
+                    controller: _currentPasswordController,
+                    decoration: InputDecoration(
+                      labelText: "Mot de passe actuel",
+                      hintStyle: TextStyle(color: Colors.grey),
+                      prefixIcon: Icon(Icons.lock),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide:
+                          BorderSide(color: Colors.white, width: 1.0)),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide:
+                          BorderSide(color: Colors.white, width: 1.0)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                    ),
+                    obscureText: true,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Veuillez saisir votre mot de passe actuel.';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(height: 20,),
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 10,
+                          spreadRadius: 7,
+                          offset: Offset(1, 1),
+                          color: Colors.grey.withOpacity(0.2),
+                        )
+                      ]
+
+                  ),
+                  child: TextFormField(
+                    controller: _newPasswordController,
+                    decoration: InputDecoration(
+                      labelText: "Nouveau mot de passe",
+                      hintStyle: TextStyle(color: Colors.grey),
+                      prefixIcon: Icon(Icons.lock),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide:
+                          BorderSide(color: Colors.white, width: 1.0)),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide:
+                          BorderSide(color: Colors.white, width: 1.0)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                    ),
+                    obscureText: true,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Veuillez saisir votre nouveau mot de passe.';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+
+                SizedBox(height: 50),
+                AnimatedButton(
+                  text: 'Changer mon mot de passe',
+                  buttonTextStyle: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white
+                  ),
+                  color: Colors.green,
+                  pressEvent: () async {
+                    if (_formKey.currentState!.validate()) {
+                      // Vérifier si l'email correspond à l'utilisateur connecté
+                      User? user = FirebaseAuth.instance.currentUser;
+                      if (_emailController.text.trim() != user?.email) {
+                        // Afficher une erreur si l'email ne correspond pas
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("Cet email ne correspond pas à votre compte."),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                        return;
+                      }
+
+                      // Appeler la fonction de changement de mot de passe
+                      changePassword(
+                        _emailController.text.trim(),
+                        _currentPasswordController.text.trim(),
+                        _newPasswordController.text.trim(),
+                      );
+                      // Afficher le dialogue de succès
+                      // ...
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
 
-  void acceptDemand(DocumentReference demandRef) {
-    // Mettre à jour le statut de la demande dans Firestore
-    demandRef.update({'statut': 'validé'});
-
-    // Envoyer une notification à l'employé concerné
-    // Code pour envoyer la notification
-  }
-
-  void refuseDemand(DocumentReference demandRef) {
-    // Mettre à jour le statut de la demande dans Firestore
-    demandRef.update({'statut': 'refusé'});
-
-    // Envoyer une notification à l'employé concerné
-    // Code pour envoyer la notification
-  }
 }
-*/

@@ -2,5 +2,8 @@
   "java.configuration.updateBuildConfiguration": "interactive",
   "dart.hotReloadPatterns": [
     "**/assets/**", // Everything in assets
-]
+  ],
+  "workbench.startupEditor": "none",
+  "editor.formatOnSave": true,
+  "workbench.cloudChanges.autoResume": "off"
 }

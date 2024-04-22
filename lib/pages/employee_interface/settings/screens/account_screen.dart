@@ -1,5 +1,6 @@
 import 'package:b2ei_app/pages/employee_interface/settings/screens/edit_screen.dart';
 import 'package:b2ei_app/pages/employee_interface/settings/widgets/setting_switch.dart';
+import 'package:b2ei_app/pages/employee_interface/test.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';

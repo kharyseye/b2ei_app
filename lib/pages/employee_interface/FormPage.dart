@@ -184,8 +184,7 @@ class _FormPageState extends State<FormPage> {
 
                         FocusScope.of(context).requestFocus(FocusNode());
                         String? userId = await userPref.getUserId();
-                        String? adminId =
-                            idAdmin; // Remplacez par l'identifiant de votre administrateur
+                        String? adminId = idAdmin; // Remplacez par l'identifiant de votre administrateur
 
                         if (userId != null) {
                           // AJOUT DANS LA BASE DE DONNEES
