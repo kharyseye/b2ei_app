@@ -30,8 +30,15 @@ class _HistoryPageState extends State<Request_emp> {
                       'Date : ${DateFormat.yMMMMd('en_US').add_jm().format(requestData.timestamp.toDate())}'),
                   Text('Affaire : ${requestData.affaire}'),
                   Text('Reference : ${requestData.reference}'),
-                  Text('Designation : ${requestData.designation}'),
-                  Text('Quantite : ${requestData.quantite}'),
+                  for (var i = 0; i < requestData.designations.length; i++)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Designation ${i + 1}: ${requestData.designations[i]['designation']}'),
+                        Text('Quantite ${i + 1}: ${requestData.designations[i]['quantite']}'),
+                      ],
+                    ),
+                  //Text('Quantite : ${requestData.quantite}'),
                 ],
               ),
             ),

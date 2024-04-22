@@ -268,7 +268,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             fontSize: 18, color: Colors.black),
                       ),
                       SizedBox(
-                        width: 60,
+                        width: 40,
                       ),
                       Radio(
                           value: "Superieur",

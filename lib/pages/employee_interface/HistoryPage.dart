@@ -20,39 +20,41 @@ class _HistoryPageState extends State<HistoryPage> {
     Future<void> showHistoryDialog(Request requestData) async {
       return showDialog<void>(
         context: context,
-        barrierDismissible: true, // user must tap button!
+        barrierDismissible: true,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text(' Service : ${requestData.client}'),
+            title: Text('Service : ${requestData.client}'),
             backgroundColor: Colors.green[100],
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
-                  Text(
-                      'Date : ${formatDate(requestData.timestamp.toDate(), format: 'EEEE d MMMM yyyy')}'),
+                  Text('Date : ${formatDate(requestData.timestamp.toDate(), format: 'EEEE d MMMM yyyy')}'),
                   Text('Affaire : ${requestData.affaire}'),
                   Text('Reference : ${requestData.reference}'),
-                  Text('Designation : ${requestData.designation}'),
-                  Text('Quantite : ${requestData.quantite}'),
+                  for (var i = 0; i < requestData.designations.length; i++)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Designation ${i + 1}: ${requestData.designations[i]['designation']}'),
+                        Text('Quantite ${i + 1}: ${requestData.designations[i]['quantite']}'),
+                      ],
+                    ),
                 ],
               ),
             ),
             actions: <Widget>[
-              /*ElevatedButton.icon(
-                icon: Icon(Icons.picture_as_pdf),
-                onPressed: () {},
-                label: Text("PDF"),
-              ),*/
               ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text("Fermer")),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("Fermer"),
+              ),
             ],
           );
         },
       );
     }
+
 
     return Scaffold(
       appBar: AppBar(
@@ -69,7 +71,7 @@ class _HistoryPageState extends State<HistoryPage> {
           } else {
             List<Request> demandes = [];
             snapshot.data!.docs.forEach((data) {
-              demandes.add(Request.fromData(data));
+              demandes.add(Request.fromData(data as QueryDocumentSnapshot<Map<String, dynamic>>));
             });
             return ListView.builder(
               itemCount: demandes.length,

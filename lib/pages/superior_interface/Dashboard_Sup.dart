@@ -43,8 +43,15 @@ class _DashboardState extends State<Dashboard_Sup> {
                     'Date : ${formatDate(requestData.timestamp.toDate(), format: 'EEEE d MMMM yyyy')}'),
                 Text('Affaire : ${requestData.affaire}'),
                 Text('Reference : ${requestData.reference}'),
-                Text('Designation : ${requestData.designation}'),
-                Text('Quantite : ${requestData.quantite}'),
+                for (var i = 0; i < requestData.designations.length; i++)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Designation ${i + 1}: ${requestData.designations[i]['designation']}'),
+                      Text('Quantite ${i + 1}: ${requestData.designations[i]['quantite']}'),
+                    ],
+                  ),
+               // Text('Quantite : ${requestData.quantite}'),
                 //Text('statut : ${requestData.statut}'),
               ],
             ),
