@@ -1,6 +1,5 @@
 import 'package:b2ei_app/pages/authentication/LoginPage.dart';
 import 'package:b2ei_app/pages/employee_interface/Dashboard.dart';
-import 'package:b2ei_app/pages/introScreen/HomePage.dart';
 import 'package:b2ei_app/pages/superior_interface/Dashboard_Sup.dart';
 import 'package:b2ei_app/pages/superior_interface/add_user.dart';
 import 'package:b2ei_app/pages/welcome/WelcomePage.dart';
@@ -45,7 +44,7 @@ class MyApp extends ConsumerWidget {
           useMaterial3: true,
           colorSchemeSeed: Colors.green),
       routes: {
-        "home": (context) => HomePage(),
+       // "home": (context) => HomePage(),
         "/Dashboard": (context) => Dashboard(),
         "/Dashboard_Sup": (context) => Dashboard_Sup(),
         "/login": (context) => LoginPage(),

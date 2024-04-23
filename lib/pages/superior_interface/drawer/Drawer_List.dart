@@ -46,7 +46,7 @@ class _MyDrawerListState extends State<MyDrawerList> {
           menuItem(4, "P A R A M E T R E S", Icons.settings_outlined,
               currentPage == DrawerSections.setting ? true : false),
           SizedBox(
-            height: 200,
+            height: 150,
           ),
           menuItem(5, "D E C O N N E X I O N", Icons.logout,
               currentPage == DrawerSections.exit ? true : false),
