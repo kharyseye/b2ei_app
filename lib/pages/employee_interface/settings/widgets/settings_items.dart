@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
-
 import 'forward_button.dart';
 
 class SettingItem extends StatelessWidget {
@@ -12,7 +10,13 @@ class SettingItem extends StatelessWidget {
   final String? value;
 
   const SettingItem({
-    super.key, required this.title, required this.bgColor, required this.iconColor, required this.icon, required this.onTap,  this.value,
+    super.key,
+    required this.title,
+    required this.bgColor,
+    required this.iconColor,
+    required this.icon,
+    required this.onTap,
+    this.value,
   });
 
   @override
@@ -33,25 +37,30 @@ class SettingItem extends StatelessWidget {
               color: iconColor,
             ),
           ),
-          const SizedBox(width: 20,),
-          Text(title,
+          const SizedBox(
+            width: 20,
+          ),
+          Text(
+            title,
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
           ),
           const Spacer(),
-          value!= null
-          ? Text(
-            value!,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.grey,
-            ),
-          ): const SizedBox(),
+          value != null
+              ? Text(
+                  value!,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey,
+                  ),
+                )
+              : const SizedBox(),
           const SizedBox(width: 10),
-          ForwardButton( onTap: onTap,),
-
+          ForwardButton(
+            onTap: onTap,
+          ),
         ],
       ),
     );

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../constant.dart';
 import '../../services/reset_password.dart';
-import '../../services/user_preferences.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   @override
@@ -69,11 +68,11 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide:
-                          BorderSide(color: Colors.white, width: 1.0)),
+                              BorderSide(color: Colors.white, width: 1.0)),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide:
-                          BorderSide(color: Colors.white, width: 1.0)),
+                              BorderSide(color: Colors.white, width: 1.0)),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30)),
                     ),
@@ -85,7 +84,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     },
                   ),
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 // Vos autres champs TextFormField...
                 Container(
                   decoration: BoxDecoration(
@@ -98,8 +99,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                           offset: Offset(1, 1),
                           color: Colors.grey.withOpacity(0.2),
                         )
-                      ]
-                  ),
+                      ]),
                   child: TextFormField(
                     controller: _currentPasswordController,
                     decoration: InputDecoration(
@@ -109,11 +109,11 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide:
-                          BorderSide(color: Colors.white, width: 1.0)),
+                              BorderSide(color: Colors.white, width: 1.0)),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide:
-                          BorderSide(color: Colors.white, width: 1.0)),
+                              BorderSide(color: Colors.white, width: 1.0)),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30)),
                     ),
@@ -126,7 +126,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     },
                   ),
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -138,9 +140,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                           offset: Offset(1, 1),
                           color: Colors.grey.withOpacity(0.2),
                         )
-                      ]
-
-                  ),
+                      ]),
                   child: TextFormField(
                     controller: _newPasswordController,
                     decoration: InputDecoration(
@@ -150,11 +150,11 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide:
-                          BorderSide(color: Colors.white, width: 1.0)),
+                              BorderSide(color: Colors.white, width: 1.0)),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide:
-                          BorderSide(color: Colors.white, width: 1.0)),
+                              BorderSide(color: Colors.white, width: 1.0)),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30)),
                     ),
@@ -171,10 +171,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 SizedBox(height: 50),
                 AnimatedButton(
                   text: 'Changer mon mot de passe',
-                  buttonTextStyle: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white
-                  ),
+                  buttonTextStyle: TextStyle(fontSize: 20, color: Colors.white),
                   color: Colors.green,
                   pressEvent: () async {
                     if (_formKey.currentState!.validate()) {
@@ -184,7 +181,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                         // Afficher une erreur si l'email ne correspond pas
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text("Cet email ne correspond pas à votre compte."),
+                            content: Text(
+                                "Cet email ne correspond pas à votre compte."),
                             backgroundColor: Colors.red,
                           ),
                         );

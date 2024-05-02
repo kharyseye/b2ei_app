@@ -8,7 +8,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../constant.dart';
 import '../../services/user_preferences.dart';
-import 'FormPage.dart';
 import 'HistoryPage.dart';
 
 class Dashboard extends StatefulWidget {
@@ -45,23 +44,19 @@ class _DashboardState extends State<Dashboard> {
   List<RouteItem> routes = [
     RouteItem(
       name: 'Faire une demande',
-      route: FormPagetest(
-          'Faire une demande'),
+      route: FormPagetest('Faire une demande'),
     ),
     RouteItem(
       name: 'Historique',
-      route: HistoryPage(
-          'Mon historique'),
+      route: HistoryPage('Mon historique'),
     ),
     RouteItem(
       name: 'PDF',
-      route:
-          PDFPage('PDF'),
+      route: PDFPage('PDF'),
     ),
     RouteItem(
       name: 'Parametre',
-      route: AccountScreen(
-          'Parametre'),
+      route: AccountScreen('Parametre'),
     ),
     // Ajoutez d'autres routes si nécessaire
   ];

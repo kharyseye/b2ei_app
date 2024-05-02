@@ -23,14 +23,12 @@ class _RegisterPageState extends State<RegisterPage> {
   late String _email;
   late String _password;
   String? _supervisor = 'Employer';
-  late String _confirmPassword;
-  late String _type;
 
   bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
-    double h = MediaQuery.of(context).size.height;
+    //double h = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,

@@ -28,15 +28,18 @@ class _HistoryPageState extends State<HistoryPage> {
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
-                  Text('Date : ${formatDate(requestData.timestamp.toDate(), format: 'EEEE d MMMM yyyy')}'),
+                  Text(
+                      'Date : ${formatDate(requestData.timestamp.toDate(), format: 'EEEE d MMMM yyyy')}'),
                   Text('Affaire : ${requestData.affaire}'),
                   Text('Reference : ${requestData.reference}'),
                   for (var i = 0; i < requestData.designations.length; i++)
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Designation ${i + 1}: ${requestData.designations[i]['designation']}'),
-                        Text('Quantite ${i + 1}: ${requestData.designations[i]['quantite']}'),
+                        Text(
+                            'Designation ${i + 1}: ${requestData.designations[i]['designation']}'),
+                        Text(
+                            'Quantite ${i + 1}: ${requestData.designations[i]['quantite']}'),
                       ],
                     ),
                 ],
@@ -55,7 +58,6 @@ class _HistoryPageState extends State<HistoryPage> {
       );
     }
 
-
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text("Mon Historique")),
@@ -71,12 +73,13 @@ class _HistoryPageState extends State<HistoryPage> {
           } else {
             List<Request> demandes = [];
             snapshot.data!.docs.forEach((data) {
-              demandes.add(Request.fromData(data as QueryDocumentSnapshot<Map<String, dynamic>>));
+              demandes.add(Request.fromData(
+                  data as QueryDocumentSnapshot<Map<String, dynamic>>));
             });
             return ListView.builder(
               itemCount: demandes.length,
               itemBuilder: (context, index) {
-                var id_demande = snapshot.data!.docs[index].id;
+                //var id_demande = snapshot.data!.docs[index].id;
                 final demande = demandes[index];
 
                 final reference = demande.reference;

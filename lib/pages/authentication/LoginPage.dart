@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:toastification/toastification.dart';
 import '../../constant.dart';
@@ -355,12 +354,12 @@ class _LoginPageState extends State<LoginPage> {
                                             color: Colors.white,
                                             fontSize: 18,
                                           )),
-                                      description:
-                                          Text('Email ou mot de passe incorrect !',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 15,
-                                              )),
+                                      description: Text(
+                                          'Email ou mot de passe incorrect !',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                          )),
                                       alignment: Alignment.bottomCenter,
                                       type: ToastificationType.error,
                                       style: ToastificationStyle.flat,

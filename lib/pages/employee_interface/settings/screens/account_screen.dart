@@ -1,16 +1,12 @@
-import 'package:b2ei_app/pages/employee_interface/settings/screens/edit_screen.dart';
 import 'package:b2ei_app/pages/employee_interface/settings/widgets/setting_switch.dart';
-import 'package:b2ei_app/pages/employee_interface/test.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import '../../../../services/user_service.dart';
 import '../../../authentication/resetpassword.dart';
-import '../widgets/forward_button.dart';
 import '../widgets/settings_items.dart';
 
 class AccountScreen extends StatefulWidget {
-
   const AccountScreen(String s, {super.key});
 
   @override
@@ -21,7 +17,7 @@ class _AccountScreenState extends State<AccountScreen> {
   final UserService userService = UserService();
   String username = '';
   String email = '';
-  bool isDarkMode= false;
+  bool isDarkMode = false;
 
   @override
   void initState() {
@@ -51,11 +47,13 @@ class _AccountScreenState extends State<AccountScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: (){
+          onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.chevron_left_outlined,
-          size: 20,),
+          icon: Icon(
+            Icons.chevron_left_outlined,
+            size: 20,
+          ),
         ),
         leadingWidth: 80,
       ),
@@ -65,34 +63,43 @@ class _AccountScreenState extends State<AccountScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("PARAMETRES",
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
+              Text(
+                "PARAMETRES",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+              const SizedBox(
+                height: 30,
               ),
-              const SizedBox(height: 30,),
-              Text("COMPTE",
+              Text(
+                "COMPTE",
                 style: TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               SizedBox(
                 width: double.infinity,
                 child: Row(
                   children: [
-                    Image.asset("assets/images/avatar.png",
-                    width: 70,
+                    Image.asset(
+                      "assets/images/avatar.png",
+                      width: 70,
                       height: 70,
                     ),
-                    const SizedBox(height: 20,),
-
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(email,
+                        Text(
+                          email,
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
@@ -108,7 +115,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       ],
                     ),
                     const Spacer(),
-                      /*ForwardButton(onTap: () {
+                    /*ForwardButton(onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -120,7 +127,8 @@ class _AccountScreenState extends State<AccountScreen> {
                 ),
               ),
               const SizedBox(height: 40),
-              Text("Parametres",
+              Text(
+                "Parametres",
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w500,
@@ -133,41 +141,46 @@ class _AccountScreenState extends State<AccountScreen> {
                 bgColor: Colors.orange.shade100,
                 iconColor: Colors.orange,
                 value: "Francais",
-                onTap: (){},
+                onTap: () {},
               ),
-              SizedBox(height: 40,),
+              SizedBox(
+                height: 40,
+              ),
               SettingItem(
                   title: "Mot de passe",
                   bgColor: Colors.green.shade100,
                   iconColor: Colors.green,
                   icon: Ionicons.swap_horizontal_outline,
-                  onTap: (){
+                  onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ChangePasswordPage() )
-                    );
+                            builder: (context) => ChangePasswordPage()));
                   }),
-              SizedBox(height: 40,),
+              SizedBox(
+                height: 40,
+              ),
               SettingSwitch(
                 title: 'Dark Mode',
                 icon: Ionicons.earth,
                 bgColor: Colors.purple.shade100,
                 iconColor: Colors.purple,
                 value: isDarkMode,
-                onTap: (value){
+                onTap: (value) {
                   setState(() {
-                    isDarkMode= value;
+                    isDarkMode = value;
                   });
                 },
               ),
-              SizedBox(height: 40,),
+              SizedBox(
+                height: 40,
+              ),
               SettingItem(
                 title: 'Confidentialité',
                 icon: Ionicons.document_lock_outline,
                 bgColor: Colors.blue.shade100,
                 iconColor: Colors.blue,
-                onTap: (){},
+                onTap: () {},
               ),
             ],
           ),
@@ -176,6 +189,3 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 }
-
-
-
